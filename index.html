@@ -2,17 +2,22 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | Home</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f5f8ff;
             overflow-y: scroll;
-            height: 100%;
         }
 
         h1,
@@ -32,15 +37,16 @@
             left: 0;
             right: 0;
             background-color: #2563eb;
-            padding: 1em;
+            padding: 0.75em;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         nav form {
             display: flex;
-            gap: 1em;
+            gap: 0.5em;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
@@ -51,56 +57,109 @@
             cursor: pointer;
             border-radius: 10px;
             font-weight: bold;
-            font-size: larger;
-            text-decoration: none;
+            font-size: 1em;
+            transition: 0.3s ease-in-out;
         }
 
         button:hover {
             background-color: #3b82f6;
-            transition: 0.3s ease-in-out;
         }
 
-        a {
-            color: white;
-            text-decoration: none;
-            /* remove underline */
-        }
-
+        /* DESKTOP CAROUSEL (The Primary Style) */
         #carousel {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             overflow-x: auto;
             scroll-behavior: smooth;
-            padding: 1rem 0;
-        }
-
-        #carousel {
-            cursor: grab;
-            scroll-behavior: auto;
+            padding: 2rem;
+            margin: 5em auto 0 auto;
+            /* Centers the carousel */
+            max-width: 1200px;
+            /* Keeps it from being too wide on PC */
+            -webkit-overflow-scrolling: touch;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         #carousel::-webkit-scrollbar {
             display: none;
         }
 
-        #carousel {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
         .card {
-            flex: 0 0 200px;
+            flex: 0 0 300px;
+            /* Nice big cards for Desktop */
             background: #fff;
             padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
             text-align: center;
-            font-weight: 500;
+            transition: 0.3s ease-in-out;
         }
 
         .card:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            transition: 0.3s ease-in-out;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .card-image {
+            width: 100px;
+            margin-bottom: 1rem;
+        }
+
+        section {
+            padding: 1rem;
+        }
+
+        footer {
+            background-color: #2a3448;
+            color: white;
+            padding: 2em 1em;
+            text-align: center;
+        }
+
+        /* TABLET VIEW */
+        @media (max-width: 768px) {
+            .card {
+                flex: 0 0 250px;
+            }
+
+            img[alt="ServiCell Logo"] {
+                width: 180px !important;
+            }
+        }
+
+        /* MOBILE VIEW */
+        @media (max-width: 480px) {
+            button {
+                padding: 0.35em 0.6em;
+                font-size: 0.8em;
+            }
+
+            #carousel {
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .card {
+                flex: 0 0 200px;
+                padding: 1.5rem;
+            }
+
+            .card-image {
+                width: 70px !important;
+            }
+
+            footer p {
+                color: #bbb;
+                font-size: 0.85em;
+            }
+
+
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
         }
 
         @keyframes fadeIn {
@@ -114,7 +173,6 @@
         }
 
         .fade-in-element {
-            opacity: 0;
             animation: fadeIn 1.5s forwards;
         }
     </style>
@@ -129,44 +187,54 @@
             <button type="button" onclick="window.location.href='contact.html'">Contact</button>
         </form>
     </nav>
-
-    <br>
-    <br>
-    <br>
-    <br>
+    <br><br><br><br><br>
     <h1>ServiCell | Home Page</h1>
-    <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 2em auto; width: 250px;">
+    <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 1em auto; width: 250px;">
     <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
-    <br>
-    <br>
-    <br>
+
     <section>
         <h1>Our Services:</h1>
         <div id="carousel">
             <div class="card">
-                <img src="device-repair.png" alt="Phone Repair" class="card-image" style="width: 100px; height: auto;">
+                <img src="device-repair.png" alt="Phone Repair" class="card-image">
                 <h3>Parts Replacement</h3>
-                <p>Screen replacement Battery service Component replacement </p>
-                </p> And More!</p>
+                <p>Screen replacement Battery service Component replacement and More!</p>
             </div>
             <div class="card">
-                <img src="accessory.png" alt="Accessory" class="card-image" style="width: 100px; height: auto;">
+                <img src="accessory.png" alt="Accessory" class="card-image">
                 <h3>Sold Accessories</h3>
                 <p>Screen Protectors, Phone Cases, Lens Protectors</p>
             </div>
             <div class="card">
-                <img src="device-unlocking.png" alt="Device Unlocking" class="card-image"
-                    style="width: 100px; height: auto;">
+                <img src="device-unlocking.png" alt="Device Unlocking" class="card-image">
                 <h3>Device Unlocking</h3>
                 <p>Regain Access to Your Device</p>
             </div>
             <div class="card">
-                <img src="software-support.png" alt="Software Support" class="card-image"
-                    style="width: 100px; height: auto;">
+                <img src="software-support.png" alt="Software Support" class="card-image">
                 <h3>Software Support</h3>
                 <p>Virus removal, OS installation, and technical support for all devices.</p>
             </div>
+        </div>
     </section>
+
+    <div style="text-align: center; padding: 2em 1em;">
+        <h2>Our Rating (92%)</h2>
+        <p style="font-size: 2em; color: #2563eb;">★★★★⯪</p>
+        <p style="color: #666; font-size: 1em;">4.5 out of 5 stars</p>
+    </div>
+
+    <footer>
+        <div style="margin-bottom: 1.5em;">
+            <h3 style="color: white;">Follow Us</h3>
+            <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em;">
+                <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
+            </div>
+        </div>
+        <p style="margin: 0.5em 0; color: #bbb;">📍 #7 Douglas Jones Street, Belize City</p>
+        <p style="margin: 0.5em 0; color: #bbb;">🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
+        <p style="margin: 0; color: #bbb;">© 2026 ServiCell. All rights reserved.</p>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -198,7 +266,7 @@
                     carousel.scrollLeft += speed;
 
                     if (carousel.scrollLeft >= totalOriginalWidth) {
-                        carousel.scrollLeft -= totalOriginalWidth;
+                        carousel.scrollLeft = 0;
                     }
                 }
                 requestAnimationFrame(autoScroll);
@@ -207,24 +275,6 @@
             autoScroll();
         });
     </script>
-
-    <div style="text-align: center; padding: 2em;">
-        <h2>Our Rating (92%)</h2>
-        <p style="font-size: 3em; color: #2563eb;">★★★★⯪</p>
-        <p style="color: #666; font-size: 1.1em;">4.5 out of 5 stars</p>
-    </div>
-
-    <footer style="background-color: #2a3448; color: white; padding: 2em; text-align: center;">
-        <div style="margin-bottom: 1.5em;">
-            <h3 style="color: white; text-align: center;">Follow Us</h3>
-            <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em;">
-                <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
-            </div>
-        </div>
-        <p style="margin: 0.5em 0; color: #bbb;">📍 #7 Douglas Jones Street, Belize City</p>
-        <p style="margin: 0.5em 0; color: #bbb;">🕒 Mon-Sat: 8:00 AM - 8:00 PM | Sun: 9:00 AM - 7:00 PM</p>
-        <p style="margin: 0; color: #bbb;">© 2026 ServiCell. All rights reserved.</p>
-    </footer>
 
 </body>
 

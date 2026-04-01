@@ -1,18 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | Contact</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
-        <style>
-        body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    <style>
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
             background-color: #f5f8ff;
-            overflow-y: scroll;
-            height: 100%;
+            color: #2a3448;
         }
 
         h1,
@@ -23,12 +28,6 @@
         h6 {
             font-weight: 700;
             color: #2a3448;
-            text-align: center;
-        }
-
-        p {
-            color: #2a3448;
-            text-align: center;
         }
 
         nav {
@@ -37,15 +36,16 @@
             left: 0;
             right: 0;
             background-color: #2563eb;
-            padding: 1em;
+            padding: 0.75em;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         nav form {
             display: flex;
-            gap: 1em;
+            gap: 0.5em;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
@@ -56,7 +56,7 @@
             cursor: pointer;
             border-radius: 10px;
             font-weight: bold;
-            font-size: larger;
+            font-size: 1em;
             text-decoration: none;
         }
 
@@ -68,7 +68,6 @@
         a {
             color: white;
             text-decoration: none;
-            /* remove underline */
         }
 
         @keyframes fadeIn {
@@ -82,13 +81,22 @@
         }
 
         .fade-in-element {
-            opacity: 0;
             animation: fadeIn 1.5s forwards;
         }
 
         main {
-            margin-top: 6em;
+            margin-top: 4em;
             padding: 2em 1em;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo {
+            display: block;
+            margin: 2em auto;
+            width: min(250px, 80vw);
+            height: auto;
         }
 
         h1 {
@@ -96,16 +104,9 @@
             margin-bottom: 1em;
         }
 
-        .logo {
-            display: block;
-            margin: 2em auto;
-            width: 250px;
-            height: auto;
-        }
-
         .tagline {
             text-align: center;
-            font-size: 1.3em;
+            font-size: clamp(1rem, 4vw, 1.3em);
             font-style: italic;
             margin: 1em 0 2em;
         }
@@ -113,60 +114,32 @@
         .contact-info {
             max-width: 600px;
             margin: 2em auto;
-            font-size: 1.1em;
+            font-size: clamp(0.95rem, 2vw, 1.1em);
             line-height: 1.8;
+            padding: 0 1em;
         }
 
         .contact-info h3 {
             text-align: left;
             margin-top: 1.5em;
+            margin-bottom: 0.5em;
         }
 
         .contact-info p {
             text-align: justify;
         }
 
-        .form-group {
-            margin-bottom: 1.5em;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-            font-weight: 500;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        textarea {
-            width: 100%;
-            padding: 0.75em;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        textarea:focus {
-            outline: none;
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            padding: 0.75em;
-            font-size: 1rem;
-        }
-
         footer {
             background-color: #2a3448;
             color: white;
-            padding: 2em;
+            padding: clamp(1.5em, 5vw, 2em);
             text-align: center;
             margin-top: 4em;
+        }
+
+        footer p {
+            margin: 0.5em 0;
+            color: #bbb;
         }
 
         footer h3 {
@@ -176,24 +149,60 @@
 
         .social-links {
             display: flex;
-            gap: 1em;
+            gap: 1.5em;
             justify-content: center;
-            font-size: 1.5em;
+            font-size: clamp(1.2rem, 4vw, 1.5em);
             margin-bottom: 1.5em;
         }
 
         .footer-info p {
             margin: 0.5em 0;
             color: #bbb;
+            font-size: clamp(0.85rem, 2vw, 1rem);
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
             nav form {
-                flex-direction: column;
+                gap: 0.25em;
             }
 
-            nav button {
-                width: 100%;
+            button {
+                padding: 0.4em 0.8em;
+                font-size: 0.9em;
+            }
+
+            main {
+                margin-top: 6.5em;
+                padding: 1.5em 1em;
+            }
+
+            .contact-info {
+                margin: 1.5em auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 0.35em 0.6em;
+                font-size: 0.8em;
+            }
+
+            main {
+                margin-top: 10em;
+                padding: 1em;
+            }
+
+            .logo {
+                width: min(200px, 90vw);
+                margin: 1em auto;
+            }
+
+            .contact-info {
+                padding: 0;
+            }
+
+            footer {
+                padding: 1.5em 1em;
             }
         }
     </style>
@@ -208,31 +217,27 @@
             <button type="button" onclick="window.location.href='contact.html'">Contact</button>
         </form>
     </nav>
-    <br>
-    <br>
-    <br>
-    <br>
+    <main>
         <h1>ServiCell | Contact</h1>
-          <img src="logo.png" alt="ServiCell Logo" class="logo">
+        <img src="logo.png" alt="ServiCell Logo" class="logo">
         <p class="tagline">"We Fix Everything, Even Broken Hearts."</p>
-    <br>
-    <br>
-    <br>
-          <h1>Contact Us</h1>
+        <h1>Contact Us</h1>
         <div class="contact-info">
             <p>If you have any questions, need assistance, or want to learn more about our services, feel free to reach
                 out to us. We're here to help!</p>
-            <h3><i>Phone #: +501 615-3388</i></h3>
+            <h3>Phone #: +501 615-3388</h3>
+            <h3>Email: servicellbze@gmail.com</h3>
         </div>
+    </main>
 
     <footer>
         <h3>Follow Us</h3>
         <div class="social-links">
-            <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
+            <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" title="Facebook">f</a>
         </div>
         <div class="footer-info">
             <p>📍 #7 Douglas Jones Street, Belize City</p>
-            <p>🕒 Mon-Sat: 8:00 AM - 8:00 PM | Sun: 9:00 AM - 7:00 PM</p>
+            <p>🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
             <p>© 2026 ServiCell. All rights reserved.</p>
         </div>
     </footer>

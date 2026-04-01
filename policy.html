@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | Policy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
+            padding-top: 70px;
             background-color: #f5f8ff;
             overflow-y: scroll;
-            height: 100%;
         }
 
         h1,
@@ -28,7 +34,6 @@
 
         p {
             color: #2a3448;
-            text-align: center;
         }
 
         nav {
@@ -44,8 +49,9 @@
 
         nav form {
             display: flex;
-            gap: 1em;
+            gap: 0.5em;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
@@ -56,19 +62,18 @@
             cursor: pointer;
             border-radius: 10px;
             font-weight: bold;
-            font-size: larger;
+            font-size: 1rem;
             text-decoration: none;
+            transition: 0.3s ease-in-out;
         }
 
         button:hover {
             background-color: #3b82f6;
-            transition: 0.3s ease-in-out;
         }
 
         a {
             color: white;
             text-decoration: none;
-            /* remove underline */
         }
 
         @keyframes fadeIn {
@@ -85,6 +90,122 @@
             opacity: 0;
             animation: fadeIn 1.5s forwards;
         }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1em;
+            margin-top: 0;
+        }
+
+        .logo {
+            display: block;
+            margin: 2em auto;
+            width: 250px;
+            max-width: 90%;
+            height: auto;
+        }
+
+        .policy-section {
+            font-size: 1em;
+            line-height: 1.8;
+            color: #333;
+            text-align: justify;
+        }
+
+        footer {
+            background-color: #2a3448;
+            color: white;
+            padding: 2em 1em;
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        footer p {
+            color: #bbb;
+        }
+
+        footer .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5em;
+            height: 2.5em;
+            background-color: #3b82f6;
+            border-radius: 10%;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .social-links a:hover {
+            background-color: #1e40af;
+        }
+
+        @media (max-width: 768px) {
+            nav form {
+                gap: 0.25em;
+            }
+
+            button {
+                padding: 0.4em 0.7em;
+                font-size: 0.9rem;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.4em;
+            }
+
+            h3 {
+                font-size: 1.1em;
+            }
+
+            .content {
+                padding: 1em 0.5em;
+            }
+
+            .logo {
+                width: 200px;
+            }
+
+            .policy-section {
+                font-size: 1em;
+                text-align: left;
+            }
+
+            p {
+                text-align: left;
+            }
+
+            footer {
+                padding: 1.5em 0.5em;
+            }
+        }
+
+        footer p {
+            text-align: center !important;
+        }
+
+        @media (max-width: 480px) {
+            button {
+                padding: 0.35em 0.6em;
+                font-size: 0.85rem;
+            }
+
+            h1 {
+                font-size: 1.5em;
+            }
+
+            .logo {
+                width: 150px;
+            }
+
+            .policy-section {
+                font-size: 0.95em;
+            }
+        }
     </style>
 </head>
 
@@ -98,83 +219,76 @@
         </form>
     </nav>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ServiCell | Policy Page</h1>
-    <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 2em auto; width: 250px;">
-    <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
-    <br>
-    <br>
-    <br>
-    <h1>Our Policies</h1>
-    <p
-        style="max-width: 800px; margin: 1em auto; font-size: 1.4em; line-height: 1.6; color: #333; text-align: justify;">
-        At ServiCell, we are committed to providing our customers with the highest quality service and support. Our
-        policies are designed to ensure transparency, fairness, and customer satisfaction. Please take a moment to
-        review our key policies below:
-    </p>
-    <br>
-    <div
-        style="max-width: 800px; margin: 2em auto; font-size: 1.2em; line-height: 1.8; color: #333; text-align: justify;">
-        <h2 style="text-align: left;">Device Storage & Liability Policy</h2>
+    <div class="content">
+        <h1>ServiCell | Policy Page</h1>
+        <img src="logo.png" alt="ServiCell Logo" class="logo">
+        <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
 
-        <h3 style="text-align: left;">Storage Duration</h3>
-        <p style="text-align: justify;">
-            Devices left for repair or service are the responsibility of the customer. Devices unclaimed for over 30
-            days from the service completion date may be considered abandoned. ServiCell reserves the right to dispose
-            of, recycle, or otherwise handle any device left beyond this period.
+        <h1 style="margin-top: 2em;">Our Policies</h1>
+        <p style="font-size: 1em; line-height: 1.6;">
+            At ServiCell, we are committed to providing our customers with the highest quality service and support. Our
+            policies are designed to ensure transparency, fairness, and customer satisfaction.
         </p>
 
-        <h3 style="text-align: left;">Liability Disclaimer</h3>
-        <p style="text-align: justify;">
-            ServiCell is not responsible for any loss, damage, or data on devices left beyond the storage period. While
-            devices are in our care, we take reasonable precautions to protect your property; however, we are not liable
-            for unforeseen incidents such as fire, theft, natural disaster, or accidental damage.
-        </p>
+        <div class="policy-section">
+            <h2 style="text-align: left;">The Fine Print (Made Simple)</h2>
 
-        <h3 style="text-align: left;">Data Responsibility</h3>
-        <p style="text-align: justify;">
-            Customers are strongly encouraged to back up their data prior to service. ServiCell is not responsible for
-            data loss during repair, service, or storage.
-        </p>
+            <h3 style="text-align: left;">Picking Up Your Gear</h3>
+            <p>We know life gets busy! We’ll notify you as soon as your device is ready. However, we have limited shelf
+                space, so please try to pick up your device within 90 days. After that, we’ll consider it abandoned so
+                we can recover the cost of the parts and labor we put into it.</p>
 
-        <h3 style="text-align: left;">Communication</h3>
-        <p style="text-align: justify;">
-            Customers will be notified via provided contact information when the device is ready for pickup. It is the
-            customer's responsibility to update contact information to ensure proper communication.
-        </p>
+            <h3 style="text-align: left;">Your Data is Precious</h3>
+            <p>We treat your photos and files with the utmost respect. That said, repairs can be unpredictable. To stay
+                safe, please back up your device before bringing it in. ServiCell isn't liable for data loss, but we’ll
+                always do our best to protect what’s yours.</p>
 
-        <h3 style="text-align: left;">Payment & Fees</h3>
-        <p style="text-align: justify;">
-            All repair and service fees must be settled before pickup. Storage beyond 30 days may incur additional
-            storage fees, as determined by ServiCell.
-        </p>
+            <h3 style="text-align: left;">Our Responsibility</h3>
+            <p>While your device is in our care, we treat it like our own. Once that 90-day window passes, however, we
+                can no longer be responsible for the device or any data on it. Help us help you by staying in touch!</p>
 
-        <h3 style="text-align: left;">Legal</h3>
-        <p style="text-align: justify;">
-            By leaving a device with ServiCell, the customer agrees to these terms. ServiCell reserves the right to
-            update this policy at any time, with updates communicated via our website and/or on receipt forms.
-        </p>
-        <h3 style="text-align: left;">Policy Changes</h2>
-            <p style="text-align: justify;">
-                ServiCell reserves the right to modify, update, or change any of these policies at any time without
-                prior notice. Changes will be effective immediately upon posting to our website. We encourage customers
-                to review this policy page regularly to stay informed of any updates. Continued use of our services
-                following any policy changes constitutes your acceptance of the updated terms.
+            <h3 style="text-align: left;">Payment & Fair Play</h3>
+            <p>To keep our prices fair for everyone, we require all service fees to be settled before you take your
+                device home. We don't like holding onto your tech any longer than we have to!</p>
+
+            <h3 style="text-align: left;">The Handshake</h3>
+            <p>By leaving your device with us, you’re saying "I’m cool with these terms." If we ever need to update
+                these rules, we’ll post them right here immediately.</p>
+
+            <h3 style="text-align: left;">If You Supply the Parts</h3>
+            <p>We’re happy to help you install a screen or part you’ve already bought elsewhere! To keep things fair,
+                here is how that works:</p>
+
+            <ul style="color: #2a3448; line-height: 1.6; text-align: left; padding-left: 1.5em;">
+                <li><strong>Labor Only:</strong> When you bring your own part, you are only paying us for the
+                    <em>service</em> of installing it. We aren't the sellers of that part, so we can't guarantee the
+                    functionality or quality of the hardware itself.
+                </li>
+                <li><strong>Defective Parts:</strong> If the screen you brought us turns out to be a "lemon" (dead
+                    pixels, touch issues, etc.), you’ll need to handle the return or exchange with the original person
+                    who sold it to you.</li>
+                <li><strong>Double the Work:</strong> If a part you supplied fails and you want us to swap it for a new
+                    one, a second labor fee will apply. We want to get it right the first time, but we can't do the work
+                    twice for free!</li>
+            </ul>
+
+            <p style="font-style: italic; background-color: #e0e7ff; padding: 10px; border-radius: 8px;">
+                <strong>Pro-Tip:</strong> Want a "Full Package" guarantee? Buy your parts directly from
+                <strong>ServiCell</strong>. When we provide the part AND the repair, we take 100% responsibility for
+                both!
             </p>
-    </div>
-</body>
-
-<footer style="background-color: #2a3448; color: white; padding: 2em; text-align: center;">
-    <div style="margin-bottom: 1.5em;">
-        <h3 style="color: white; text-align: center;">Follow Us</h3>
-        <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em;">
-            <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
         </div>
     </div>
-    <p style="margin: 0.5em 0; color: #bbb;">📍 #7 Douglas Jones Street, Belize City</p>
-    <p style="margin: 0.5em 0; color: #bbb;">🕒 Mon-Sat: 8:00 AM - 8:00 PM | Sun: 9:00 AM - 7:00 PM</p>
-    <p style="margin: 0; color: #bbb;">© 2026 ServiCell. All rights reserved.</p>
-</footer>
+
+    <footer>
+        <h3 style="color: white; text-align: center; margin-top: 0;">Follow Us</h3>
+        <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em; margin-bottom: 1.5em;">
+            <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
+        </div>
+        <p style="margin: 0.5em 0;">📍 #7 Douglas Jones Street, Belize City</p>
+        <p style="margin: 0.5em 0;">🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
+        <p style="margin: 0;">© 2026 ServiCell. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

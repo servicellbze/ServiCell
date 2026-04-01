@@ -2,25 +2,26 @@
 <html>
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | About</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f5f8ff;
             overflow-y: scroll;
-            height: 100%;
+            min-height: 100vh;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
+        h1, h2, h3, h4, h5, h6 {
             font-weight: 700;
             color: #2a3448;
             text-align: center;
@@ -46,6 +47,7 @@
             display: flex;
             gap: 1em;
             justify-content: center;
+            flex-wrap: wrap;
         }
 
         button {
@@ -56,26 +58,24 @@
             cursor: pointer;
             border-radius: 10px;
             font-weight: bold;
-            font-size: larger;
+            font-size: 1em;
             text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
         }
 
         button:hover {
             background-color: #3b82f6;
-            transition: 0.3s ease-in-out;
         }
 
         a {
             color: white;
             text-decoration: none;
-            /* remove underline */
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
@@ -84,6 +84,187 @@
         .fade-in-element {
             opacity: 0;
             animation: fadeIn 1.5s forwards;
+        }
+
+        .content-wrapper {
+            margin-top: 5em;
+            padding: 1em;
+        }
+
+        .story-text {
+            max-width: 800px;
+            margin: 1em auto;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            text-align: justify;
+        }
+
+        .logo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2em;
+            justify-items: center;
+            margin: 2em auto;
+            max-width: 1000px;
+            padding: 0 1em;
+        }
+
+        .logo-item img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .benefits-list {
+            max-width: 800px;
+            margin: 1em auto;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+            padding: 0 1em;
+            text-align: left;
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2em;
+            max-width: 1000px;
+            margin: 2em auto;
+            padding: 0 1em;
+        }
+
+        .work-item {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .work-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .work-item p {
+            padding: 1em;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: #2a3448;
+            color: white;
+            padding: 2em 1em;
+            text-align: center;
+            margin-top: 2em;
+        }
+
+        footer h3 {
+            color: white;
+        }
+
+        footer p {
+            margin: 0.5em 0;
+            color: #bbb;
+        }
+
+        footer .social-links {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            font-size: 1.5em;
+            margin: 1em 0;
+        }
+
+
+        @media (max-width: 768px) {
+            nav form {
+                gap: 0.5em;
+            }
+
+            button {
+                padding: 0.4em 0.8em;
+                font-size: 0.9em;
+            }
+
+            .content-wrapper {
+                margin-top: 6em;
+            }
+
+            .story-text {
+                font-size: 1em;
+            }
+
+            .benefits-list {
+                font-size: 1em;
+            }
+
+            .benefits-list li {
+                margin-bottom: 1em;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.3em;
+            }
+
+            .logo-grid {
+                gap: 1.5em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav {
+                padding: 0.8em;
+            }
+
+            nav form {
+                gap: 0.3em;
+            }
+
+            button {
+                padding: 0.4em 0.6em;
+                font-size: 0.85em;
+            }
+
+            .content-wrapper {
+                margin-top: 7em;
+                padding: 0.8em;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin: 0.5em 0;
+            }
+
+            h2 {
+                font-size: 1.1em;
+            }
+
+            .story-text {
+                font-size: 0.95em;
+                text-align: left;
+            }
+
+            .benefits-list {
+                font-size: 0.95em;
+                padding: 0;
+            }
+
+            .work-grid {
+                gap: 1em;
+            }
+
+            footer {
+                padding: 1.5em 0.8em;
+            }
         }
     </style>
 </head>
@@ -98,92 +279,68 @@
         </form>
     </nav>
 
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ServiCell | About Page</h1>
-    <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 2em auto; width: 250px;">
-    <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
-    <br>
-    <br>
-    <br>
-    <h1>Our Story</h1>
-    <p
-        style="max-width: 800px; margin: 1em auto; font-size: 1.2em; line-height: 1.6; color: #333; text-align: justify;">
-        Founded in 2014 by a single passionate technician, ServiCell began with a simple mission: to fix electronics
-        reliably without breaking the bank. What started as a mere hobby has since grown into a tight-knit team of 2–3
-        dedicated technicians, each committed to delivering fast, professional, and affordable tech solutions. Over the
-        years, we've expanded our expertise to cover phones, laptops, gaming consoles, and software support, while
-        maintaining the personal touch that made us trusted from day one. At ServiCell, we believe every device deserves
-        a second chance, and every customer deserves transparency, care, and respect. Whether it's a cracked screen, a
-        stubborn laptop, or a software issue, we're here to get you back online with confidence.</p>
-    <br>
-    <br>
-    <h1>Our Logos Through the Years</h1>
-    <div style="display: flex; gap: 2em; justify-content: center; flex-wrap: wrap; margin: 2em auto;">
-        <div style="text-align: center;">
-            <img src="2024.png" alt="ServiCell 2024 Logo" style="width: 300px; height: 300px; border-radius: 10px;">
-            <p style="margin-top: 0.5em; font-weight: 600;">2024 Logo</p>
+    <div class="content-wrapper">
+        <h1>ServiCell | About Page</h1>
+        <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 2em auto; max-width: 250px; width: 100%; height: auto;">
+        <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
+
+        <h1 style="margin-top: 2em;">Our Story</h1>
+        <p class="story-text">
+            Founded in 2014 by a single passionate technician, ServiCell began with a simple mission: to fix electronics reliably without breaking the bank. What started as a mere hobby has since grown into a tight-knit team of 2–3 dedicated technicians, each committed to delivering fast, professional, and affordable tech solutions. Over the years, we've expanded our expertise to cover phones, laptops, gaming consoles, and software support, while maintaining the personal touch that made us trusted from day one. At ServiCell, we believe every device deserves a second chance, and every customer deserves transparency, care, and respect. Whether it's a cracked screen, a stubborn laptop, or a software issue, we're here to get you back online with confidence.
+        </p>
+
+        <h1 style="margin-top: 2em;">Our Logos Through the Years</h1>
+        <div class="logo-grid">
+            <div class="logo-item" style="text-align: center;">
+                <img src="2024.png" alt="ServiCell 2024 Logo">
+                <p style="margin-top: 0.5em; font-weight: 600;">2024 Logo</p>
+            </div>
+            <div class="logo-item" style="text-align: center;">
+                <img src="2022.png" alt="ServiCell 2022 Logo">
+                <p style="margin-top: 0.5em; font-weight: 600;">2022 Logo</p>
+            </div>
+            <div class="logo-item" style="text-align: center;">
+                <img src="2014.png" alt="ServiCell 2014 Logo">
+                <p style="margin-top: 0.5em; font-weight: 600;">2014 Logo</p>
+            </div>
         </div>
-        <div style="text-align: center;">
-            <img src="2022.png" alt="ServiCell 2022 Logo" style="width: 300px; height: 300px; border-radius: 10px;">
-            <p style="margin-top: 0.5em; font-weight: 600;">2022 Logo</p>
-        </div>
-        <div style="text-align: center;">
-            <img src="2014.png" alt="ServiCell 2014 Logo" style="width: 300px; height: 300px; border-radius: 10px;">
-            <p style="margin-top: 0.5em; font-weight: 600;">2014 Logo</p>
+
+        <h1 style="margin-top: 2em;">Why Choose Us?</h1>
+        <ul class="benefits-list">
+            <li>Expert Technicians: Our small, tight-knit team of 2–3 certified experts ensures your devices are in capable hands.</li>
+            <li>Affordable & Transparent: We provide honest estimates and competitive pricing, so you know exactly what you're paying for.</li>
+            <li>Fast & Reliable: We aim to repair your devices quickly without sacrificing quality.</li>
+            <li>Comprehensive Service: From phones and laptops to consoles and software support, we cover it all.</li>
+            <li>Customer-Focused: We value each customer, handling every device with care, transparency, and respect.</li>
+            <li>Trust & Experience: Founded in 2014, we've built our reputation on reliability and personal service.</li>
+        </ul>
+
+        <h1 style="margin-top: 2em;">Some of Our Work</h1>
+        <div class="work-grid">
+            <div class="work-item">
+                <img src="work1.jpg" alt="Phone Screen Repair">
+                <p>Phone Screen Replacement</p>
+            </div>
+            <div class="work-item">
+                <img src="work2.png" alt="Before and After">
+                <p>Before vs. After</p>
+            </div>
+            <div class="work-item">
+                <img src="work3.png" alt="Console Repair">
+                <p>iPhone Backglass Repair</p>
+            </div>
         </div>
     </div>
-    <br>
-    <br>
-    <h1>Why Choose Us?</h1>
-    <br>
-    <ul style="max-width: 800px; margin: 1em auto; font-size: 1.2em; line-height: 1.6; color: #333;">
-        <li>Expert Technicians: Our small, tight-knit team of 2–3 certified experts ensures your devices are in capable
-            hands.</li>
-        <li>Affordable & Transparent: We provide honest estimates and competitive pricing, so you know exactly what
-            you're paying for.</li>
-        <li>Fast & Reliable: We aim to repair your devices quickly without sacrificing quality.</li>
-        <li>Comprehensive Service: From phones and laptops to consoles and software support, we cover it all.</li>
-        <li>Customer-Focused: We value each customer, handling every device with care, transparency, and respect.</li>
-        <li>Trust & Experience: Founded in 2014, we've built our reputation on reliability and personal service.</li>
-    </ul>
 
-    <br>
-    <br>
-    <h1>Some of Our Work</h1>
-    <div
-        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2em; max-width: 1000px; margin: 2em auto; padding: 0 1em;">
-        <div
-            style="background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <img src="work1.jpg" alt="Phone Screen Repair" style="width: 100%; height: 200px; object-fit: cover;">
-            <p style="padding: 1em; margin: 0; font-weight: 600;">Phone Screen Replacement</p>
-        </div>
-        <div
-            style="background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <img src="work2.png" alt="Before and After" style="width: 100%; height: 200px; object-fit: cover;">
-            <p style="padding: 1em; margin: 0; font-weight: 600;">Before vs. After</p>
-        </div>
-        <div
-            style="background-color: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);">
-            <img src="work3.png" alt="Console Repair" style="width: 100%; height: 200px; object-fit: cover;">
-            <p style="padding: 1em; margin: 0; font-weight: 600;">iPhone Backglass Repair</p>
-        </div>
-    </div>
-    <br>
-    <br>
-
-</body>
-
-<footer style="background-color: #2a3448; color: white; padding: 2em; text-align: center;">
-    <div style="margin-bottom: 1.5em;">
-        <h3 style="color: white; text-align: center;">Follow Us</h3>
-        <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em;">
+    <footer>
+        <h3>Follow Us</h3>
+        <div class="social-links">
             <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
         </div>
-    </div>
-    <p style="margin: 0.5em 0; color: #bbb;">📍 #7 Douglas Jones Street, Belize City</p>
-    <p style="margin: 0.5em 0; color: #bbb;">🕒 Mon-Sat: 8:00 AM - 8:00 PM | Sun: 9:00 AM - 7:00 PM</p>
-    <p style="margin: 0; color: #bbb;">© 2026 ServiCell. All rights reserved.</p>
-</footer>
+        <p>📍 #7 Douglas Jones Street, Belize City</p>
+        <p>🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
+        <p>© 2026 ServiCell. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
