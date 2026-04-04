@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="css/nav.css">
 
@@ -55,8 +56,13 @@
         }
 
         @keyframes move {
-            from { transform: translate(-10%, -10%); }
-            to { transform: translate(30%, 30%); }
+            from {
+                transform: translate(-10%, -10%);
+            }
+
+            to {
+                transform: translate(30%, 30%);
+            }
         }
 
         /* Hero Styling */
@@ -116,8 +122,13 @@
         }
 
         @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
         .card {
@@ -140,9 +151,21 @@
             box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
         }
 
-        .card-image { width: 80px; margin-bottom: 1.5rem; }
-        .card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
-        .card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; }
+        .card-image {
+            width: 80px;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
 
         /* Rating Section */
         .rating-box {
@@ -175,13 +198,28 @@
         .footer-bottom {
             margin-top: 3rem;
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
             font-size: 0.7rem;
             text-align: center;
         }
 
-        .contact-item { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .hour-row { display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: #cbd5e1; }
+        .contact-item {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .hour-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 0.4rem;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
 
         /* Animations */
         .fade-in-entry {
@@ -190,15 +228,34 @@
         }
 
         @keyframes fadeInPage {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2rem; }
-            .footer-grid { text-align: center; }
-            .contact-item, .brand-wrapper { justify-content: center; }
-            .carousel-container { animation: scroll 20s linear infinite; }
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .footer-grid {
+                text-align: center;
+            }
+
+            .contact-item,
+            .brand-wrapper {
+                justify-content: center;
+            }
+
+            .carousel-container {
+                animation: scroll 20s linear infinite;
+            }
         }
     </style>
 
@@ -208,7 +265,7 @@
                 const res = await fetch('components/nav.html');
                 const data = await res.text();
                 document.getElementById('nav-placeholder').innerHTML = data;
-                
+
                 const currentPath = window.location.pathname;
                 document.querySelectorAll('.nav-btn').forEach(link => {
                     if (currentPath.includes(link.getAttribute('href'))) {
@@ -279,44 +336,108 @@
     </section>
 
     <div class="rating-box">
-        <h2 style="font-size: 0.8rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase;">Customer Satisfaction</h2>
+        <h2 style="font-size: 0.8rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase;">Customer
+            Satisfaction</h2>
         <p style="font-size: 2.5rem; color: var(--primary); margin: 10px 0;">★★★★⯪</p>
         <p style="font-weight: 800; font-size: 1.2rem;">4.5 / 5.0</p>
         <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 5px;">Based on 100+ local repairs</p>
     </div>
 
-    <footer>
+    <footer style="background: #111827; padding: 3rem 1.5rem; color: #94a3b8; border-top: 4px solid var(--primary);">
+        <style>
+            .footer-grid {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2.5rem;
+            }
+
+            @media (max-width: 600px) {
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                    text-align: center;
+                }
+
+                .brand-wrapper,
+                .contact-item {
+                    justify-content: center !important;
+                }
+
+                .social-links {
+                    justify-content: center;
+                }
+            }
+        </style>
+
         <div class="footer-grid">
             <div>
                 <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
                     <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
-                    <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span style="color: var(--primary);">.</span></h3>
+                    <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
+                            style="color: var(--primary);">.</span></h3>
                 </div>
                 <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
-                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality, professional service.
+                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality,
+                    professional service.
                 </p>
-                <div class="social-links" style="display: flex; gap: 15px;">
-                    <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi36tPko9OTAxXyRTABHct7DkYQ9zB6BAgzEAM&url=https%3A%2F%2Fwww.facebook.com%2Fp%2FServiCell-Belize-100064104937587%2F&usg=AOvVaw388yu94E2jtWFun1sjkQa9&opi=89978449" style="background: #1877f2; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; transition: 0.3s; text-decoration: none;">f</a>
+
+                <div class="social-container" style="display: flex; flex-direction: column; gap: 10px;">
+                    <span
+                        style="color: white; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
+                        Us!</span>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
+                            style="background: #1877f2; color: white; font-size: 25px; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
+                            onmouseover="this.style.transform='scale(1.1)'"
+                            onmouseout="this.style.transform='scale(1)'">f</a>
+                    </div>
                 </div>
             </div>
 
             <div>
-                <h4 style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Visit Us</h4>
-                <p class="contact-item"><span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City</p>
-                <p class="contact-item"><span style="color: var(--primary);">📞</span> +501 615-3388</p>
-                <p class="contact-item"><span style="color: var(--primary);">✉️</span> servicellbze@gmail.com</p>
+                <h4
+                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    Visit Us</h4>
+                <p class="contact-item"
+                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City
+                </p>
+                <p class="contact-item"
+                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">📞</span> +501 615-3388
+                </p>
+                <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">✉️</span> servicellbze@gmail.com
+                </p>
             </div>
 
             <div>
-                <h4 style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Business Hours</h4>
-                <div class="hour-row"><span>Mon – Fri</span><span style="color: white; font-weight: 600;">8:00 AM – 8:00 PM</span></div>
-                <div class="hour-row"><span>Saturday</span><span style="color: white; font-weight: 600;">9:00 AM – 7:00 PM</span></div>
-                <div class="hour-row"><span>Sunday</span><span style="color: #ef4444; font-weight: 700;">Closed</span></div>
+                <h4
+                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    Business Hours</h4>
+                <div
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem; font-size: 0.9rem;">
+                    <span>Mon – Fri</span>
+                    <span style="color: white;">8:00 AM – 8:00 PM</span>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem; font-size: 0.9rem;">
+                    <span>Saturday</span>
+                    <span style="color: white;">9:00 AM – 7:00 PM</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                    <span>Sunday</span>
+                    <span style="color: #ef4444;">Closed</span>
+                </div>
             </div>
         </div>
-        <div class="footer-bottom">
+
+        <div
+            style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
             <p>© 2026 ServiCell Belize. All rights reserved.</p>
         </div>
     </footer>
 </body>
+
 </html>

@@ -589,9 +589,25 @@
             <div class="tracker-header" style="margin-bottom: 2rem;">
                 <p
                     style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; max-width: 400px; margin: 0 auto;">
-                    Enter your <strong>Ticket ID</strong> below to see your repair's live progress,
-                    technician notes, and estimated completion.
+                    Enter your <strong>Ticket ID</strong> below to check your repair's live status and pickup
+                    availability.
                 </p>
+            </div>
+
+            <div
+                style="display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 2rem; flex-wrap: wrap;">
+                <span
+                    style="font-size: 0.72rem; font-weight: 700; color: #1d4ed8; background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2); padding: 5px 12px; border-radius: 100px;">Received</span>
+                <span style="font-size: 0.9rem; color: #cbd5e1;">›</span>
+                <span
+                    style="font-size: 0.72rem; font-weight: 700; color: #dc2626; background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); padding: 5px 12px; border-radius: 100px;">In
+                    Progress</span>
+                <span style="font-size: 0.9rem; color: #cbd5e1;">›</span>
+                <span
+                    style="font-size: 0.72rem; font-weight: 700; color: #b45309; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); padding: 5px 12px; border-radius: 100px;">Testing</span>
+                <span style="font-size: 0.9rem; color: #cbd5e1;">›</span>
+                <span
+                    style="font-size: 0.72rem; font-weight: 700; color: #15803d; background: rgba(34,197,94,0.08); border: 1px solid rgba(34,197,94,0.2); padding: 5px 12px; border-radius: 100px;">Ready</span>
             </div>
 
             <div class="search-box">
@@ -607,6 +623,7 @@
                 </div>
             </div>
 
+
             <div id="resultArea" style="display:none;">
                 <div class="customer-label" id="displayCustomer">VALUED CUSTOMER</div>
                 <div class="device-name" id="displayDevice">---</div>
@@ -617,9 +634,34 @@
                 </div>
 
                 <div id="displayStatus" class="status-text">---</div>
-                <p id="secondaryInfo"
-                    style="font-size: 0.75rem; color: #dc2626; margin-top: 15px; font-weight: 700; display:none; line-height: 1.4;">
-                </p>
+                <p id="secondaryInfo" style="
+    font-size: 0.78rem;
+    color: #dc2626;
+    margin-top: 1rem;
+    font-weight: 600;
+    display: none;
+    line-height: 1.6;
+    background: rgba(220, 38, 38, 0.06);
+    border: 1px solid rgba(220, 38, 38, 0.15);
+    border-left: 3px solid #dc2626;
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    text-align: left;
+"></p>
+
+                <p id="lastUpdated" style="
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    margin-top: 0.75rem;
+    margin-bottom: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+"></p>
             </div>
         </div>
     </div>
@@ -695,6 +737,7 @@
             const notesLabel = document.getElementById('displayNotes');
             const bar = document.getElementById('progressBar');
             const secondary = document.getElementById('secondaryInfo');
+            const lastUpdatedLabel = document.getElementById('lastUpdated');
 
             resultArea.style.display = "block";
             secondary.style.display = "none";
@@ -705,10 +748,14 @@
                 document.getElementById('displayCustomer').innerText = data.name ? `CLIENT: ${data.name.toUpperCase()}` : "VALUED CUSTOMER";
                 deviceLabel.innerText = data.device || 'Mobile Device';
 
+                const lastUpdate = data.lastUpdated || data.lastupdated || data.dateUpdated || data.timestamp || data.date;
+                lastUpdatedLabel.innerText = lastUpdate ? `Last Update: ${lastUpdate}` : "";
+
                 const rawStatus = (data.status || '').toLowerCase();
                 let displayStatus = "STATUS PENDING";
                 let width = "15%";
                 let color = "#2563eb";
+
 
                 const today = new Date();
                 // Critical Fix: Logic uses dateCompleted for storage countdown
@@ -725,7 +772,7 @@
                         width = "100%";
                         color = "#dc2626"; // Explicitly set to Red
 
-                        statusLabel.className = "status-text status-scary status-blink";
+                        statusLabel.className = "status-text status-scary";
                         statusLabel.style.color = color; // Apply the red color directly
 
                         bar.classList.add('bar-abandoned');
@@ -740,19 +787,24 @@
                     }
                 }
 
-                    // 2. Standard Status Logic
-                    if (["received", "diagnosing", "log", "queue", "ordered"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "RECEIVED / DIAGNOSING"; width = "30%";
-                    } else if (["fixing", "repairing", "soldering", "work", "opened"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "REPAIR IN PROGRESS"; width = "60%"; color = "#ef4444";
-                    } else if (["testing", "qc", "checking", "finalizing"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "FINAL TESTING"; width = "85%"; color = "#f59e0b";
-                    } else if (["completed", "ready", "done", "pickup", "finished"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "READY FOR PICKUP"; width = "100%"; color = "#22c55e";
-                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#ffffff'] });
+                // 2. Standard Status Logic
+                if (["received", "diagnosing", "log", "queue", "ordered"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "RECEIVED / DIAGNOSING"; width = "25%";
+                } else if (["fixing", "repairing", "soldering", "work", "opened"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "REPAIR IN PROGRESS"; width = "50%"; color = "#ef4444";
+                } else if (["testing", "qc", "checking", "finalizing"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "FINAL TESTING"; width = "75%"; color = "#f59e0b";
+                } else if (["completed", "ready", "done", "pickup", "finished"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "READY FOR PICKUP"; width = "100%"; color = "#22c55e";
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#ffffff'] });
 
-                        const dateStr = finalDate ? finalDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Today";
-                        secondary.innerHTML = `
+                    const dateStr = finalDate ? finalDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Today";
+                    secondary.style.border = "none";
+                    secondary.style.borderLeft = "none";
+                    secondary.style.background = "transparent";
+                    secondary.style.padding = "0";
+                    secondary.style.borderRadius = "0";
+                    secondary.innerHTML = `
                     <div class="completion-badge" style="background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #22c55e; padding: 1.25rem; border-radius: 15px; margin-top: 1rem; display: flex; align-items: center; gap: 12px; text-align: left;">
                         <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
                         <div>
@@ -763,42 +815,42 @@
                     <p style="margin-top: 10px; font-size: 0.8rem; color: #475569; font-weight: 500;">
                         The 3-Day Test Drive window begins at pickup.
                     </p>`;
-                        secondary.style.display = "block";
+                    secondary.style.display = "block";
 
-                    } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "REPAIR UNSUCCESSFUL"; width = "100%"; color = "#64748b";
-                        secondary.innerHTML = `This unit could not be repaired. Please collect within 90 days.`;
-                        secondary.style.display = "block";
-                    }
-
-                    // 3. Storage Countdown Logic
-                    if (isDone && finalDate) {
-                        const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
-                        const daysLeft = 90 - diffDays;
-                        notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
-                        notesLabel.style.display = "inline-block";
-                        notesLabel.style.background = daysLeft < 15 ? "rgba(220, 38, 38, 0.1)" : "rgba(245, 158, 11, 0.1)";
-                        notesLabel.style.color = daysLeft < 15 ? "#dc2626" : "#92400e";
-                    } else {
-                        notesLabel.innerText = "Tracking Active";
-                        notesLabel.style.background = "rgba(37, 99, 235, 0.1)";
-                        notesLabel.style.color = "#2563eb";
-                    }
-
-                    statusLabel.innerText = displayStatus;
-                    statusLabel.style.color = color;
-                    bar.style.backgroundColor = color;
-                    setTimeout(() => bar.style.width = width, 100);
-
-                } else {
-                    document.getElementById('displayCustomer').innerText = "SYSTEM ERROR";
-                    deviceLabel.innerText = "ID Not Found";
-                    statusLabel.innerText = "INVALID TICKET";
-                    statusLabel.style.color = "#dc2626";
-                    bar.style.width = "0%";
-                    notesLabel.innerText = "Check your Ticket ID or contact ServiCell Belize.";
+                } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "REPAIR UNSUCCESSFUL"; width = "100%"; color = "#64748b";
+                    secondary.innerHTML = `This unit could not be repaired. Please collect within 90 days.`;
+                    secondary.style.display = "block";
                 }
+
+                // 3. Storage Countdown Logic
+                if (isDone && finalDate) {
+                    const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
+                    const daysLeft = 90 - diffDays;
+                    notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
+                    notesLabel.style.display = "inline-block";
+                    notesLabel.style.background = daysLeft < 15 ? "rgba(220, 38, 38, 0.1)" : "rgba(245, 158, 11, 0.1)";
+                    notesLabel.style.color = daysLeft < 15 ? "#dc2626" : "#92400e";
+                } else {
+                    notesLabel.innerText = "Tracking Active";
+                    notesLabel.style.background = "rgba(37, 99, 235, 0.1)";
+                    notesLabel.style.color = "#2563eb";
+                }
+
+                statusLabel.innerText = displayStatus;
+                statusLabel.style.color = color;
+                bar.style.backgroundColor = color;
+                setTimeout(() => bar.style.width = width, 100);
+
+            } else {
+                document.getElementById('displayCustomer').innerText = "SYSTEM ERROR";
+                deviceLabel.innerText = "ID Not Found";
+                statusLabel.innerText = "INVALID TICKET";
+                statusLabel.style.color = "#dc2626";
+                bar.style.width = "0%";
+                notesLabel.innerText = "Check your Ticket ID or contact ServiCell Belize.";
             }
+        }
     </script>
 
     <footer style="background: #111827; padding: 3rem 1.5rem; color: #94a3b8; border-top: 4px solid var(--primary);">
@@ -898,9 +950,9 @@
     </footer>
     <script>
 
-            // Optional: Animate hamburger into an 'X'
-            const spans = document.querySelectorAll(".hamburger span");
-            spans.forEach(span => span.classList.toggle("open"));
+        // Optional: Animate hamburger into an 'X'
+        const spans = document.querySelectorAll(".hamburger span");
+        spans.forEach(span => span.classList.toggle("open"));
     </script>
 </body>
 
