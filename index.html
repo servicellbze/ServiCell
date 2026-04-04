@@ -1,281 +1,322 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ServiCell | Home</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/nav.css">
+
     <style>
+        :root {
+            --primary: #2563eb;
+            --accent: #3b82f6;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(37, 99, 235, 0.1);
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+        }
+
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f8ff;
-            overflow-y: scroll;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-weight: 700;
-            color: #2a3448;
-            text-align: center;
-        }
-
-        nav {
+        /* Animated Background Blobs */
+        .bg-blobs {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background-color: #2563eb;
-            padding: 0.75em;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        nav form {
-            display: flex;
-            gap: 0.5em;
-            justify-content: center;
-            flex-wrap: wrap;
+        .blob {
+            position: absolute;
+            background: var(--primary);
+            filter: blur(100px);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: move 25s infinite alternate ease-in-out;
         }
 
-        button {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            padding: 0.5em 1em;
-            cursor: pointer;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1em;
-            transition: 0.3s ease-in-out;
+        @keyframes move {
+            from { transform: translate(-10%, -10%); }
+            to { transform: translate(30%, 30%); }
         }
 
-        button:hover {
-            background-color: #3b82f6;
+        /* Hero Styling */
+        .hero {
+            padding-top: 140px;
+            text-align: center;
         }
 
-        /* DESKTOP CAROUSEL (The Primary Style) */
-        #carousel {
-            display: flex;
-            gap: 1.5rem;
-            overflow-x: auto;
-            scroll-behavior: smooth;
-            padding: 2rem;
-            margin: 5em auto 0 auto;
-            /* Centers the carousel */
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero i {
+            color: var(--primary);
+            font-style: normal;
+            font-weight: 600;
+            display: block;
+            margin-top: 10px;
+        }
+
+        /* Services Section */
+        section {
+            padding: 4rem 1rem;
             max-width: 1200px;
-            /* Keeps it from being too wide on PC */
-            -webkit-overflow-scrolling: touch;
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            margin: 0 auto;
+            overflow: hidden;
         }
 
-        #carousel::-webkit-scrollbar {
-            display: none;
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            color: var(--primary);
+        }
+
+        /* Optimized Carousel */
+        .carousel-container {
+            display: flex;
+            width: fit-content;
+            animation: scroll 30s linear infinite;
+        }
+
+        .carousel-container:hover {
+            animation-play-state: paused;
+        }
+
+        #carousel {
+            overflow: hidden;
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         .card {
             flex: 0 0 300px;
-            /* Nice big cards for Desktop */
-            background: #fff;
-            padding: 2rem;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            margin-right: 2rem;
+            border-radius: 35px;
+            border: 1px solid var(--glass-border);
             text-align: center;
-            transition: 0.3s ease-in-out;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
         }
 
         .card:hover {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-            transform: translateY(-5px);
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary);
+            box-shadow: 0 30px 60px rgba(37, 99, 235, 0.1);
         }
 
-        .card-image {
-            width: 100px;
-            margin-bottom: 1rem;
-        }
+        .card-image { width: 80px; margin-bottom: 1.5rem; }
+        .card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .card p { font-size: 0.9rem; color: var(--text-dim); line-height: 1.5; }
 
-        section {
-            padding: 1rem;
-        }
-
-        footer {
-            background-color: #2a3448;
-            color: white;
-            padding: 2em 1em;
+        /* Rating Section */
+        .rating-box {
+            background: white;
+            margin: 2rem auto;
+            max-width: 400px;
+            padding: 2.5rem;
+            border-radius: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
             text-align: center;
         }
 
-        /* TABLET VIEW */
+        /* Footer Optimization */
+        footer {
+            background: #111827;
+            padding: 3rem 1.5rem;
+            color: #ffffff;
+            border-top: 4px solid var(--primary);
+            margin-top: 4rem;
+        }
+
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.7rem;
+            text-align: center;
+        }
+
+        .contact-item { margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .hour-row { display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: #cbd5e1; }
+
+        /* Animations */
+        .fade-in-entry {
+            opacity: 0;
+            animation: fadeInPage 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         @media (max-width: 768px) {
-            .card {
-                flex: 0 0 250px;
-            }
-
-            img[alt="ServiCell Logo"] {
-                width: 180px !important;
-            }
-        }
-
-        /* MOBILE VIEW */
-        @media (max-width: 480px) {
-            button {
-                padding: 0.35em 0.6em;
-                font-size: 0.8em;
-            }
-
-            #carousel {
-                gap: 1rem;
-                padding: 1rem;
-            }
-
-            .card {
-                flex: 0 0 200px;
-                padding: 1.5rem;
-            }
-
-            .card-image {
-                width: 70px !important;
-            }
-
-            footer p {
-                color: #bbb;
-                font-size: 0.85em;
-            }
-
-
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        .fade-in-element {
-            animation: fadeIn 1.5s forwards;
+            .hero h1 { font-size: 2rem; }
+            .footer-grid { text-align: center; }
+            .contact-item, .brand-wrapper { justify-content: center; }
+            .carousel-container { animation: scroll 20s linear infinite; }
         }
     </style>
+
+    <script>
+        async function loadNav() {
+            try {
+                const res = await fetch('components/nav.html');
+                const data = await res.text();
+                document.getElementById('nav-placeholder').innerHTML = data;
+                
+                const currentPath = window.location.pathname;
+                document.querySelectorAll('.nav-btn').forEach(link => {
+                    if (currentPath.includes(link.getAttribute('href'))) {
+                        link.classList.add('active');
+                    }
+                });
+            } catch (err) {
+                console.error("Error loading navigation:", err);
+            }
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('navLinks');
+            const burger = document.querySelector('.hamburger');
+            if (menu && burger) {
+                menu.classList.toggle('active');
+                burger.classList.toggle('active');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNav();
+            // Duplicate cards for infinite loop
+            const container = document.querySelector('.carousel-container');
+            container.innerHTML += container.innerHTML;
+        });
+    </script>
 </head>
 
-<body class="fade-in-element">
-    <nav>
-        <form>
-            <button type="button" onclick="window.location.href='index.html'">Home</button>
-            <button type="button" onclick="window.location.href='about.html'">About</button>
-            <button type="button" onclick="window.location.href='policy.html'">Policy</button>
-            <button type="button" onclick="window.location.href='contact.html'">Contact</button>
-        </form>
-    </nav>
-    <br><br><br><br><br>
-    <h1>ServiCell | Home Page</h1>
-    <img src="logo.png" alt="ServiCell Logo" style="display: block; margin: 1em auto; width: 250px;">
-    <h2><i>"We Fix Everything, Even Broken Hearts."</i></h2>
+<body class="fade-in-entry">
+    <div class="bg-blobs">
+        <div class="blob" style="width: 600px; height: 600px; top: -150px; left: -150px;"></div>
+        <div class="blob" style="width: 400px; height: 400px; bottom: 10%; right: -50px; background: #60a5fa;"></div>
+    </div>
 
-    <section>
-        <h1>Our Services:</h1>
-        <div id="carousel">
+    <div id="nav-placeholder"></div>
+
+    <div class="hero">
+        <img src="logo.png" alt="ServiCell Logo" style="width: 220px; margin-bottom: 1.5rem;">
+        <h1>ServiCell Belize</h1>
+        <i>"We Fix Everything, Even Broken Hearts."</i>
+    </div>
+
+    <section id="carousel">
+        <h2 class="section-title">Our Specialized Services</h2>
+        <div class="carousel-container">
             <div class="card">
                 <img src="device-repair.png" alt="Phone Repair" class="card-image">
                 <h3>Parts Replacement</h3>
-                <p>Screen replacement Battery service Component replacement and More!</p>
+                <p>Expert screen, battery, and internal component replacements for Samsung and iPhone.</p>
             </div>
             <div class="card">
                 <img src="accessory.png" alt="Accessory" class="card-image">
-                <h3>Sold Accessories</h3>
-                <p>Screen Protectors, Phone Cases, Lens Protectors</p>
+                <h3>Premium Protection</h3>
+                <p>High-grade screen protectors, cases, and lens covers to keep your tech safe.</p>
             </div>
             <div class="card">
                 <img src="device-unlocking.png" alt="Device Unlocking" class="card-image">
-                <h3>Device Unlocking</h3>
-                <p>Regain Access to Your Device</p>
+                <h3>Carrier Unlocking</h3>
+                <p>Factory unlocks and region bypasses to get your device back on any network.</p>
             </div>
             <div class="card">
                 <img src="software-support.png" alt="Software Support" class="card-image">
-                <h3>Software Support</h3>
-                <p>Virus removal, OS installation, and technical support for all devices.</p>
+                <h3>Software Solutions</h3>
+                <p>System recovery, virus removal, and expert modding for Android and iOS.</p>
             </div>
         </div>
     </section>
 
-    <div style="text-align: center; padding: 2em 1em;">
-        <h2>Our Rating (92%)</h2>
-        <p style="font-size: 2em; color: #2563eb;">★★★★⯪</p>
-        <p style="color: #666; font-size: 1em;">4.5 out of 5 stars</p>
+    <div class="rating-box">
+        <h2 style="font-size: 0.8rem; letter-spacing: 2px; color: var(--text-dim); text-transform: uppercase;">Customer Satisfaction</h2>
+        <p style="font-size: 2.5rem; color: var(--primary); margin: 10px 0;">★★★★⯪</p>
+        <p style="font-weight: 800; font-size: 1.2rem;">4.5 / 5.0</p>
+        <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 5px;">Based on 100+ local repairs</p>
     </div>
 
     <footer>
-        <div style="margin-bottom: 1.5em;">
-            <h3 style="color: white;">Follow Us</h3>
-            <div style="display: flex; gap: 1em; justify-content: center; font-size: 1.5em;">
-                <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank">f</a>
+        <div class="footer-grid">
+            <div>
+                <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
+                    <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span style="color: var(--primary);">.</span></h3>
+                </div>
+                <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality, professional service.
+                </p>
+                <div class="social-links" style="display: flex; gap: 15px;">
+                    <a href="https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwi36tPko9OTAxXyRTABHct7DkYQ9zB6BAgzEAM&url=https%3A%2F%2Fwww.facebook.com%2Fp%2FServiCell-Belize-100064104937587%2F&usg=AOvVaw388yu94E2jtWFun1sjkQa9&opi=89978449" style="background: #1877f2; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 900; transition: 0.3s; text-decoration: none;">f</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Visit Us</h4>
+                <p class="contact-item"><span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City</p>
+                <p class="contact-item"><span style="color: var(--primary);">📞</span> +501 615-3388</p>
+                <p class="contact-item"><span style="color: var(--primary);">✉️</span> servicellbze@gmail.com</p>
+            </div>
+
+            <div>
+                <h4 style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Business Hours</h4>
+                <div class="hour-row"><span>Mon – Fri</span><span style="color: white; font-weight: 600;">8:00 AM – 8:00 PM</span></div>
+                <div class="hour-row"><span>Saturday</span><span style="color: white; font-weight: 600;">9:00 AM – 7:00 PM</span></div>
+                <div class="hour-row"><span>Sunday</span><span style="color: #ef4444; font-weight: 700;">Closed</span></div>
             </div>
         </div>
-        <p style="margin: 0.5em 0; color: #bbb;">📍 #7 Douglas Jones Street, Belize City</p>
-        <p style="margin: 0.5em 0; color: #bbb;">🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
-        <p style="margin: 0; color: #bbb;">© 2026 ServiCell. All rights reserved.</p>
+        <div class="footer-bottom">
+            <p>© 2026 ServiCell Belize. All rights reserved.</p>
+        </div>
     </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const carousel = document.getElementById('carousel');
-            if (!carousel) return;
-
-            const speed = 0.5;
-            let paused = false;
-
-            const cards = Array.from(carousel.children);
-            const duplicates = 3;
-
-            for (let i = 0; i < duplicates; i++) {
-                cards.forEach(card => {
-                    const clone = card.cloneNode(true);
-                    clone.setAttribute('aria-hidden', 'true');
-                    carousel.appendChild(clone);
-                });
-            }
-
-            const cardWidth = cards[0].offsetWidth + parseFloat(getComputedStyle(carousel).gap || 0);
-            const totalOriginalWidth = cardWidth * cards.length;
-
-            carousel.addEventListener('mouseenter', () => paused = true);
-            carousel.addEventListener('mouseleave', () => paused = false);
-
-            function autoScroll() {
-                if (!paused) {
-                    carousel.scrollLeft += speed;
-
-                    if (carousel.scrollLeft >= totalOriginalWidth) {
-                        carousel.scrollLeft = 0;
-                    }
-                }
-                requestAnimationFrame(autoScroll);
-            }
-
-            autoScroll();
-        });
-    </script>
-
 </body>
-
 </html>

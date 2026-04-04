@@ -4,243 +4,580 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiCell | Contact</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>ServiCell | Contact Us</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/nav.css">
     <style>
+        :root {
+            --primary: #2563eb;
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(37, 99, 235, 0.1);
+            --text-main: #0f172a;
+            --text-dim: #64748b;
+        }
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
-            background-color: #f5f8ff;
-            color: #2a3448;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-weight: 700;
-            color: #2a3448;
-        }
-
-        nav {
+        /* Background Blobs */
+        .bg-blobs {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            background-color: #2563eb;
-            padding: 0.75em;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        nav form {
-            display: flex;
-            gap: 0.5em;
-            justify-content: center;
-            flex-wrap: wrap;
+        .blob {
+            position: absolute;
+            background: var(--primary);
+            filter: blur(100px);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: move 25s infinite alternate;
         }
 
-        button {
-            background-color: #2563eb;
-            color: white;
-            border: none;
-            padding: 0.5em 1em;
-            cursor: pointer;
-            border-radius: 10px;
-            font-weight: bold;
-            font-size: 1em;
-            text-decoration: none;
-        }
-
-        button:hover {
-            background-color: #3b82f6;
-            transition: 0.3s ease-in-out;
-        }
-
-        a {
-            color: white;
-            text-decoration: none;
-        }
-
-        @keyframes fadeIn {
+        @keyframes move {
             from {
-                opacity: 0;
+                transform: translate(-10%, -10%);
             }
 
             to {
-                opacity: 1;
+                transform: translate(30%, 30%);
             }
         }
 
-        .fade-in-element {
-            animation: fadeIn 1.5s forwards;
+        /* Layout */
+        .content-wrapper {
+            padding: 140px 1.5rem 4rem;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 4rem;
+            align-items: start;
         }
 
-        main {
-            margin-top: 4em;
-            padding: 2em 1em;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+        /* Left Side Info */
+        .info-side h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+            color: #0f172a;
         }
 
-        .logo {
-            display: block;
-            margin: 2em auto;
-            width: min(250px, 80vw);
-            height: auto;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 1em;
-        }
-
-        .tagline {
-            text-align: center;
-            font-size: clamp(1rem, 4vw, 1.3em);
-            font-style: italic;
-            margin: 1em 0 2em;
-        }
-
-        .contact-info {
-            max-width: 600px;
-            margin: 2em auto;
-            font-size: clamp(0.95rem, 2vw, 1.1em);
-            line-height: 1.8;
-            padding: 0 1em;
-        }
-
-        .contact-info h3 {
-            text-align: left;
-            margin-top: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        .contact-info p {
-            text-align: justify;
-        }
-
-        footer {
-            background-color: #2a3448;
-            color: white;
-            padding: clamp(1.5em, 5vw, 2em);
-            text-align: center;
-            margin-top: 4em;
-        }
-
-        footer p {
-            margin: 0.5em 0;
-            color: #bbb;
-        }
-
-        footer h3 {
-            color: white;
-            margin-bottom: 1em;
-        }
-
-        .social-links {
+        .contact-method {
             display: flex;
-            gap: 1.5em;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 1.5rem;
+            padding: 1.2rem;
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #f1f5f9;
+            transition: 0.3s;
+        }
+
+        .contact-method:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .icon-box {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            font-size: clamp(1.2rem, 4vw, 1.5em);
-            margin-bottom: 1.5em;
+            font-size: 1.3rem;
         }
 
-        .footer-info p {
-            margin: 0.5em 0;
-            color: #bbb;
-            font-size: clamp(0.85rem, 2vw, 1rem);
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #25d366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 100px;
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 1rem;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
         }
 
-        @media (max-width: 768px) {
-            nav form {
-                gap: 0.25em;
+        .whatsapp-btn:hover {
+            transform: translateY(-3px);
+            background: #22c35e;
+        }
+
+        /* Right Side Form Card */
+        .form-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: 40px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+
+        input,
+        select,
+        textarea {
+            padding: 15px;
+            border-radius: 18px;
+            border: 1px solid #e2e8f0;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            background: white;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+        }
+
+        
+
+        @media (max-width: 900px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                padding-top: 100px;
             }
 
-            button {
-                padding: 0.4em 0.8em;
-                font-size: 0.9em;
+            .info-side {
+                text-align: center;
             }
 
-            main {
-                margin-top: 6.5em;
-                padding: 1.5em 1em;
+            .contact-method {
+                text-align: left;
             }
 
-            .contact-info {
-                margin: 1.5em auto;
+            .whatsapp-btn {
+                justify-content: center;
             }
         }
 
         @media (max-width: 480px) {
-            button {
-                padding: 0.35em 0.6em;
-                font-size: 0.8em;
-            }
-
-            main {
-                margin-top: 10em;
-                padding: 1em;
-            }
-
-            .logo {
-                width: min(200px, 90vw);
-                margin: 1em auto;
-            }
-
-            .contact-info {
+            .search-box {
+                flex-direction: column;
+                background: transparent;
+                /* Remove gray bg from container */
+                border: none;
                 padding: 0;
+                gap: 12px;
             }
 
-            footer {
-                padding: 1.5em 1em;
+            input {
+                background: #f1f5f9;
+                /* Move gray bg to input specifically */
+                border-radius: 18px;
+                width: 100%;
+                border: 1px solid var(--glass-border);
+            }
+
+            .track-btn {
+                width: 100%;
+                padding: 16px;
+                /* Make it taller/chunkier for thumbs */
+                border-radius: 18px;
+            }
+
+            /* Make the card padding a bit tighter for small screens */
+            .tracker-card {
+                padding: 2.5rem 1.5rem;
             }
         }
+
+        /* Page Entry Animation */
+        .fade-in-entry {
+            opacity: 0;
+            animation: fadeInPage 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeInPage {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
     </style>
+    <script>
+        // 1. Load the Navigation Component
+        fetch('components/nav.html')
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById('nav-placeholder').innerHTML = data;
+
+                // 2. Set the "Active" link based on the current page
+                const links = document.querySelectorAll('.nav-btn');
+                const currentPath = window.location.pathname;
+
+                links.forEach(link => {
+                    if (currentPath.includes(link.getAttribute('href'))) {
+                        link.classList.add('active');
+                    }
+                });
+            })
+            .catch(err => console.error("Error loading navigation:", err));
+
+        // 3. Global Toggle Function (Accessible by the 'onclick' in your HTML)
+        function toggleMenu() {
+            const menu = document.getElementById('navLinks');
+            const burger = document.querySelector('.hamburger');
+
+            if (menu && burger) {
+                menu.classList.toggle('active');
+                burger.classList.toggle('active'); // Ensure CSS uses .hamburger.active span
+            }
+        }
+
+        // 4. Close menu when clicking outside or on a link
+        document.addEventListener('click', function (e) {
+            const menu = document.getElementById('navLinks');
+            const burger = document.querySelector('.hamburger');
+
+            // Close if clicking a link
+            if (e.target.classList.contains('nav-btn')) {
+                menu?.classList.remove('active');
+                burger?.classList.remove('active');
+            }
+
+            // Close if clicking outside the nav area
+            if (menu?.classList.contains('active')) {
+                if (!menu.contains(e.target) && !burger.contains(e.target)) {
+                    menu.classList.remove('active');
+                    burger.classList.remove('active');
+                }
+            }
+        });
+    </script>
 </head>
 
-<body class="fade-in-element">
-    <nav>
-        <form>
-            <button type="button" onclick="window.location.href='index.html'">Home</button>
-            <button type="button" onclick="window.location.href='about.html'">About</button>
-            <button type="button" onclick="window.location.href='policy.html'">Policy</button>
-            <button type="button" onclick="window.location.href='contact.html'">Contact</button>
-        </form>
-    </nav>
-    <main>
-        <h1>ServiCell | Contact</h1>
-        <img src="logo.png" alt="ServiCell Logo" class="logo">
-        <p class="tagline">"We Fix Everything, Even Broken Hearts."</p>
-        <h1>Contact Us</h1>
-        <div class="contact-info">
-            <p>If you have any questions, need assistance, or want to learn more about our services, feel free to reach
-                out to us. We're here to help!</p>
-            <h3>Phone #: +501 615-3388</h3>
-            <h3>Email: servicellbze@gmail.com</h3>
-        </div>
-    </main>
+<body class="fade-in-entry">
+    <div class="bg-blobs">
+        <div class="blob" style="width: 600px; height: 600px; top: -150px; right: -100px;"></div>
+        <div class="blob" style="width: 500px; height: 500px; bottom: -100px; left: -100px; background: #60a5fa;"></div>
+    </div>
 
-    <footer>
-        <h3>Follow Us</h3>
-        <div class="social-links">
-            <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" title="Facebook">f</a>
+    <div id="nav-placeholder"></div>
+
+    <div class="content-wrapper">
+        <div class="info-side">
+            <h1>Connect<span style="color: var(--primary);">.</span></h1>
+            <p style="color: var(--text-dim); margin-bottom: 2.5rem; font-size: 1.1rem; font-weight: 600;">
+                Need a fast fix or a custom mod? Visit the lab or shoot us a message.
+            </p>
+
+            <div class="contact-method">
+                <div class="icon-box">📍</div>
+                <div>
+                    <strong
+                        style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--primary); margin-bottom: 4px;">HQ
+                        Location</strong>
+                    <span style="font-weight: 700;">#7 Douglas Jones Street, Belize City</span>
+                </div>
+            </div>
+
+            <div class="contact-method">
+                <div class="icon-box">✉️</div>
+                <div>
+                    <strong
+                        style="display: block; font-size: 0.75rem; text-transform: uppercase; color: var(--primary); margin-bottom: 4px;">Direct
+                        Email</strong>
+                    <span style="font-weight: 700;">servicellbze@gmail.com</span>
+                </div>
+            </div>
+
+            <a href="https://wa.me/5016153388" class="whatsapp-btn">
+                <span>Chat on WhatsApp</span>
+            </a>
+            <div
+                style="margin-top: 2rem; padding: 1.5rem; background: white; border-radius: 24px; border: 1px solid #f1f5f9;">
+                <h4
+                    style="font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 1rem;">
+                    📋 Pre-Repair Checklist
+                </h4>
+                <ul
+                    style="list-style: none; font-size: 0.9rem; color: var(--text-dim); display: flex; flex-direction: column; gap: 10px;">
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #22c55e;">✔</span> Backup your data (iCloud/Google)
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #22c55e;">✔</span> Charge device to at least 20%
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #22c55e;">✔</span> Remove SIM card & SD cards
+                    </li>
+                    <li style="display: flex; align-items: center; gap: 10px;">
+                        <span style="color: #22c55e;">✔</span> Remove any password/PIN for easier testing
+                    </li>
+                </ul>
+            </div>
+            <div
+                style="margin-top: 3rem; padding: 1.5rem; background: rgba(37, 99, 235, 0.05); border-radius: 20px; border: 1px dashed var(--primary);">
+                <p style="font-size: 0.85rem; font-weight: 700; color: var(--primary);">⚡ REPAIR TRACKER</p>
+                <p style="font-size: 0.9rem; color: var(--text-dim);">Already have a device with us? Check its status
+                    instantly on our <a href="tracker.html"
+                        style="color: var(--primary); text-decoration: underline; font-weight: 800;">Tracker Page</a>.
+                </p>
+            </div>
         </div>
-        <div class="footer-info">
-            <p>📍 #7 Douglas Jones Street, Belize City</p>
-            <p>🕒 Mon–Fri: 8 AM – 8 PM | Sat: 9 AM – 7 PM | Sun: Closed</p>
-            <p>© 2026 ServiCell. All rights reserved.</p>
+
+        <div class="form-card">
+            <form id="my-form" action="https://formspree.io/f/xykbnlpa" method="POST">
+                <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Have an Inquiry?</h3>
+                <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem;">
+                    Fill this out and we'll get back to you as soon as we can.
+                </p>
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" name="name" placeholder="Enter your name" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Your Email</label>
+                    <input type="email" name="email" placeholder="customer@email.com" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Device & Model</label>
+                    <input type="text" name="device" placeholder="e.g. iPhone 13 Pro" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Service Needed</label>
+                    <select name="service_type" required>
+                        <option value="Screen Replacement">Screen Replacement</option>
+                        <option value="Battery Change">Battery Replacement</option>
+                        <option value="Carrier Unlock">Carrier Unlocking</option>
+                        <option value="Software/Modding">Software Modding</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Issue Details</label>
+                    <textarea name="message" rows="4" placeholder="Describe the problem..." required></textarea>
+                </div>
+
+                <input type="hidden" name="_subject" value="New ServiCell Repair Inquiry">
+                <input type="hidden" name="_source_name" value="ServiCell Official Site">
+                <div id="my-form-status" style="font-size: 0.85rem; color: #ef4444; margin-bottom: 10px;"></div>
+                <button type="submit" class="submit-btn">Send Service Request</button>
+            </form>
         </div>
+    </div>
+    </div>
+
+    <footer style="background: #111827; padding: 3rem 1.5rem; color: #ffffff; border-top: 4px solid var(--primary);">
+        <style>
+            /* Mobile-specific stacking logic */
+            .footer-grid {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 2.5rem;
+            }
+
+            @media (max-width: 600px) {
+                .footer-grid {
+                    grid-template-columns: 1fr;
+                    text-align: center;
+                }
+
+                .brand-wrapper,
+                .contact-item {
+                    justify-content: center !important;
+                }
+
+                .social-links {
+                    justify-content: center;
+                }
+            }
+        </style>
+
+        <div class="footer-grid">
+            <div>
+                <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
+                    <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
+                    <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
+                            style="color: var(--primary);">.</span></h3>
+                </div>
+                <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
+                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality,
+                    professional service.
+                </p>
+
+                <div class="social-container" style="display: flex; flex-direction: column; gap: 10px;">
+                    <span
+                        style="color: white; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
+                        Us!</span>
+                    <div class="social-links" style="display: flex; gap: 15px;">
+                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
+                            style="background: #1877f2; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
+                            onmouseover="this.style.transform='scale(1.1)'"
+                            onmouseout="this.style.transform='scale(1)'">f</a>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h4
+                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    Visit Us</h4>
+                <p class="contact-item"
+                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City
+                </p>
+                <p class="contact-item"
+                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">📞</span> +501 615-3388
+                </p>
+                <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">✉️</span> servicellbze@gmail.com
+                </p>
+            </div>
+
+            <div>
+                <h4
+                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    Business Hours
+                </h4>
+                <div
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: #cbd5e1;">
+                    <span>Mon – Fri</span>
+                    <span style="color: white; font-weight: 600;">8:00 AM – 8:00 PM</span>
+                </div>
+                <div
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: #cbd5e1;">
+                    <span>Saturday</span>
+                    <span style="color: white; font-weight: 600;">9:00 AM – 7:00 PM</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #cbd5e1;">
+                    <span>Sunday</span>
+                    <span style="color: #ef4444; font-weight: 700;">Closed</span>
+                </div>
+            </div>
+
+            <div
+                style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
+                <p>© 2026 ServiCell Belize. All rights reserved.</p>
+            </div>
     </footer>
+
+    <script>
+        var form = document.getElementById("my-form");
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            var status = document.getElementById("my-form-status");
+            var data = new FormData(event.target);
+            fetch(event.target.action, {
+                method: form.method,
+                body: data,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    form.innerHTML = "<h3>Thanks! We'll get back to you shortly.</h3>";
+                } else {
+                    response.json().then(data => {
+                        if (Object.hasOwn(data, 'errors')) {
+                            status.innerHTML = data["errors"].map(error => error["message"]).join(", ")
+                        } else {
+                            status.innerHTML = "Oops! There was a problem submitting your form"
+                        }
+                    })
+                }
+            }).catch(error => {
+                status.innerHTML = "Oops! There was a problem submitting your form"
+            });
+        }
+        form.addEventListener("submit", handleSubmit)
+
+        function toggleMenu() {
+            const navLinks = document.getElementById("navLinks");
+            navLinks.classList.toggle("active");
+
+            // Optional: Animate hamburger into an 'X'
+            const spans = document.querySelectorAll(".hamburger span");
+            spans.forEach(span => span.classList.toggle("open"));
+        }
+    </script>
 </body>
 
 </html>
