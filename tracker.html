@@ -424,6 +424,62 @@
             }
         }
 
+        .completion-badge {
+            background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%);
+            border: 1px solid #b91c1c20;
+            /* Subtle border */
+            border-left: 4px solid #22c55e;
+            padding: 1.25rem;
+            border-radius: 20px;
+            margin-top: 1.5rem;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .completion-icon {
+            background: #22c55e;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+        }
+
+        .completion-details h4 {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #166534;
+            margin-bottom: 2px;
+        }
+
+        .completion-details p {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #064e3b;
+            margin: 0;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Very small phones */
         @media (max-width: 360px) {
             nav button {
@@ -530,6 +586,14 @@
             <img src="logo.png" alt="ServiCell" class="logo-small">
             <h1>Repair Tracker</h1>
 
+            <div class="tracker-header" style="margin-bottom: 2rem;">
+                <p
+                    style="color: var(--text-dim); font-size: 0.95rem; line-height: 1.6; max-width: 400px; margin: 0 auto;">
+                    Enter your <strong>Ticket ID</strong> below to see your repair's live progress,
+                    technician notes, and estimated completion.
+                </p>
+            </div>
+
             <div class="search-box">
                 <input type="text" id="repairID" placeholder="Ticket ID (e.g. 101)"
                     oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
@@ -595,20 +659,14 @@
             loaderBar.style.width = "0%";
             updateLoaderText("Accessing database...");
 
-            let data = null;
             let progress = 0;
             const fetchTask = fetch(webAppURL).then(r => r.json()).catch(() => ({ status: "Error" }));
-
-
 
             function runProgress() {
                 progress += 1;
                 loaderBar.style.width = progress + "%";
+                const paddedID = idInput.padStart(3, '0');
 
-                const currentID = document.getElementById('repairID').value;
-                const paddedID = currentID.padStart(3, '0');
-
-                // Logic for text updates
                 if (progress >= 25 && progress < 50) updateLoaderText("Scanning records...");
                 if (progress >= 50 && progress < 75) updateLoaderText(`Verifying Ticket #${paddedID}...`);
                 if (progress >= 75 && progress < 90) updateLoaderText("Retrieving repair data...");
@@ -623,16 +681,9 @@
                     return;
                 }
 
-                // The dynamic speed logic you wanted:
-                const speed =
-                    progress < 60 ? 40 :
-                        progress < 85 ? 60 :
-                            200;
-
+                const speed = progress < 60 ? 40 : progress < 85 ? 60 : 200;
                 setTimeout(runProgress, speed);
             }
-
-            // 4. Kick off the animation
             runProgress();
         }
 
@@ -659,74 +710,95 @@
                 let width = "15%";
                 let color = "#2563eb";
 
-                const dateVal = data.dateReceived || data.dateRecieved;
-                const entryDate = new Date(dateVal);
                 const today = new Date();
+                // Critical Fix: Logic uses dateCompleted for storage countdown
+                const finalDate = data.dateCompleted ? new Date(data.dateCompleted) : null;
+                const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "unfixable", "no fix"].some(w => rawStatus.includes(w));
 
-                const abandonmentDate = new Date(entryDate);
-                abandonmentDate.setDate(abandonmentDate.getDate() + 90);
-                const abandonDateString = abandonmentDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                // 1. Check for Abandonment (Only if 90 days past COMPLETION)
+                if (finalDate) {
+                    const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
+                    const daysLeft = 90 - diffDays;
 
-                const diffDays = Math.floor((today - entryDate) / (1000 * 60 * 60 * 24));
-                const daysLeft = 90 - diffDays;
+                    if (daysLeft <= 0) {
+                        displayStatus = "DECLARED ABANDONED";
+                        width = "100%";
+                        color = "#dc2626"; // Explicitly set to Red
 
-                if (dateVal && daysLeft <= 0) {
-                    displayStatus = "DECLARED ABANDONED";
-                    width = "100%";
-                    statusLabel.className = "status-text status-scary";
-                    bar.classList.add('bar-abandoned');
-                    notesLabel.style.display = "none";
-                    secondary.innerHTML = `Unit considered abandoned as of <strong>${abandonDateString}</strong>.<br>Please refer to our <a href="policy.html" style="color: #dc2626; text-decoration: underline;">Storage Policy</a>.`;
-                    secondary.style.display = "block";
-                } else {
-                    if (["received", "diagnosing", "log"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "RECEIVED / DIAGNOSING"; width = "30%";
-                    } else if (["fixing", "repairing", "soldering", "work"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "REPAIR IN PROGRESS"; width = "60%"; color = "#ef4444";
-                    } else if (["testing", "qc", "checking"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "FINAL TESTING"; width = "85%"; color = "#f59e0b";
-                    } else if (["completed", "ready", "done", "pickup"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "READY FOR PICKUP"; width = "100%"; color = "#22c55e";
-                        statusLabel.classList.remove('status-blink');
-                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#ffffff'] });
-                    } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
-                        displayStatus = "REPAIR UNSUCCESSFUL"; width = "100%"; color = "#64748b";
-                        statusLabel.classList.remove('status-blink');
-                        secondary.innerHTML = `Our technicians have determined this unit cannot be repaired. <br>Please collect your device within the 90-day window.`;
+                        statusLabel.className = "status-text status-scary status-blink";
+                        statusLabel.style.color = color; // Apply the red color directly
+
+                        bar.classList.add('bar-abandoned');
+                        bar.style.width = width;
+                        bar.style.backgroundColor = color; // Ensure the bar is red too
+
+                        notesLabel.style.display = "none";
+                        secondary.innerHTML = `Unit considered abandoned. Please refer to our <a href="policy.html" style="color: #dc2626; text-decoration: underline;">Storage Policy</a>.`;
                         secondary.style.display = "block";
-                        secondary.style.color = "#475569";
-                    }
-
-                    notesLabel.style.display = "inline-block";
-                    const isDone = ["completed", "ready", "done", "pickup", "unsuccessful", "unfixable", "no fix"].some(w => rawStatus.includes(w));
-
-                    if (isDone && dateVal) {
-                        notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
-                        if (displayStatus === "REPAIR UNSUCCESSFUL") {
-                            notesLabel.style.background = "rgba(100, 116, 139, 0.1)";
-                            notesLabel.style.color = "#475569";
-                        }
-                    } else {
-                        notesLabel.innerText = "Tracking Active";
-                        notesLabel.style.background = "";
-                        notesLabel.style.color = "";
+                        statusLabel.innerText = displayStatus;
+                        return;
                     }
                 }
 
-                statusLabel.innerText = displayStatus;
-                statusLabel.style.color = (displayStatus === "DECLARED ABANDONED") ? "" : color;
-                bar.style.backgroundColor = color;
-                setTimeout(() => bar.style.width = width, 100);
+                    // 2. Standard Status Logic
+                    if (["received", "diagnosing", "log", "queue", "ordered"].some(w => rawStatus.includes(w))) {
+                        displayStatus = "RECEIVED / DIAGNOSING"; width = "30%";
+                    } else if (["fixing", "repairing", "soldering", "work", "opened"].some(w => rawStatus.includes(w))) {
+                        displayStatus = "REPAIR IN PROGRESS"; width = "60%"; color = "#ef4444";
+                    } else if (["testing", "qc", "checking", "finalizing"].some(w => rawStatus.includes(w))) {
+                        displayStatus = "FINAL TESTING"; width = "85%"; color = "#f59e0b";
+                    } else if (["completed", "ready", "done", "pickup", "finished"].some(w => rawStatus.includes(w))) {
+                        displayStatus = "READY FOR PICKUP"; width = "100%"; color = "#22c55e";
+                        confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#ffffff'] });
 
-            } else {
-                document.getElementById('displayCustomer').innerText = "SYSTEM ERROR";
-                deviceLabel.innerText = "ID Not Found";
-                statusLabel.innerText = "INVALID TICKET";
-                statusLabel.style.color = "#dc2626";
-                bar.style.width = "0%";
-                notesLabel.innerText = "Please contact ServiCell Support.";
+                        const dateStr = finalDate ? finalDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Today";
+                        secondary.innerHTML = `
+                    <div class="completion-badge" style="background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #22c55e; padding: 1.25rem; border-radius: 15px; margin-top: 1rem; display: flex; align-items: center; gap: 12px; text-align: left;">
+                        <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                        <div>
+                            <h4 style="font-size: 0.65rem; text-transform: uppercase; margin: 0; color: #166534;">Verified Ready</h4>
+                            <p style="font-size: 0.9rem; font-weight: 700; margin: 0; color: #064e3b;">Finalized: ${dateStr}</p>
+                        </div>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 0.8rem; color: #475569; font-weight: 500;">
+                        The 3-Day Test Drive window begins at pickup.
+                    </p>`;
+                        secondary.style.display = "block";
+
+                    } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
+                        displayStatus = "REPAIR UNSUCCESSFUL"; width = "100%"; color = "#64748b";
+                        secondary.innerHTML = `This unit could not be repaired. Please collect within 90 days.`;
+                        secondary.style.display = "block";
+                    }
+
+                    // 3. Storage Countdown Logic
+                    if (isDone && finalDate) {
+                        const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
+                        const daysLeft = 90 - diffDays;
+                        notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
+                        notesLabel.style.display = "inline-block";
+                        notesLabel.style.background = daysLeft < 15 ? "rgba(220, 38, 38, 0.1)" : "rgba(245, 158, 11, 0.1)";
+                        notesLabel.style.color = daysLeft < 15 ? "#dc2626" : "#92400e";
+                    } else {
+                        notesLabel.innerText = "Tracking Active";
+                        notesLabel.style.background = "rgba(37, 99, 235, 0.1)";
+                        notesLabel.style.color = "#2563eb";
+                    }
+
+                    statusLabel.innerText = displayStatus;
+                    statusLabel.style.color = color;
+                    bar.style.backgroundColor = color;
+                    setTimeout(() => bar.style.width = width, 100);
+
+                } else {
+                    document.getElementById('displayCustomer').innerText = "SYSTEM ERROR";
+                    deviceLabel.innerText = "ID Not Found";
+                    statusLabel.innerText = "INVALID TICKET";
+                    statusLabel.style.color = "#dc2626";
+                    bar.style.width = "0%";
+                    notesLabel.innerText = "Check your Ticket ID or contact ServiCell Belize.";
+                }
             }
-        }
     </script>
 
     <footer style="background: #111827; padding: 3rem 1.5rem; color: #94a3b8; border-top: 4px solid var(--primary);">
@@ -818,17 +890,17 @@
                     <span style="color: #ef4444; font-weight: 700;">Closed</span>
                 </div>
             </div>
-
-            <div
-                style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
-                <p>© 2026 ServiCell Belize. All rights reserved.</p>
-            </div>
+        </div>
+        <div
+            style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
+            <p>© 2026 ServiCell Belize. All rights reserved.</p>
+        </div>
     </footer>
     <script>
 
-        // Optional: Animate hamburger into an 'X'
-        const spans = document.querySelectorAll(".hamburger span");
-        spans.forEach(span => span.classList.toggle("open"));
+            // Optional: Animate hamburger into an 'X'
+            const spans = document.querySelectorAll(".hamburger span");
+            spans.forEach(span => span.classList.toggle("open"));
     </script>
 </body>
 
