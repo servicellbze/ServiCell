@@ -1,0 +1,195 @@
+/* =========================
+    NAVBAR BASE
+    ========================= */
+
+nav {
+     position: fixed;
+     top: 25px;
+     left: 50%;
+     transform: translateX(-50%);
+     background: rgba(255, 255, 255, 0.8);
+     backdrop-filter: blur(15px);
+     -webkit-backdrop-filter: blur(15px);
+     padding: 10px 20px;
+     border-radius: 100px;
+     border: 1px solid var(--glass-border);
+     z-index: 1000;
+     width: fit-content;
+     max-width: 95%;
+     box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+}
+
+.nav-wrapper {
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+     gap: 20px;
+}
+
+.logo-text {
+     font-weight: 800;
+     color: var(--primary);
+     font-size: 1rem;
+     white-space: nowrap;
+}
+
+/* =========================
+    NAV LINKS (DESKTOP)
+    ========================= */
+
+.nav-links {
+     display: flex;
+     gap: 10px;
+}
+
+.nav-btn {
+     text-decoration: none;
+     color: var(--text-dim);
+     font-weight: 600;
+     padding: 10px 18px;
+     border-radius: 50px;
+     transition: 0.3s ease;
+     font-size: 0.9rem;
+     display: inline-block;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+     color: var(--primary);
+     background: rgba(37, 99, 235, 0.05);
+}
+
+/* =========================
+    HAMBURGER ICON
+    ========================= */
+
+.hamburger {
+     display: none;
+     flex-direction: column;
+     gap: 5px;
+     cursor: pointer;
+     padding: 8px;
+}
+
+.hamburger span {
+     width: 24px;
+     height: 2.5px;
+     background: var(--text-main);
+     border-radius: 2px;
+     transition: 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+     transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger.active span:nth-child(2) {
+     opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+     transform: rotate(-45deg) translateY(-8px);
+}
+
+/* =========================
+    MOBILE STYLES (768px and below)
+    ========================= */
+
+@media (max-width: 768px) {
+     nav {
+          width: 90%;
+          padding: 12px 15px;
+          top: 12px;
+     }
+
+     .logo-text {
+          font-size: 1rem;
+     }
+
+     .hamburger {
+          display: flex;
+     }
+
+     .nav-links {
+          position: fixed;
+          top: 60px;
+          left: 50%;
+          transform: translateX(-50%) scaleY(0);
+          transform-origin: top;
+          width: 90%;
+          max-width: 400px;
+          flex-direction: column;
+          background: rgba(255, 255, 255, 0.95);
+          backdrop-filter: blur(20px);
+          border-radius: 16px;
+          padding: 12px 0;
+          border: 1px solid var(--glass-border);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.3s ease, transform 0.3s ease;
+          z-index: 999;
+     }
+
+     .nav-links.active {
+          opacity: 1;
+          transform: translateX(-50%) scaleY(1);
+          pointer-events: auto;
+     }
+
+     .nav-btn {
+          width: 100%;
+          text-align: center;
+          padding: 14px 16px;
+          border-radius: 0;
+          font-size: 0.9rem;
+          border-bottom: 1px solid rgba(37, 99, 235, 0.05);
+     }
+
+     .nav-btn:last-child {
+          border-bottom: none;
+     }
+}
+
+/* =========================
+    SMALL MOBILE (480px and below)
+    ========================= */
+
+@media (max-width: 480px) {
+     nav {
+          width: 92%;
+          padding: 10px 12px;
+          top: 10px;
+     }
+
+     .logo-text {
+          font-size: 0.9rem;
+     }
+
+     .hamburger span {
+          width: 20px;
+          height: 2px;
+     }
+
+     .nav-links {
+          width: 94%;
+          max-width: none;
+          top: 55px;
+     }
+
+     .nav-btn {
+          padding: 12px 14px;
+          font-size: 0.85rem;
+     }
+}
+
+/* =========================
+    CSS VARIABLES
+    ========================= */
+
+:root {
+     --primary: #2563eb;
+     --glass-border: rgba(37, 99, 235, 0.1);
+     --text-main: #0f172a;
+     --text-dim: #64748b;
+}
