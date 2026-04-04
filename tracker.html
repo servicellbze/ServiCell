@@ -800,21 +800,21 @@
 
                     const dateStr = finalDate ? finalDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Today";
                     secondary.style.border = "none";
-                    secondary.style.borderLeft = "none";
-                    secondary.style.background = "transparent";
+                    secondary.style.background = "rgba(233, 246, 237, 0.1)";
                     secondary.style.padding = "0";
-                    secondary.style.borderRadius = "0";
-                    secondary.innerHTML = `
+                    secondary.style.borderRadius = "20px";
+                    secondary.innerHTML = `;
                     <div class="completion-badge" style="background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #22c55e; padding: 1.25rem; border-radius: 15px; margin-top: 1rem; display: flex; align-items: center; gap: 12px; text-align: left;">
                         <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
                         <div>
                             <h4 style="font-size: 0.65rem; text-transform: uppercase; margin: 0; color: #166534;">Verified Ready</h4>
                             <p style="font-size: 0.9rem; font-weight: 700; margin: 0; color: #064e3b;">Finalized: ${dateStr}</p>
-                        </div>
-                    </div>
-                    <p style="margin-top: 10px; font-size: 0.8rem; color: #475569; font-weight: 500;">
+                       <p style="margin-top: 10px; font-size: 0.8rem; color: #475569; font-weight: 500;">
                         The 3-Day Test Drive window begins at pickup.
-                    </p>`;
+                    </p>
+                            </div>
+                    </div>
+                    `;
                     secondary.style.display = "block";
 
                 } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
