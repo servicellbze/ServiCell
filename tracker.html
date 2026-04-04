@@ -7,7 +7,7 @@
     <title>ServiCell | Live Tracking</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="css/nav.css">
     <style>
         :root {
@@ -702,7 +702,16 @@
             updateLoaderText("Accessing database...");
 
             let progress = 0;
-            const fetchTask = fetch(webAppURL).then(r => r.json()).catch(() => ({ status: "Error" }));
+            const fetchTask = fetch(webAppURL)
+                .then(r => r.text())
+                .then(text => {
+                    try {
+                        return JSON.parse(text);
+                    } catch {
+                        console.error("Non-JSON response:", text);
+                        return { status: "Error" };
+                    }
+                });
 
             function runProgress() {
                 progress += 1;
@@ -744,41 +753,43 @@
             statusLabel.className = "status-text status-blink";
             bar.className = "progress-fill shimmer-effect";
 
-            if (data && data.status !== "Not Found" && data.status !== "Error") {
-                document.getElementById('displayCustomer').innerText = data.name ? `CLIENT: ${data.name.toUpperCase()}` : "VALUED CUSTOMER";
-                deviceLabel.innerText = data.device || 'Mobile Device';
+            // --- KEY MAPPING FIX ---
+            // This ensures that even if the Apps Script uses 'customerName' or 'name', it still works.
+            const customerName = data.customerName || data.name || "VALUED CUSTOMER";
+            const deviceName = data.device || data.hardware || "Mobile Device";
+            const rawStatus = (data.status || '').toLowerCase();
+            const dateCompletedStr = data.dateCompleted || data.completedDate;
+            // -----------------------
 
-                const lastUpdate = data.lastUpdated || data.lastupdated || data.dateUpdated || data.timestamp || data.date;
+            if (data && data.status !== "Not Found" && data.status !== "Error") {
+                document.getElementById('displayCustomer').innerText = `CLIENT: ${customerName.toUpperCase()}`;
+                deviceLabel.innerText = deviceName;
+
+                const lastUpdate = data.lastUpdated || data.dateUpdated || data.timestamp;
                 lastUpdatedLabel.innerText = lastUpdate ? `Last Update: ${lastUpdate}` : "";
 
-                const rawStatus = (data.status || '').toLowerCase();
                 let displayStatus = "STATUS PENDING";
                 let width = "15%";
                 let color = "#2563eb";
 
-
                 const today = new Date();
-                // Critical Fix: Logic uses dateCompleted for storage countdown
-                const finalDate = data.dateCompleted ? new Date(data.dateCompleted) : null;
-                const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "unfixable", "no fix"].some(w => rawStatus.includes(w));
+                const finalDate = dateCompletedStr ? new Date(dateCompletedStr) : null;
+                const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "no fix"].some(w => rawStatus.includes(w));
 
-                // 1. Check for Abandonment (Only if 90 days past COMPLETION)
-                if (finalDate) {
+                // 1. Check for Abandonment
+                if (finalDate && !isNaN(finalDate)) {
                     const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
                     const daysLeft = 90 - diffDays;
 
                     if (daysLeft <= 0) {
                         displayStatus = "DECLARED ABANDONED";
                         width = "100%";
-                        color = "#dc2626"; // Explicitly set to Red
-
+                        color = "#dc2626";
                         statusLabel.className = "status-text status-scary";
-                        statusLabel.style.color = color; // Apply the red color directly
-
+                        statusLabel.style.color = color;
                         bar.classList.add('bar-abandoned');
                         bar.style.width = width;
-                        bar.style.backgroundColor = color; // Ensure the bar is red too
-
+                        bar.style.backgroundColor = color;
                         notesLabel.style.display = "none";
                         secondary.innerHTML = `Unit considered abandoned. Please refer to our <a href="policy.html" style="color: #dc2626; text-decoration: underline;">Storage Policy</a>.`;
                         secondary.style.display = "block";
@@ -803,7 +814,7 @@
                     secondary.style.background = "rgba(233, 246, 237, 0.1)";
                     secondary.style.padding = "0";
                     secondary.style.borderRadius = "20px";
-                    secondary.innerHTML = `;
+                    secondary.innerHTML = `
                     <div class="completion-badge" style="background: linear-gradient(145deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #22c55e; padding: 1.25rem; border-radius: 15px; margin-top: 1rem; display: flex; align-items: center; gap: 12px; text-align: left;">
                         <div style="background: #22c55e; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
                         <div>
