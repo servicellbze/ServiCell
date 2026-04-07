@@ -753,19 +753,22 @@
             statusLabel.className = "status-text status-blink";
             bar.className = "progress-fill shimmer-effect";
 
-            // --- KEY MAPPING FIX ---
-            // This ensures that even if the Apps Script uses 'customerName' or 'name', it still works.
-            const customerName = data.customerName || data.name || "VALUED CUSTOMER";
-            const deviceName = data.device || data.hardware || "Mobile Device";
-            const rawStatus = (data.status || '').toLowerCase();
-            const dateCompletedStr = data.dateCompleted || data.completedDate;
-            // -----------------------
+            // Unwrap the job object returned by the backend: { success: true, job: {...} }
+            const job = (data && data.job) ? data.job : data;
+            const rawName = job.customerName || job.name || "VALUED CUSTOMER";
+            const nameParts = rawName.trim().split(" ");
+            const customerName = nameParts.length > 1
+                ? nameParts[0] + " " + nameParts.slice(1).map(n => n[0] + "*".repeat(n.length - 1)).join(" ")
+                : rawName;
+            const deviceName = job.device || job.hardware || "Mobile Device";
+            const rawStatus = (job.status || '').toLowerCase();
+            const dateCompletedStr = job.dateCompleted || job.completedDate;
 
-            if (data && data.status !== "Not Found" && data.status !== "Error") {
+            if (data && data.success !== false && rawStatus) {
                 document.getElementById('displayCustomer').innerText = `CLIENT: ${customerName.toUpperCase()}`;
                 deviceLabel.innerText = deviceName;
 
-                const lastUpdate = data.lastUpdated || data.dateUpdated || data.timestamp;
+                const lastUpdate = job.lastUpdated || job.dateUpdated || job.timestamp;
                 lastUpdatedLabel.innerText = lastUpdate ? `Last Update: ${lastUpdate}` : "";
 
                 let displayStatus = "STATUS PENDING";
