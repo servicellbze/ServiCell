@@ -702,16 +702,35 @@
             updateLoaderText("Accessing database...");
 
             let progress = 0;
-            const fetchTask = fetch(webAppURL)
+            let fetchDone = false;
+            let fetchData = null;
+            let barDone = false;
+
+            // POST the id as JSON — GAS redirect strips query params in some fetch contexts
+            fetch(webAppURL.split('?')[0], {
+                method: 'POST',
+                body: JSON.stringify({ id: idInput }),
+                headers: { 'Content-Type': 'text/plain' } // GAS requires text/plain for JSON POST
+            })
                 .then(r => r.text())
                 .then(text => {
-                    try {
-                        return JSON.parse(text);
-                    } catch {
-                        console.error("Non-JSON response:", text);
-                        return { status: "Error" };
-                    }
+                    try { fetchData = JSON.parse(text); }
+                    catch { console.error("Non-JSON response:", text); fetchData = { success: false }; }
+                    fetchDone = true;
+                    // If bar already finished waiting, render now
+                    if (barDone) finalize();
+                })
+                .catch(() => {
+                    fetchData = { success: false };
+                    fetchDone = true;
+                    if (barDone) finalize();
                 });
+
+            function finalize() {
+                displayResults(fetchData);
+                trackBtn.disabled = false;
+                trackBtn.innerText = "Track";
+            }
 
             function runProgress() {
                 progress += 1;
@@ -724,11 +743,9 @@
                 if (progress >= 90) updateLoaderText(`Finalizing results for #${paddedID}...`);
 
                 if (progress >= 100) {
-                    fetchTask.then(data => {
-                        displayResults(data);
-                        trackBtn.disabled = false;
-                        trackBtn.innerText = "Track";
-                    });
+                    barDone = true;
+                    // If fetch already finished, render now; otherwise wait for it
+                    if (fetchDone) finalize();
                     return;
                 }
 
@@ -763,8 +780,9 @@
             const deviceName = job.device || job.hardware || "Mobile Device";
             const rawStatus = (job.status || '').toLowerCase();
             const dateCompletedStr = job.dateCompleted || job.completedDate;
+            const dateReceivedStr  = job.dateReceived  || job.dateReceived;
 
-            if (data && data.success !== false && rawStatus) {
+            if (data && data.success !== false) {
                 document.getElementById('displayCustomer').innerText = `CLIENT: ${customerName.toUpperCase()}`;
                 deviceLabel.innerText = deviceName;
 
@@ -777,14 +795,19 @@
 
                 const today = new Date();
                 const finalDate = dateCompletedStr ? new Date(dateCompletedStr) : null;
+                const receivedDate = dateReceivedStr ? new Date(dateReceivedStr) : null;
+                // Use whichever date is most recent for the 90-day storage countdown
+                const referenceDate = finalDate || receivedDate;
                 const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "no fix"].some(w => rawStatus.includes(w));
 
-                // 1. Check for Abandonment
-                if (finalDate && !isNaN(finalDate)) {
-                    const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
+                // 1. Check for Abandonment — backend may have already set status to 'abandoned',
+                //    or we detect it client-side via the 90-day rule on the reference date
+                const isAbandoned = rawStatus === 'abandoned';
+                if (referenceDate && !isNaN(referenceDate)) {
+                    const diffDays = Math.floor((today - referenceDate) / (1000 * 60 * 60 * 24));
                     const daysLeft = 90 - diffDays;
 
-                    if (daysLeft <= 0) {
+                    if (isAbandoned || daysLeft <= 0) {
                         displayStatus = "DECLARED ABANDONED";
                         width = "100%";
                         color = "#dc2626";
@@ -838,8 +861,8 @@
                 }
 
                 // 3. Storage Countdown Logic
-                if (isDone && finalDate) {
-                    const diffDays = Math.floor((today - finalDate) / (1000 * 60 * 60 * 24));
+                if (isDone && referenceDate) {
+                    const diffDays = Math.floor((today - referenceDate) / (1000 * 60 * 60 * 24));
                     const daysLeft = 90 - diffDays;
                     notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
                     notesLabel.style.display = "inline-block";
@@ -963,10 +986,7 @@
         </div>
     </footer>
     <script>
-
-        // Optional: Animate hamburger into an 'X'
-        const spans = document.querySelectorAll(".hamburger span");
-        spans.forEach(span => span.classList.toggle("open"));
+        // hamburger toggle is handled by toggleMenu() in the nav component
     </script>
 </body>
 
