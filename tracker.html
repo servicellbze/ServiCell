@@ -612,9 +612,17 @@
 
             <div class="search-box">
                 <input type="text" id="repairID" placeholder="Ticket ID (e.g. 101)"
-                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off">
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off" maxlength="6">
                 <button class="track-btn" onclick="checkStatus()">Track</button>
             </div>
+            <div class="search-box" style="margin-top: 0;">
+                <span style="padding-left: 14px; font-size: 0.9rem; color: var(--text-dim); display:flex; align-items:center; white-space:nowrap;">Last 4 digits</span>
+                <input type="tel" id="phoneVerify" placeholder="e.g. 3388"
+                    oninput="this.value = this.value.replace(/[^0-9]/g, '')" autocomplete="off" maxlength="4">
+            </div>
+            <p style="font-size: 0.72rem; color: var(--text-dim); margin-bottom: 1.5rem; margin-top: -0.5rem;">
+                🔒 Last 4 digits of the phone number used at intake
+            </p>
 
             <div id="loader" style="display:none;">
                 <div class="loader-text" id="loaderText">...</div>
@@ -634,6 +642,24 @@
                 </div>
 
                 <div id="displayStatus" class="status-text">---</div>
+
+                <!-- Technician Notes — hidden when blank -->
+                <div id="techNotesWrap" style="display:none; margin-top: 1rem; text-align:left; background: rgba(37,99,235,0.05); border: 1px solid rgba(37,99,235,0.15); border-left: 3px solid var(--primary); border-radius: 12px; padding: 0.75rem 1rem;">
+                    <p style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); margin-bottom: 4px;">🔧 Technician Notes</p>
+                    <p id="techNotesText" style="font-size: 0.85rem; color: var(--text-main); font-weight: 500; line-height: 1.5; margin: 0;"></p>
+                </div>
+
+                <!-- Estimated Completion — always shown -->
+                <div id="estCompletionWrap" style="margin-top: 0.75rem; text-align:left; background: rgba(245,158,11,0.05); border: 1px solid rgba(245,158,11,0.2); border-left: 3px solid #f59e0b; border-radius: 12px; padding: 0.75rem 1rem;">
+                    <p style="font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #b45309; margin-bottom: 4px;">📅 Estimated Completion</p>
+                    <p id="estCompletionText" style="font-size: 0.85rem; color: var(--text-main); font-weight: 600; margin: 0;">To be determined</p>
+                </div>
+
+                <!-- Policy link — always visible -->
+                <p style="margin-top: 1rem; font-size: 0.72rem; color: var(--text-dim);">
+                    View our <a href="policy.html" style="color: var(--primary); text-decoration: underline; font-weight: 600;">Storage &amp; Repair Policy</a>
+                </p>
+
                 <p id="secondaryInfo" style="
     font-size: 0.78rem;
     color: #dc2626;
@@ -685,7 +711,18 @@
 
         async function checkStatus() {
             const idInput = document.getElementById('repairID').value.trim();
-            if (!idInput) return;
+            const phoneInput = document.getElementById('phoneVerify').value.trim();
+
+            if (!idInput) {
+                document.getElementById('repairID').focus();
+                return;
+            }
+            if (!phoneInput || phoneInput.length !== 4) {
+                document.getElementById('phoneVerify').focus();
+                document.getElementById('phoneVerify').style.outline = '2px solid #dc2626';
+                setTimeout(() => document.getElementById('phoneVerify').style.outline = '', 2000);
+                return;
+            }
 
             const trackBtn = document.querySelector('.track-btn');
             trackBtn.disabled = true;
@@ -706,10 +743,10 @@
             let fetchData = null;
             let barDone = false;
 
-            // POST the id as JSON — GAS redirect strips query params in some fetch contexts
+            // POST the id + phone verification — GAS redirect strips query params in some fetch contexts
             fetch(webAppURL.split('?')[0], {
                 method: 'POST',
-                body: JSON.stringify({ id: idInput }),
+                body: JSON.stringify({ id: idInput, phone4: phoneInput }),
                 headers: { 'Content-Type': 'text/plain' } // GAS requires text/plain for JSON POST
             })
                 .then(r => r.text())
@@ -755,6 +792,22 @@
             runProgress();
         }
 
+        // ── Helpers ──────────────────────────────────────────────────────────────
+        function formatReadableDate(raw) {
+            if (!raw) return null;
+            const d = new Date(raw);
+            if (isNaN(d)) return null;
+            // If time component is exactly midnight UTC, treat as date-only (day setting)
+            const isDateOnly = d.getUTCHours() === 0 && d.getUTCMinutes() === 0 && d.getUTCSeconds() === 0;
+            if (isDateOnly) {
+                return d.toLocaleDateString('en-BZ', { month: 'long', day: 'numeric', year: 'numeric' });
+            }
+            // Day + time setting
+            return d.toLocaleDateString('en-BZ', { month: 'long', day: 'numeric', year: 'numeric' })
+                + ' at '
+                + d.toLocaleTimeString('en-BZ', { hour: 'numeric', minute: '2-digit', hour12: true });
+        }
+
         function displayResults(data) {
             document.getElementById('loader').style.display = "none";
             const resultArea = document.getElementById('resultArea');
@@ -770,6 +823,21 @@
             statusLabel.className = "status-text status-blink";
             bar.className = "progress-fill shimmer-effect";
 
+            // Phone verification failed on backend
+            if (data && data.authFailed) {
+                document.getElementById('displayCustomer').innerText = "ACCESS DENIED";
+                deviceLabel.innerText = "Verification Failed";
+                statusLabel.innerText = "INCORRECT DETAILS";
+                statusLabel.style.color = "#dc2626";
+                bar.style.width = "0%";
+                notesLabel.style.display = "none";
+                secondary.innerHTML = "The Ticket ID or last 4 digits of the phone number do not match. Please check your details or contact ServiCell.";
+                secondary.style.display = "block";
+                document.getElementById('techNotesWrap').style.display = "none";
+                document.getElementById('estCompletionWrap').style.display = "none";
+                return;
+            }
+
             // Unwrap the job object returned by the backend: { success: true, job: {...} }
             const job = (data && data.job) ? data.job : data;
             const rawName = job.customerName || job.name || "VALUED CUSTOMER";
@@ -780,14 +848,33 @@
             const deviceName = job.device || job.hardware || "Mobile Device";
             const rawStatus = (job.status || '').toLowerCase();
             const dateCompletedStr = job.dateCompleted || job.completedDate;
-            const dateReceivedStr  = job.dateReceived  || job.dateReceived;
+            // FIX: was job.dateReceived || job.dateReceived (duplicate) — corrected fallback
+            const dateReceivedStr  = job.dateReceived  || job.receivedDate;
 
             if (data && data.success !== false) {
                 document.getElementById('displayCustomer').innerText = `CLIENT: ${customerName.toUpperCase()}`;
                 deviceLabel.innerText = deviceName;
 
-                const lastUpdate = job.lastUpdated || job.dateUpdated || job.timestamp;
-                lastUpdatedLabel.innerText = lastUpdate ? `Last Update: ${lastUpdate}` : "";
+                // Readable last-updated timestamp — handles date-only and date+time
+                const lastUpdate = job.lastUpdated || job.dateUpdated || job.timestamp || dateCompletedStr || dateReceivedStr;
+                lastUpdatedLabel.innerText = lastUpdate ? `Last Update: ${formatReadableDate(lastUpdate)}` : "";
+
+                // Technician notes — show only if present
+                const techNotes = (job.notes || '').trim();
+                if (techNotes) {
+                    document.getElementById('techNotesText').innerText = techNotes;
+                    document.getElementById('techNotesWrap').style.display = "block";
+                } else {
+                    document.getElementById('techNotesWrap').style.display = "none";
+                }
+
+                // Estimated completion — nullable, graceful fallback
+                const estRaw = job.estimatedCompletion || job.estimatedDate || '';
+                const estFormatted = estRaw ? formatReadableDate(estRaw) : null;
+                document.getElementById('estCompletionText').innerText = estFormatted || 'To be determined';
+                // Hide the ETA block once the device is done
+                const isDoneStatus = ["completed","ready","done","pickup","finished","unsuccessful","no fix","abandoned"].some(w => rawStatus.includes(w));
+                document.getElementById('estCompletionWrap').style.display = isDoneStatus ? "none" : "block";
 
                 let displayStatus = "STATUS PENDING";
                 let width = "15%";
@@ -886,6 +973,8 @@
                 statusLabel.style.color = "#dc2626";
                 bar.style.width = "0%";
                 notesLabel.innerText = "Check your Ticket ID or contact ServiCell Belize.";
+                document.getElementById('techNotesWrap').style.display = "none";
+                document.getElementById('estCompletionWrap').style.display = "none";
             }
         }
     </script>
@@ -955,7 +1044,7 @@
                     <span style="color: var(--primary);">📞</span> +501 615-3388
                 </p>
                 <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">✉️</span> servicellbze@gmail.com
+                    <span style="color: var(--primary);">✉️</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4f594e4a555f5950505e46597c5b515d5550125f5351">[email&#160;protected]</a>
                 </p>
             </div>
 
@@ -985,9 +1074,3 @@
             <p>© 2026 ServiCell Belize. All rights reserved.</p>
         </div>
     </footer>
-    <script>
-        // hamburger toggle is handled by toggleMenu() in the nav component
-    </script>
-</body>
-
-</html>
