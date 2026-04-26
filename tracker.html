@@ -871,10 +871,30 @@
                 // Estimated completion — nullable, graceful fallback
                 const estRaw = job.estimatedCompletion || job.estimatedDate || '';
                 const estFormatted = estRaw ? formatReadableDate(estRaw) : null;
-                document.getElementById('estCompletionText').innerText = estFormatted || 'To be determined';
-                // Hide the ETA block once the device is done
-                const isDoneStatus = ["completed","ready","done","pickup","finished","unsuccessful","no fix","abandoned"].some(w => rawStatus.includes(w));
-                document.getElementById('estCompletionWrap').style.display = isDoneStatus ? "none" : "block";
+                
+                // Check if device is picked up (resolved status)
+                const isPickedUp = ["resolved", "picked up", "pickedup"].some(w => rawStatus.includes(w));
+                const isDoneStatus = ["completed","ready","done","pickup","finished","unsuccessful","no fix","abandoned","resolved"].some(w => rawStatus.includes(w));
+                
+                if (isPickedUp && dateCompletedStr) {
+                    // Show completion date instead of estimated date
+                    const completionFormatted = formatReadableDate(dateCompletedStr);
+                    document.getElementById('estCompletionWrap').querySelector('p:first-child').innerText = '✅ COMPLETION DATE';
+                    document.getElementById('estCompletionWrap').style.background = 'rgba(34,197,94,0.05)';
+                    document.getElementById('estCompletionWrap').style.borderLeft = '3px solid #22c55e';
+                    document.getElementById('estCompletionWrap').querySelector('p:first-child').style.color = '#15803d';
+                    document.getElementById('estCompletionText').innerText = completionFormatted || 'Completed';
+                    document.getElementById('estCompletionWrap').style.display = "block";
+                } else {
+                    // Reset to default styling for estimated completion
+                    document.getElementById('estCompletionWrap').querySelector('p:first-child').innerText = '📅 ESTIMATED COMPLETION';
+                    document.getElementById('estCompletionWrap').style.background = 'rgba(245,158,11,0.05)';
+                    document.getElementById('estCompletionWrap').style.borderLeft = '3px solid #f59e0b';
+                    document.getElementById('estCompletionWrap').querySelector('p:first-child').style.color = '#b45309';
+                    document.getElementById('estCompletionText').innerText = estFormatted || 'To be determined';
+                    // Hide the ETA block once the device is done (but not for picked up status)
+                    document.getElementById('estCompletionWrap').style.display = isDoneStatus && !isPickedUp ? "none" : "block";
+                }
 
                 let displayStatus = "STATUS PENDING";
                 let width = "15%";
@@ -885,7 +905,7 @@
                 const receivedDate = dateReceivedStr ? new Date(dateReceivedStr) : null;
                 // Use whichever date is most recent for the 90-day storage countdown
                 const referenceDate = finalDate || receivedDate;
-                const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "no fix"].some(w => rawStatus.includes(w));
+                const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "no fix", "resolved"].some(w => rawStatus.includes(w));
 
                 // 1. Check for Abandonment — backend may have already set status to 'abandoned',
                 //    or we detect it client-side via the 90-day rule on the reference date
@@ -918,6 +938,28 @@
                     displayStatus = "REPAIR IN PROGRESS"; width = "50%"; color = "#ef4444";
                 } else if (["testing", "qc", "checking", "finalizing"].some(w => rawStatus.includes(w))) {
                     displayStatus = "FINAL TESTING"; width = "75%"; color = "#f59e0b";
+                } else if (["resolved", "picked up", "pickedup"].some(w => rawStatus.includes(w))) {
+                    displayStatus = "PICKED UP"; width = "100%"; color = "#8b5cf6";
+                    
+                    const dateStr = finalDate ? finalDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : "Recently";
+                    secondary.style.border = "none";
+                    secondary.style.background = "rgba(243, 232, 255, 0.1)";
+                    secondary.style.padding = "0";
+                    secondary.style.borderRadius = "20px";
+                    secondary.innerHTML = `
+                    <div class="completion-badge" style="background: linear-gradient(145deg, #faf5ff 0%, #f3e8ff 100%); border-left: 4px solid #8b5cf6; padding: 1.25rem; border-radius: 15px; margin-top: 1rem; display: flex; align-items: center; gap: 12px; text-align: left;">
+                        <div style="background: #8b5cf6; color: white; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold;">✓</div>
+                        <div>
+                            <h4 style="font-size: 0.65rem; text-transform: uppercase; margin: 0; color: #6b21a8;">Device Collected</h4>
+                            <p style="font-size: 0.9rem; font-weight: 700; margin: 0; color: #581c87;">Picked up: ${dateStr}</p>
+                            <p style="margin-top: 10px; font-size: 0.8rem; color: #475569; font-weight: 500;">
+                                Thank you for choosing ServiCell!
+                            </p>
+                        </div>
+                    </div>
+                    `;
+                    secondary.style.display = "block";
+                    
                 } else if (["completed", "ready", "done", "pickup", "finished"].some(w => rawStatus.includes(w))) {
                     displayStatus = "READY FOR PICKUP"; width = "100%"; color = "#22c55e";
                     confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 }, colors: ['#2563eb', '#ffffff'] });
@@ -1043,9 +1085,8 @@
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
                     <span style="color: var(--primary);">📞</span> +501 615-3388
                 </p>
-               <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">✉️</span> 
-                    <a href="mailto:servicellbze@gmail.com" style="text-decoration: none; color: inherit;">servicellbze@gmail.com</a>
+                <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
+                    <span style="color: var(--primary);">✉️</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3c4f594e4a555f5950505e46597c5b515d5550125f5351">[email&#160;protected]</a>
                 </p>
             </div>
 
