@@ -828,6 +828,42 @@
     <br>
 
     <script>
+        // QR Code Auto-Fill: Check for URL parameters
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('job');
+            
+            if (jobId) {
+                // Wait for DOM to be ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', function() {
+                        fillJobId(jobId);
+                    });
+                } else {
+                    fillJobId(jobId);
+                }
+            }
+            
+            function fillJobId(id) {
+                const jobField = document.getElementById('repairID');
+                const phoneField = document.getElementById('phoneVerify');
+                
+                if (jobField && phoneField) {
+                    // Fill the job ID field
+                    jobField.value = id;
+                    
+                    // Focus the phone field so user can immediately type
+                    phoneField.focus();
+                    
+                    // Optional: Add a subtle highlight to show it was auto-filled
+                    jobField.style.background = 'rgba(37, 99, 235, 0.05)';
+                    setTimeout(() => {
+                        jobField.style.background = '';
+                    }, 2000);
+                }
+            }
+        })();
+
         document.getElementById('repairID').addEventListener('keydown', (e) => {
             if (e.key === 'Enter') checkStatus();
         });
