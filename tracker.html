@@ -179,6 +179,24 @@
             opacity: 0.4;
         }
 
+        /* Remove autofill styling for seamless appearance */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important;
+            -webkit-text-fill-color: var(--text-main) !important;
+            transition: background-color 5000s ease-in-out 0s;
+        }
+
+        [data-theme="dark"] input:-webkit-autofill,
+        [data-theme="dark"] input:-webkit-autofill:hover,
+        [data-theme="dark"] input:-webkit-autofill:focus,
+        [data-theme="dark"] input:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px var(--input-bg) inset !important;
+            -webkit-text-fill-color: var(--text-main) !important;
+        }
+
         .track-btn {
             background: var(--primary);
             border-radius: 18px;
@@ -854,12 +872,6 @@
                     
                     // Focus the phone field so user can immediately type
                     phoneField.focus();
-                    
-                    // Optional: Add a subtle highlight to show it was auto-filled
-                    jobField.style.background = 'rgba(37, 99, 235, 0.05)';
-                    setTimeout(() => {
-                        jobField.style.background = '';
-                    }, 2000);
                 }
             }
         })();
