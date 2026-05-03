@@ -9,18 +9,9 @@
         rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
 
     <style>
-        :root {
-            --primary: #2563eb;
-            --accent: #3b82f6;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --glass: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(37, 99, 235, 0.1);
-            --text-main: #0f172a;
-            --text-dim: #64748b;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -34,6 +25,7 @@
             color: var(--text-main);
             min-height: 100vh;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Animated Background Blobs */
@@ -499,6 +491,7 @@
             spans.forEach(span => span.classList.toggle("open"));
         }
     </script>
+    <script src="css/dark-mode.js"></script>
 </body>
 
 </html>

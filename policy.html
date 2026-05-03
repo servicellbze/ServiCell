@@ -9,18 +9,9 @@
         rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="css/nav.css">
+    <link rel="stylesheet" href="css/dark-mode.css">
 
     <style>
-        :root {
-            --primary: #2563eb;
-            --accent: #3b82f6;
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --glass: rgba(255, 255, 255, 0.85);
-            --glass-border: rgba(37, 99, 235, 0.1);
-            --text-main: #0f172a;
-            --text-dim: #64748b;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -33,6 +24,7 @@
             color: var(--text-main);
             line-height: 1.6;
             min-height: 100vh;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         /* Animated Background Blobs */
@@ -91,13 +83,18 @@
 
         /* Policy Card */
         .policy-card {
-            background: var(--glass);
+            background: var(--card-bg);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 3.5rem;
             border-radius: 35px;
             border: 1px solid var(--glass-border);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.03);
+            transition: background 0.3s ease, border-color 0.3s ease;
+        }
+
+        [data-theme="dark"] .policy-card {
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
 
         .policy-num {
@@ -131,17 +128,17 @@
 
         .policy-card p {
             margin-bottom: 1rem;
-            color: #475569;
+            color: var(--text-dim);
         }
 
         p {
-            color: #ffffff;
+            color: var(--text-main);
             text-align: inherit;
         }
 
         ul {
             margin: 1rem 0 1.5rem 1.5rem;
-            color: #475569;
+            color: var(--text-dim);
         }
 
         li {
@@ -149,12 +146,17 @@
         }
 
         .pro-tip {
-            background: #eff6ff;
+            background: rgba(59, 130, 246, 0.05);
             border-left: 5px solid var(--primary);
             padding: 1.5rem;
             border-radius: 15px;
             margin: 2rem 0;
             font-size: 0.95rem;
+            transition: background 0.3s ease;
+        }
+
+        [data-theme="dark"] .pro-tip {
+            background: rgba(59, 130, 246, 0.1);
         }
 
         /* Print Button */
@@ -172,14 +174,21 @@
             box-shadow: 0 10px 20px rgba(37, 99, 235, 0.3);
             transition: 0.3s;
             z-index: 100;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
-        /* Footer Stying */
+        .print-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        /* Footer Styling */
         footer {
-            background: #111827;
+            background: var(--footer-bg);
             padding: 4rem 2rem;
-            color: #ffffff;
+            color: var(--footer-text);
             margin-top: 4rem;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         .footer-grid {
@@ -348,9 +357,9 @@
             </p>
 
             <div
-                style="margin-top: 10px; padding: 12px 15px; background: #f8fafc; border-left: 3px solid #cbd5e1; border-radius: 8px;">
-                <p style="font-size: 0.85rem; color: #64748b; margin: 0; line-height: 1.4;">
-                    <strong style="color: #475569;">Note:</strong> While we stand by our <strong>installation</strong>,
+                style="margin-top: 10px; padding: 12px 15px; background: var(--input-bg); border-left: 3px solid var(--glass-border); border-radius: 8px; transition: background 0.3s ease, border-color 0.3s ease;">
+                <p style="font-size: 0.85rem; color: var(--text-dim); margin: 0; line-height: 1.4;">
+                    <strong style="color: var(--text-main);">Note:</strong> While we stand by our <strong>installation</strong>,
                     third-party parts
                     sourced elsewhere are excluded from this 3-day replacement window. If a customer-supplied part
                     fails,
@@ -377,7 +386,7 @@
                     onmouseout="this.style.borderBottomColor='rgba(37, 99, 235, 0.2)'">
                     Live Repair Tracking 🔍
                 </a>
-                anytime. Just use the ticket number we gave you and the last four digits of the phone number you provided at drop-off!
+                anytime. Just use the ticket number we gave you at drop-off!
             </div>
             <h3>90-Day Storage Rule</h3>
             <p>While your device is in our care, we treat it like our own. However, once that <strong>90-day window
@@ -411,7 +420,7 @@
         </div>
     </div>
 
-    <footer style="background: #111827; padding: 3rem 1.5rem; color: #94a3b8; border-top: 4px solid var(--primary);">
+    <footer style="background: var(--footer-bg); padding: 3rem 1.5rem; color: var(--footer-text); border-top: 4px solid var(--primary); transition: background 0.3s ease, color 0.3s ease;">
         <style>
             .footer-grid {
                 max-width: 1200px;
@@ -419,6 +428,14 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 2.5rem;
+            }
+
+            footer h3, footer h4 {
+                color: var(--text-main) !important;
+            }
+
+            footer p {
+                color: var(--footer-text) !important;
             }
 
             @media (max-width: 600px) {
@@ -556,6 +573,7 @@
             }
         });
     </script>
+    <script src="css/dark-mode.js"></script>
 </body>
 
 </html>
