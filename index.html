@@ -354,7 +354,7 @@
         <p style="color: var(--text-dim); font-size: 0.85rem; margin-top: 5px;">Based on 100+ local repairs</p>
     </div>
 
-    <footer style="background: #111827; padding: 3rem 1.5rem; color: #94a3b8; border-top: 4px solid var(--primary);">
+    <footer style="background: #111827; padding: 3rem 1.5rem; color: #cbd5e1; border-top: 4px solid var(--primary); transition: background 0.3s ease, color 0.3s ease;">
         <style>
             .footer-grid {
                 max-width: 1200px;
@@ -362,6 +362,26 @@
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
                 gap: 2.5rem;
+            }
+
+            footer h3, footer h4 {
+                color: #ffffff !important;
+            }
+
+            footer p {
+                color: #cbd5e1 !important;
+            }
+
+            footer .hour-row span:last-child {
+                color: #ffffff !important;
+            }
+
+            footer .social-container > span {
+                color: #ffffff !important;
+            }
+
+            [data-theme="dark"] footer {
+                background: #020617;
             }
 
             @media (max-width: 600px) {
@@ -385,7 +405,7 @@
             <div>
                 <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
                     <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
-                    <h3 style="color: white; font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
+                    <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
                             style="color: var(--primary);">.</span></h3>
                 </div>
                 <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
@@ -395,7 +415,7 @@
 
                 <div class="social-container" style="display: flex; flex-direction: column; gap: 10px;">
                     <span
-                        style="color: white; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
+                        style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
                         Us!</span>
                     <div class="social-links" style="display: flex; gap: 15px;">
                         <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
@@ -408,7 +428,7 @@
 
             <div>
                 <h4
-                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    style="font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
                     Visit Us</h4>
                 <p class="contact-item"
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
@@ -425,21 +445,21 @@
 
             <div>
                 <h4
-                    style="color: white; font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                    style="font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
                     Business Hours</h4>
-                <div
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem; font-size: 0.9rem;">
+                <div class="hour-row"
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
                     <span>Mon – Fri</span>
-                    <span style="color: white;">8:00 AM – 8:00 PM</span>
+                    <span>8:00 AM – 8:00 PM</span>
                 </div>
-                <div
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 0.4rem; font-size: 0.9rem;">
+                <div class="hour-row"
+                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
                     <span>Saturday</span>
-                    <span style="color: white;">9:00 AM – 7:00 PM</span>
+                    <span>9:00 AM – 7:00 PM</span>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem;">
+                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--footer-text);">
                     <span>Sunday</span>
-                    <span style="color: #ef4444;">Closed</span>
+                    <span style="color: #ef4444; font-weight: 700;">Closed</span>
                 </div>
             </div>
         </div>
