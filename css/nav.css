@@ -7,7 +7,7 @@ nav {
      top: 25px;
      left: 50%;
      transform: translateX(-50%);
-     background: rgba(255, 255, 255, 0.8);
+     background: var(--nav-bg);
      backdrop-filter: blur(15px);
      -webkit-backdrop-filter: blur(15px);
      padding: 10px 20px;
@@ -17,6 +17,11 @@ nav {
      width: fit-content;
      max-width: 95%;
      box-shadow: 0 10px 30px rgba(37, 99, 235, 0.1);
+     transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+[data-theme="dark"] nav {
+     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nav-wrapper {
@@ -31,6 +36,7 @@ nav {
      color: var(--primary);
      font-size: 1rem;
      white-space: nowrap;
+     transition: color 0.3s ease;
 }
 
 /* =========================
@@ -57,6 +63,11 @@ nav {
 .nav-btn.active {
      color: var(--primary);
      background: rgba(37, 99, 235, 0.05);
+}
+
+[data-theme="dark"] .nav-btn:hover,
+[data-theme="dark"] .nav-btn.active {
+     background: rgba(59, 130, 246, 0.15);
 }
 
 /* =========================
@@ -119,7 +130,7 @@ nav {
           width: 90%;
           max-width: 400px;
           flex-direction: column;
-          background: rgba(255, 255, 255, 0.95);
+          background: var(--nav-mobile-bg);
           backdrop-filter: blur(20px);
           border-radius: 16px;
           padding: 12px 0;
@@ -127,8 +138,12 @@ nav {
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
           opacity: 0;
           pointer-events: none;
-          transition: opacity 0.3s ease, transform 0.3s ease;
+          transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
           z-index: 999;
+     }
+
+     [data-theme="dark"] .nav-links {
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
      }
 
      .nav-links.active {
@@ -192,4 +207,15 @@ nav {
      --glass-border: rgba(37, 99, 235, 0.1);
      --text-main: #0f172a;
      --text-dim: #64748b;
+     --nav-bg: rgba(255, 255, 255, 0.95);
+     --nav-mobile-bg: rgba(255, 255, 255, 0.95);
+}
+
+[data-theme="dark"] {
+     --primary: #3b82f6;
+     --glass-border: rgba(59, 130, 246, 0.2);
+     --text-main: #f1f5f9;
+     --text-dim: #94a3b8;
+     --nav-bg: rgba(15, 23, 42, 0.95);
+     --nav-mobile-bg: rgba(15, 23, 42, 0.95);
 }

@@ -124,6 +124,10 @@
     color: var(--text-main);
 }
 
+[data-theme="dark"] .blob {
+    opacity: 0.08;
+}
+
 [data-theme="dark"] .card,
 [data-theme="dark"] .content-card,
 [data-theme="dark"] .glass-card,
@@ -181,6 +185,23 @@
     color: var(--footer-text);
 }
 
+[data-theme="dark"] footer h3,
+[data-theme="dark"] footer h4 {
+    color: var(--text-main) !important;
+}
+
+[data-theme="dark"] footer p {
+    color: var(--footer-text) !important;
+}
+
+[data-theme="dark"] footer .social-container > span {
+    color: var(--text-main) !important;
+}
+
+[data-theme="dark"] footer .hour-row span:last-child {
+    color: var(--text-main) !important;
+}
+
 [data-theme="dark"] .logo-item,
 [data-theme="dark"] .contact-method,
 [data-theme="dark"] .work-label {
@@ -196,6 +217,10 @@
 [data-theme="dark"] .benefits-list li {
     background: rgba(59, 130, 246, 0.05);
     border-left-color: var(--primary);
+}
+
+[data-theme="dark"] .benefits-list li strong {
+    color: var(--text-main);
 }
 
 [data-theme="dark"] .icon-box {
