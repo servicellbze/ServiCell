@@ -864,6 +864,8 @@
     <br>
     <br>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
     <script>
         // QR Code Auto-Fill: Check for URL parameters
         (function() {
@@ -935,14 +937,21 @@
                 return;
             }
 
+            const jobId = parseInt(idInput, 10);
+            if (!Number.isFinite(jobId) || jobId <= 0) {
+                idBox.classList.add('error');
+                document.getElementById('repairID').focus();
+                return;
+            }
+
             const trackBtn = document.querySelector('.track-btn');
+            const trackBtnLabel = "Track My Repair";
             trackBtn.disabled = true;
             trackBtn.innerText = "...";
 
             const loader = document.getElementById('loader');
             const resultArea = document.getElementById('resultArea');
             const loaderBar = document.getElementById('loaderBar');
-            const webAppURL = `https://script.google.com/macros/s/AKfycbyLNGR6L75MieV_R-s9yyjTfzpAAut_HIwhbZBBNyPxj9WDzRLNWics0FZ1ZayI3imx/exec?id=${idInput}`;
 
             resultArea.style.display = "none";
             loader.style.display = "block";
@@ -954,30 +963,27 @@
             let fetchData = null;
             let barDone = false;
 
-            // POST the id + phone verification — GAS redirect strips query params in some fetch contexts
-            fetch(webAppURL.split('?')[0], {
-                method: 'POST',
-                body: JSON.stringify({ id: idInput, phone4: phoneInput }),
-                headers: { 'Content-Type': 'text/plain' } // GAS requires text/plain for JSON POST
-            })
-                .then(r => r.text())
-                .then(text => {
-                    try { fetchData = JSON.parse(text); }
-                    catch { console.error("Non-JSON response:", text); fetchData = { success: false }; }
-                    fetchDone = true;
-                    // If bar already finished waiting, render now
-                    if (barDone) finalize();
-                })
-                .catch(() => {
+            (async () => {
+                try {
+                    const { createClient } = window.supabase;
+                    const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+                    const { data, error } = await supabase.rpc('track_repair', {
+                        p_job_id: jobId,
+                        p_phone4: phoneInput
+                    });
+                    fetchData = error ? { success: false } : (data || { success: false });
+                } catch (err) {
+                    console.error("Tracker lookup failed:", err);
                     fetchData = { success: false };
-                    fetchDone = true;
-                    if (barDone) finalize();
-                });
+                }
+                fetchDone = true;
+                if (barDone) finalize();
+            })();
 
             function finalize() {
                 displayResults(fetchData);
                 trackBtn.disabled = false;
-                trackBtn.innerText = "Track";
+                trackBtn.innerText = trackBtnLabel;
             }
 
             function runProgress() {
@@ -1031,6 +1037,7 @@
 
             resultArea.style.display = "block";
             secondary.style.display = "none";
+            notesLabel.style.display = "inline-block";
             statusLabel.className = "status-text status-blink";
             bar.className = "progress-fill shimmer-effect";
 
@@ -1192,7 +1199,7 @@
                             <h4 style="font-size: 0.65rem; text-transform: uppercase; margin: 0; color: #22c55e;">Verified Ready</h4>
                             <p style="font-size: 0.9rem; font-weight: 700; margin: 0; color: var(--text-main);">Finalized: ${dateStr}</p>
                        <p style="margin-top: 10px; font-size: 0.8rem; color: var(--text-dim); font-weight: 500;">
-                        The 3-Day Test Drive window begins at pickup.
+                        Your short-term warranty (minimum 3 days) begins at pickup.
                     </p>
                             </div>
                     </div>
