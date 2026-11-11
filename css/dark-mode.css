@@ -86,38 +86,6 @@
     box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-/* Responsive Toggle */
-@media (max-width: 768px) {
-    .theme-toggle {
-        top: 80px;
-        right: 15px;
-        padding: 8px 14px;
-        font-size: 0.8rem;
-    }
-
-    .theme-toggle-icon {
-        font-size: 1rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .theme-toggle {
-        top: 75px;
-        right: 10px;
-        padding: 8px 12px;
-        font-size: 0.75rem;
-        gap: 6px;
-    }
-
-    .theme-toggle-icon {
-        font-size: 1.1rem;
-    }
-
-    .theme-toggle span:not(.theme-toggle-icon) {
-        display: none;
-    }
-}
-
 /* Universal Dark Mode Styles */
 [data-theme="dark"] body {
     background: var(--bg-gradient);
@@ -175,31 +143,9 @@
     color: #64748b;
 }
 
-[data-theme="dark"] button:not(.theme-toggle) {
+[data-theme="dark"] button:not(.theme-toggle):not(.hamburger) {
     background: var(--primary);
     color: white;
-}
-
-[data-theme="dark"] footer {
-    background: var(--footer-bg);
-    color: var(--footer-text);
-}
-
-[data-theme="dark"] footer h3,
-[data-theme="dark"] footer h4 {
-    color: var(--text-main) !important;
-}
-
-[data-theme="dark"] footer p {
-    color: var(--footer-text) !important;
-}
-
-[data-theme="dark"] footer .social-container > span {
-    color: var(--text-main) !important;
-}
-
-[data-theme="dark"] footer .hour-row span:last-child {
-    color: var(--text-main) !important;
 }
 
 [data-theme="dark"] .logo-item,
@@ -236,7 +182,7 @@
 }
 
 /* Navigation Dark Mode */
-[data-theme="dark"] nav {
+[data-theme="dark"] nav[aria-label="Main"] {
     background: var(--nav-bg);
     border-color: var(--glass-border);
 }

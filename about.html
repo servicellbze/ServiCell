@@ -4,12 +4,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiCell | About</title>
+    <title>About ServiCell Belize | Phone Repair Since 2014</title>
+    <meta name="description" content="Since 2014, ServiCell has fixed phones in Belize City with honest estimates, fast turnaround and a small team of dedicated technicians. Meet the team and see our work.">
+    <link rel="canonical" href="https://servicellbze.github.io/ServiCell/about.html">
+    <meta name="theme-color" content="#2563eb">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ServiCell Belize">
+    <meta property="og:locale" content="en_BZ">
+    <meta property="og:title" content="About ServiCell Belize | Phone Repair Since 2014">
+    <meta property="og:description" content="Since 2014, ServiCell has fixed phones in Belize City with honest estimates, fast turnaround and a small team of dedicated technicians. Meet the team and see our work.">
+    <meta property="og:url" content="https://servicellbze.github.io/ServiCell/about.html">
+    <meta property="og:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ServiCell Belize — phone repair in Belize City">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About ServiCell Belize | Phone Repair Since 2014">
+    <meta name="twitter:description" content="Since 2014, ServiCell has fixed phones in Belize City with honest estimates, fast turnaround and a small team of dedicated technicians. Meet the team and see our work.">
+    <meta name="twitter:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <script src="css/dark-mode.js"></script>
+    <script src="js/site.js" defer></script>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="css/site.css">
 
     <style>
         * {
@@ -205,20 +230,15 @@
             text-align: center;
         }
 
+        .work-label a,
+        [data-theme="dark"] .work-label a {
+            color: #fff;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
         [data-theme="dark"] .work-label {
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.9));
-        }
-
-        /* Footer */
-        footer p {
-            color: #ffffff !important;
-            /* Forces the text to stay white/readable */
-            margin-bottom: 0.8rem;
-            /* Overrides the 1rem policy margin */
-        }
-
-        footer .contact-item {
-            color: #ffffff !important;
         }
 
         .fade-in-element {
@@ -262,70 +282,45 @@
             }
         }
     </style>
-
-    <script>
-        // 1. Load the Navigation Component
-        fetch('components/nav.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-
-                // 2. Set the "Active" link based on the current page
-                const links = document.querySelectorAll('.nav-btn');
-                const currentPath = window.location.pathname;
-
-                links.forEach(link => {
-                    if (currentPath.includes(link.getAttribute('href'))) {
-                        link.classList.add('active');
-                    }
-                });
-            })
-            .catch(err => console.error("Error loading navigation:", err));
-
-        // 3. Global Toggle Function (Accessible by the 'onclick' in your HTML)
-        function toggleMenu() {
-            const menu = document.getElementById('navLinks');
-            const burger = document.querySelector('.hamburger');
-
-            if (menu && burger) {
-                menu.classList.toggle('active');
-                burger.classList.toggle('active'); // Ensure CSS uses .hamburger.active span
-            }
-        }
-
-        // 4. Close menu when clicking outside or on a link
-        document.addEventListener('click', function (e) {
-            const menu = document.getElementById('navLinks');
-            const burger = document.querySelector('.hamburger');
-
-            // Close if clicking a link
-            if (e.target.classList.contains('nav-btn')) {
-                menu?.classList.remove('active');
-                burger?.classList.remove('active');
-            }
-
-            // Close if clicking outside the nav area
-            if (menu?.classList.contains('active')) {
-                if (!menu.contains(e.target) && !burger.contains(e.target)) {
-                    menu.classList.remove('active');
-                    burger.classList.remove('active');
-                }
-            }
-        });
-    </script>
 </head>
 
-<body class="fade-in-element">
+<body>
     <div class="bg-blobs">
         <div class="blob" style="width: 600px; height: 600px; top: -150px; left: -150px;"></div>
         <div class="blob" style="width: 450px; height: 450px; bottom: 5%; right: -50px; background: #60a5fa;"></div>
     </div>
 
-    <div id="nav-placeholder"></div>
+    <!-- partial:nav -->
+    <nav aria-label="Main">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo-text">ServiCell Belize</a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="index.html#services" class="nav-btn" data-section="services">Services</a>
+                <a href="about.html" class="nav-btn active" aria-current="page">About</a>
+                <a href="tracker.html" class="nav-btn">Tracker</a>
+                <a href="policy.html" class="nav-btn">Policy</a>
+                <a href="contact.html" class="nav-btn">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+                </button>
+                <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- /partial:nav -->
 
     <div class="content-wrapper">
         <div class="header-section">
-            <img src="logo.png" alt="ServiCell Logo" style="width: 200px; margin-bottom: 1rem;">
+            <img src="img/logo.webp" alt="ServiCell Belize — Tech Repair Experts" width="200" height="183" style="width: 200px; height: auto; margin-bottom: 1rem;" fetchpriority="high">
             <h1>About ServiCell</h1>
             <i>"We Fix Everything, Even Broken Hearts."</i>
         </div>
@@ -341,31 +336,10 @@
         </div>
 
         <div class="glass-card">
-            <h2 class="section-title">Evolution of Our Brand</h2>
-            <div class="logo-grid">
-                <div class="logo-item">
-                    <img src="2024.png" alt="2024 Logo">
-                    <p style="font-weight: 700; color: var(--primary);">2024</p>
-                    <p style="font-size: 0.75rem; color: var(--text-dim);">Modern Era</p>
-                </div>
-                <div class="logo-item">
-                    <img src="2022.png" alt="2022 Logo">
-                    <p style="font-weight: 700;">2022</p>
-                    <p style="font-size: 0.75rem; color: var(--text-dim);">Growth Phase</p>
-                </div>
-                <div class="logo-item">
-                    <img src="2014.png" alt="2014 Logo">
-                    <p style="font-weight: 700;">2014</p>
-                    <p style="font-size: 0.75rem; color: var(--text-dim);">The Beginning</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="glass-card">
             <h2 class="section-title">Why Trust ServiCell?</h2>
             <ul class="benefits-list">
-                <li><strong>Expert Technicians:</strong> Our tight-knit team of certified experts ensures your Samsung
-                    or iPhone is in capable hands.</li>
+                <li><strong>Experienced Technicians:</strong> Our tight-knit team has been repairing phones in Belize
+                    City since 2014, so your Samsung or iPhone is in capable hands.</li>
                 <li><strong>Affordable & Transparent:</strong> Honest estimates and competitive pricing. You know
                     exactly what you're paying for.</li>
                 <li><strong>Fast & Reliable:</strong> We aim to repair your devices quickly—often same-day—without
@@ -378,148 +352,103 @@
         <h2 class="section-title" style="margin-bottom: 2rem;">Inside the Lab</h2>
         <div class="work-grid">
             <div class="work-item">
-                <img src="work1.jpg" alt="Phone Screen Repair">
-                <div class="work-label">Precision Screen Swaps</div>
+                <img src="img/work1.webp" alt="Phone screen being replaced at the ServiCell repair bench" width="398" height="398" loading="lazy">
+                <div class="work-label"><a href="screen-repair.html">Precision Screen Swaps</a></div>
             </div>
             <div class="work-item">
-                <img src="work2.png" alt="Before and After">
+                <img src="img/work2.webp" alt="Phone before and after a full restoration by ServiCell" width="312" height="355" loading="lazy">
                 <div class="work-label">Complete Restoration</div>
             </div>
             <div class="work-item">
-                <img src="work3.png" alt="Backglass Repair">
-                <div class="work-label">iPhone Glass Mastery</div>
+                <img src="img/work3.webp" alt="iPhone back glass replacement by ServiCell" width="317" height="300" loading="lazy">
+                <div class="work-label"><a href="back-glass-repair.html">iPhone Glass Mastery</a></div>
+            </div>
+        </div>
+
+        <div class="glass-card">
+            <h2 class="section-title">Evolution of Our Brand</h2>
+            <div class="logo-grid">
+                <div class="logo-item">
+                    <img src="img/logo-2024.webp" alt="ServiCell logo used from 2024" width="150" height="150" loading="lazy">
+                    <p style="font-weight: 700; color: var(--primary);">2024</p>
+                    <p style="font-size: 0.75rem; color: var(--text-dim);">Modern Era</p>
+                </div>
+                <div class="logo-item">
+                    <img src="img/logo-2022.webp" alt="ServiCell logo used from 2022" width="150" height="43" loading="lazy">
+                    <p style="font-weight: 700;">2022</p>
+                    <p style="font-size: 0.75rem; color: var(--text-dim);">Growth Phase</p>
+                </div>
+                <div class="logo-item">
+                    <img src="img/logo-2014.webp" alt="Original ServiCell logo from 2014" width="150" height="124" loading="lazy">
+                    <p style="font-weight: 700;">2014</p>
+                    <p style="font-size: 0.75rem; color: var(--text-dim);">The Beginning</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <footer style="background: #111827; padding: 3rem 1.5rem; color: #cbd5e1; border-top: 4px solid var(--primary); transition: background 0.3s ease, color 0.3s ease;">
-        <style>
-            /* Mobile-specific stacking logic */
-            .footer-grid {
-                max-width: 1200px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2.5rem;
-            }
 
-            footer h3, footer h4 {
-                color: #ffffff !important;
-            }
+    <aside class="cta-band" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Got a phone that needs fixing?</h2>
+        <p>Send us a message for a quote, or drop by the lab on Douglas Jones Street.</p>
+        <div class="cta-actions">
+            <a class="btn btn-wa" href="https://wa.me/5016153388?text=Hi%20ServiCell!%20I%20need%20help%20with%20my%20phone." target="_blank" rel="noopener">WhatsApp us</a>
+            <a class="btn btn-outline" href="contact.html">Request a quote</a>
+        </div>
+    </aside>
 
-            footer p {
-                color: #cbd5e1 !important;
-            }
-
-            footer .hour-row span:last-child {
-                color: #ffffff !important;
-            }
-
-            footer .social-container > span {
-                color: #ffffff !important;
-            }
-
-            [data-theme="dark"] footer {
-                background: #020617;
-            }
-
-            @media (max-width: 600px) {
-                .footer-grid {
-                    grid-template-columns: 1fr;
-                    text-align: center;
-                }
-
-                .brand-wrapper,
-                .contact-item {
-                    justify-content: center !important;
-                }
-
-                .social-links {
-                    justify-content: center;
-                }
-            }
-        </style>
-
-        <div class="footer-grid">
-            <div>
-                <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                    <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
-                    <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
-                            style="color: var(--primary);">.</span></h3>
-                </div>
-                <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
-                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality,
-                    professional service.
-                </p>
-
-                <div class="social-container" style="display: flex; flex-direction: column; gap: 10px;">
-                    <span
-                        style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
-                        Us!</span>
-                    <div class="social-links" style="display: flex; gap: 15px;">
-                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
-                            style="background: #1877f2; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
-                            onmouseover="this.style.transform='scale(1.1)'"
-                            onmouseout="this.style.transform='scale(1)'">f</a>
-                    </div>
-                </div>
+    <!-- partial:footer -->
+    <footer class="site-footer">
+        <div class="sf-grid">
+            <div class="sf-brand">
+                <a href="index.html" class="sf-logo">
+                    <img src="img/logo-200.webp" alt="" width="64" height="59" loading="lazy">
+                    <span>ServiCell Belize<span class="sf-dot">.</span></span>
+                </a>
+                <p>Phone repair and tech solutions in the heart of Belize City since 2014. Honest estimates, careful work.</p>
+                <a class="sf-social" href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" rel="noopener" aria-label="ServiCell Belize on Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.6c0-.87.24-1.46 1.49-1.46h1.6V4.46A21 21 0 0 0 14.27 4.3c-2.3 0-3.87 1.4-3.87 3.98v2.22H7.8v3h2.6V21h3.1z"/></svg>
+                    Follow us on Facebook
+                </a>
             </div>
 
             <div>
-                <h4
-                    style="font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
-                    Visit Us</h4>
-                <p class="contact-item"
-                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City
-                </p>
-                <p class="contact-item"
-                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📞</span> +501 615-3388
-                </p>
-                <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">✉️</span> servicellbze@gmail.com
-                </p>
+                <h2 class="sf-heading">Services</h2>
+                <ul class="sf-links">
+                    <li><a href="screen-repair.html">Screen repair</a></li>
+                    <li><a href="battery-replacement.html">Battery replacement</a></li>
+                    <li><a href="back-glass-repair.html">Back glass repair</a></li>
+                    <li><a href="carrier-unlocking.html">Carrier unlocking</a></li>
+                    <li><a href="software-repair.html">Software &amp; virus removal</a></li>
+                </ul>
             </div>
 
             <div>
-                <h4
-                    style="font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
-                    Business Hours
-                </h4>
-                <div class="hour-row"
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Mon – Fri</span>
-                    <span>8:00 AM – 8:00 PM</span>
-                </div>
-                <div class="hour-row"
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Saturday</span>
-                    <span>9:00 AM – 7:00 PM</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Sunday</span>
-                    <span style="color: #ef4444; font-weight: 700;">Closed</span>
-                </div>
+                <h2 class="sf-heading">Visit Us</h2>
+                <ul class="sf-contact">
+                    <li><span aria-hidden="true">📍</span><a href="https://www.google.com/maps/dir/?api=1&amp;destination=7+Douglas+Jones+Street,+Belize+City,+Belize" target="_blank" rel="noopener">#7 Douglas Jones Street, Belize City</a></li>
+                    <li><span aria-hidden="true">📞</span><a href="tel:+5016153388">+501 615-3388</a></li>
+                    <li><span aria-hidden="true">💬</span><a href="https://wa.me/5016153388">WhatsApp us</a></li>
+                    <li><span aria-hidden="true">✉️</span><a href="mailto:servicellbze@gmail.com">servicellbze@gmail.com</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="sf-heading">Business Hours</h2>
+                <p class="sf-status"><span data-open-status hidden></span></p>
+                <dl class="sf-hours">
+                    <div><dt>Mon – Fri</dt><dd>8:00 AM – 8:00 PM</dd></div>
+                    <div><dt>Saturday</dt><dd>9:00 AM – 7:00 PM</dd></div>
+                    <div><dt>Sunday</dt><dd class="sf-closed">Closed</dd></div>
+                </dl>
             </div>
         </div>
-        <div
-            style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
-            <p>© 2026 ServiCell Belize. All rights reserved.</p>
-        </div>
 
+        <div class="sf-bottom">
+            <p>© 2026 ServiCell Belize. All rights reserved. · <a href="policy.html">Service policy</a></p>
+        </div>
     </footer>
-    <script>
-        function toggleMenu() {
-            const navLinks = document.getElementById("navLinks");
-            navLinks.classList.toggle("active");
-
-            // Optional: Animate hamburger into an 'X'
-            const spans = document.querySelectorAll(".hamburger span");
-            spans.forEach(span => span.classList.toggle("open"));
-        }
-    </script>
-    <script src="css/dark-mode.js"></script>
+    <!-- /partial:footer -->
 </body>
 
-</html>
+</html>
