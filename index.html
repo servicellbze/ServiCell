@@ -4,10 +4,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiCell | Home</title>
+    <title>Phone Repair in Belize City | ServiCell Belize</title>
+    <meta name="description" content="ServiCell Belize repairs iPhone and Samsung screens, batteries and charging ports, plus carrier unlocking and software fixes. Visit us at #7 Douglas Jones Street, Belize City.">
+    <link rel="canonical" href="https://servicellbze.github.io/ServiCell/">
+    <meta name="theme-color" content="#2563eb">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ServiCell Belize">
+    <meta property="og:locale" content="en_BZ">
+    <meta property="og:title" content="Phone Repair in Belize City | ServiCell Belize">
+    <meta property="og:description" content="ServiCell Belize repairs iPhone and Samsung screens, batteries and charging ports, plus carrier unlocking and software fixes. Visit us at #7 Douglas Jones Street, Belize City.">
+    <meta property="og:url" content="https://servicellbze.github.io/ServiCell/">
+    <meta property="og:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ServiCell Belize — phone repair in Belize City">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Phone Repair in Belize City | ServiCell Belize">
+    <meta name="twitter:description" content="ServiCell Belize repairs iPhone and Samsung screens, batteries and charging ports, plus carrier unlocking and software fixes. Visit us at #7 Douglas Jones Street, Belize City.">
+    <meta name="twitter:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobilePhoneStore",
+  "@id": "https://servicellbze.github.io/ServiCell/#business",
+  "name": "ServiCell Belize",
+  "url": "https://servicellbze.github.io/ServiCell/",
+  "logo": "https://servicellbze.github.io/ServiCell/img/logo.webp",
+  "image": "https://servicellbze.github.io/ServiCell/img/og-image.jpg",
+  "description": "Phone repair in Belize City: screen and battery replacement, carrier unlocking, software support and accessories for iPhone and Samsung.",
+  "telephone": "+501-615-3388",
+  "email": "servicellbze@gmail.com",
+  "foundingDate": "2014",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "#7 Douglas Jones Street",
+    "addressLocality": "Belize City",
+    "addressRegion": "Belize District",
+    "addressCountry": "BZ"
+  },
+  "areaServed": {
+    "@type": "City",
+    "name": "Belize City"
+  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "20:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "19:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.facebook.com/ServiCell-Belize-100064104937587/"
+  ]
+}
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <script src="css/dark-mode.js"></script>
+    <script src="js/site.js" defer></script>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/dark-mode.css">
 
@@ -149,6 +222,7 @@
 
         .card-image {
             width: 80px;
+            height: auto;
             margin-bottom: 1.5rem;
         }
 
@@ -271,37 +345,14 @@
     </style>
 
     <script>
-        async function loadNav() {
-            try {
-                const res = await fetch('components/nav.html');
-                const data = await res.text();
-                document.getElementById('nav-placeholder').innerHTML = data;
-
-                const currentPath = window.location.pathname;
-                document.querySelectorAll('.nav-btn').forEach(link => {
-                    if (currentPath.includes(link.getAttribute('href'))) {
-                        link.classList.add('active');
-                    }
-                });
-            } catch (err) {
-                console.error("Error loading navigation:", err);
-            }
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById('navLinks');
-            const burger = document.querySelector('.hamburger');
-            if (menu && burger) {
-                menu.classList.toggle('active');
-                burger.classList.toggle('active');
-            }
-        }
-
         document.addEventListener('DOMContentLoaded', () => {
-            loadNav();
-            // Duplicate cards for infinite loop
+            // Duplicate cards for infinite loop (copies are hidden from assistive tech)
             const container = document.querySelector('.carousel-container');
-            container.innerHTML += container.innerHTML;
+            Array.from(container.children).forEach(card => {
+                const copy = card.cloneNode(true);
+                copy.setAttribute('aria-hidden', 'true');
+                container.appendChild(copy);
+            });
         });
     </script>
 </head>
@@ -312,10 +363,33 @@
         <div class="blob" style="width: 400px; height: 400px; bottom: 10%; right: -50px; background: #60a5fa;"></div>
     </div>
 
-    <div id="nav-placeholder"></div>
+    <nav aria-label="Main">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo-text">ServiCell Belize</a>
+
+            <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-btn active" aria-current="page">Home</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="tracker.html" class="nav-btn">Tracker</a>
+            <a href="policy.html" class="nav-btn">Policy</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+                </button>
+                <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
     <div class="hero">
-        <img src="logo.png" alt="ServiCell Logo" style="width: 220px; margin-bottom: 1.5rem;">
+        <img src="img/logo.webp" alt="ServiCell Belize — Tech Repair Experts" width="220" height="201" style="width: 220px; height: auto; margin-bottom: 1.5rem;" fetchpriority="high">
         <h1>ServiCell Belize</h1>
         <i>"We Fix Everything, Even Broken Hearts."</i>
     </div>
@@ -324,22 +398,22 @@
         <h2 class="section-title">Our Specialized Services</h2>
         <div class="carousel-container">
             <div class="card">
-                <img src="device-repair.png" alt="Phone Repair" class="card-image">
+                <img src="img/device-repair.webp" alt="" class="card-image" width="80" height="55" loading="lazy">
                 <h3>Parts Replacement</h3>
                 <p>Expert screen, battery, and internal component replacements for Samsung and iPhone.</p>
             </div>
             <div class="card">
-                <img src="accessory.png" alt="Accessory" class="card-image">
+                <img src="img/accessory.webp" alt="" class="card-image" width="80" height="80" loading="lazy">
                 <h3>Premium Protection</h3>
                 <p>High-grade screen protectors, cases, and lens covers to keep your tech safe.</p>
             </div>
             <div class="card">
-                <img src="device-unlocking.png" alt="Device Unlocking" class="card-image">
+                <img src="img/device-unlocking.webp" alt="" class="card-image" width="80" height="80" loading="lazy">
                 <h3>Carrier Unlocking</h3>
                 <p>Factory unlocks and region bypasses to get your device back on any network.</p>
             </div>
             <div class="card">
-                <img src="software-support.png" alt="Software Support" class="card-image">
+                <img src="img/software-support.webp" alt="" class="card-image" width="80" height="80" loading="lazy">
                 <h3>Software Solutions</h3>
                 <p>System recovery, virus removal, and expert modding for Android and iOS.</p>
             </div>
@@ -404,7 +478,7 @@
         <div class="footer-grid">
             <div>
                 <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                    <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
+                    <img src="img/logo-200.webp" alt="ServiCell Belize logo" width="100" height="92" loading="lazy" style="width: 100px; height: auto;">
                     <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
                             style="color: var(--primary);">.</span></h3>
                 </div>
@@ -418,7 +492,7 @@
                         style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
                         Us!</span>
                     <div class="social-links" style="display: flex; gap: 15px;">
-                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
+                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" rel="noopener" aria-label="ServiCell Belize on Facebook"
                             style="background: #1877f2; color: white; font-size: 25px; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
                             onmouseover="this.style.transform='scale(1.1)'"
                             onmouseout="this.style.transform='scale(1)'">f</a>
@@ -432,14 +506,14 @@
                     Visit Us</h4>
                 <p class="contact-item"
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City
+                    <span style="color: var(--primary);" aria-hidden="true">📍</span> #7 Douglas Jones Street, Belize City
                 </p>
                 <p class="contact-item"
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📞</span> +501 615-3388
+                    <span style="color: var(--primary);" aria-hidden="true">📞</span> <a href="tel:+5016153388" style="color: inherit; text-decoration: none;">+501 615-3388</a>
                 </p>
                 <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">✉️</span> servicellbze@gmail.com
+                    <span style="color: var(--primary);" aria-hidden="true">✉️</span> <a href="mailto:servicellbze@gmail.com" style="color: inherit; text-decoration: none;">servicellbze@gmail.com</a>
                 </p>
             </div>
 
@@ -469,8 +543,6 @@
             <p>© 2026 ServiCell Belize. All rights reserved.</p>
         </div>
     </footer>
-
-    <script src="css/dark-mode.js"></script>
 </body>
 
-</html>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | ServiCell Belize</title>
+    <meta name="robots" content="noindex">
+    <!-- Absolute paths: this page is served for missing URLs at any depth under /ServiCell/ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="icon" href="/ServiCell/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/ServiCell/css/nav.css">
+    <link rel="stylesheet" href="/ServiCell/css/dark-mode.css">
+    <script src="/ServiCell/css/dark-mode.js"></script>
+    <script src="/ServiCell/js/site.js" defer></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 1.5rem 4rem;
+        }
+
+        main img { width: 160px; height: auto; margin-bottom: 1.5rem; }
+        h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.75rem; }
+        p { color: var(--text-dim); max-width: 420px; line-height: 1.6; margin-bottom: 2rem; }
+
+        .actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+
+        .actions a {
+            text-decoration: none;
+            font-weight: 700;
+            padding: 12px 22px;
+            border-radius: 50px;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .actions a.primary { background: var(--primary); color: #fff; }
+        .actions a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+    </style>
+</head>
+
+<body>
+    <nav aria-label="Main">
+        <div class="nav-wrapper">
+            <a href="/ServiCell/" class="logo-text">ServiCell Belize</a>
+
+            <div class="nav-links" id="navLinks">
+                <a href="/ServiCell/" class="nav-btn">Home</a>
+                <a href="/ServiCell/about.html" class="nav-btn">About</a>
+                <a href="/ServiCell/tracker.html" class="nav-btn">Tracker</a>
+                <a href="/ServiCell/policy.html" class="nav-btn">Policy</a>
+                <a href="/ServiCell/contact.html" class="nav-btn">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+                </button>
+                <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <img src="/ServiCell/img/logo.webp" alt="ServiCell Belize — Tech Repair Experts" width="160" height="146">
+        <h1>This page needs a repair.</h1>
+        <p>We couldn't find the page you were looking for. It may have moved, or the link may be broken.</p>
+        <div class="actions">
+            <a href="/ServiCell/" class="primary">Back to Home</a>
+            <a href="/ServiCell/tracker.html">Track a Repair</a>
+            <a href="https://wa.me/5016153388">WhatsApp Us</a>
+        </div>
+    </main>
+</body>
+
+</html>

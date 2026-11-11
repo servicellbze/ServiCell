@@ -4,9 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ServiCell | Live Tracking</title>
+    <title>Track Your Repair | ServiCell Belize</title>
+    <meta name="description" content="Check the live status of your ServiCell Belize repair with your Job ID and the last 4 digits of your phone number.">
+    <link rel="canonical" href="https://servicellbze.github.io/ServiCell/tracker.html">
+    <meta name="theme-color" content="#2563eb">
+
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ServiCell Belize">
+    <meta property="og:locale" content="en_BZ">
+    <meta property="og:title" content="Track Your Repair | ServiCell Belize">
+    <meta property="og:description" content="Check the live status of your ServiCell Belize repair with your Job ID and the last 4 digits of your phone number.">
+    <meta property="og:url" content="https://servicellbze.github.io/ServiCell/tracker.html">
+    <meta property="og:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="ServiCell Belize — phone repair in Belize City">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Track Your Repair | ServiCell Belize">
+    <meta name="twitter:description" content="Check the live status of your ServiCell Belize repair with your Job ID and the last 4 digits of your phone number.">
+    <meta name="twitter:image" content="https://servicellbze.github.io/ServiCell/img/og-image.jpg">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="favicon.png">
+    <script src="css/dark-mode.js"></script>
+    <script src="js/site.js" defer></script>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/dark-mode.css">
     <style>
@@ -165,6 +190,7 @@
             color: var(--text-main);
             padding: 12px 15px;
             flex: 1;
+            min-width: 0;
             font-size: 1.1rem;
             outline: none;
             font-family: inherit;
@@ -681,56 +707,6 @@
             }
         }
     </style>
-    <script>
-        // 1. Load the Navigation Component
-        fetch('components/nav.html')
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById('nav-placeholder').innerHTML = data;
-
-                // 2. Set the "Active" link based on the current page
-                const links = document.querySelectorAll('.nav-btn');
-                const currentPath = window.location.pathname;
-
-                links.forEach(link => {
-                    if (currentPath.includes(link.getAttribute('href'))) {
-                        link.classList.add('active');
-                    }
-                });
-            })
-            .catch(err => console.error("Error loading navigation:", err));
-
-        // 3. Global Toggle Function (Accessible by the 'onclick' in your HTML)
-        function toggleMenu() {
-            const menu = document.getElementById('navLinks');
-            const burger = document.querySelector('.hamburger');
-
-            if (menu && burger) {
-                menu.classList.toggle('active');
-                burger.classList.toggle('active'); // Ensure CSS uses .hamburger.active span
-            }
-        }
-
-        // 4. Close menu when clicking outside or on a link
-        document.addEventListener('click', function (e) {
-            const menu = document.getElementById('navLinks');
-            const burger = document.querySelector('.hamburger');
-
-            // Close if clicking a link
-            if (e.target.classList.contains('nav-btn')) {
-                menu?.classList.remove('active');
-                burger?.classList.remove('active');
-            }
-
-            // Close if clicking outside the nav area
-            if (menu?.classList.contains('active')) {
-                if (!menu.contains(e.target) && !burger.contains(e.target)) {
-                    menu.classList.remove('active');
-                    burger.classList.remove('active');
-                }
-            }
-        });
-    </script>
 </head>
 
 <body class="fade-in-entry">
@@ -739,17 +715,34 @@
         <div class="blob" style="width: 400px; height: 400px; bottom: -50px; right: -50px; background: #60a5fa;"></div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
-        <span class="theme-toggle-icon">🌙</span>
-        <span>Dark</span>
-    </button>
+    <nav aria-label="Main">
+        <div class="nav-wrapper">
+            <a href="index.html" class="logo-text">ServiCell Belize</a>
 
-    <div id="nav-placeholder"></div>
+            <div class="nav-links" id="navLinks">
+            <a href="index.html" class="nav-btn">Home</a>
+            <a href="about.html" class="nav-btn">About</a>
+            <a href="tracker.html" class="nav-btn active" aria-current="page">Tracker</a>
+            <a href="policy.html" class="nav-btn">Policy</a>
+            <a href="contact.html" class="nav-btn">Contact</a>
+            </div>
+
+            <div class="nav-actions">
+                <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
+                    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+                </button>
+                <button type="button" class="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
 
     <div class="container">
         <div class="tracker-card">
-            <img src="logo.png" alt="ServiCell" class="logo-small">
+            <img src="img/logo.webp" alt="ServiCell Belize — Tech Repair Experts" class="logo-small" width="130" height="119" style="height: auto;" fetchpriority="high">
             <h1>Repair Tracker</h1>
 
             <div class="tracker-header" style="margin-bottom: 2rem;">
@@ -864,7 +857,7 @@
     <br>
     <br>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
     <script src="js/supabase-config.js"></script>
     <script>
         // QR Code Auto-Fill: Check for URL parameters
@@ -956,7 +949,6 @@
             resultArea.style.display = "none";
             loader.style.display = "block";
             loaderBar.style.width = "0%";
-            updateLoaderText("Accessing database...");
 
             let progress = 0;
             let fetchDone = false;
@@ -986,25 +978,18 @@
                 trackBtn.innerText = trackBtnLabel;
             }
 
+            // Short progress animation (~0.5s); results render as soon as both
+            // the animation and the lookup have finished.
+            document.getElementById('loaderText').innerText = `Looking up Job #${idInput.padStart(3, '0')}...`;
             function runProgress() {
-                progress += 1;
+                progress = Math.min(100, progress + 5);
                 loaderBar.style.width = progress + "%";
-                const paddedID = idInput.padStart(3, '0');
-
-                if (progress >= 25 && progress < 50) updateLoaderText("Scanning records...");
-                if (progress >= 50 && progress < 75) updateLoaderText(`Verifying Job #${paddedID}...`);
-                if (progress >= 75 && progress < 90) updateLoaderText("Retrieving repair data...");
-                if (progress >= 90) updateLoaderText(`Finalizing results for #${paddedID}...`);
-
                 if (progress >= 100) {
                     barDone = true;
-                    // If fetch already finished, render now; otherwise wait for it
                     if (fetchDone) finalize();
                     return;
                 }
-
-                const speed = progress < 60 ? 40 : progress < 85 ? 60 : 200;
-                setTimeout(runProgress, speed);
+                setTimeout(runProgress, 25);
             }
             runProgress();
         }
@@ -1311,7 +1296,7 @@
         <div class="footer-grid">
             <div>
                 <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                    <img src="logo.png" alt="ServiCell Logo" style="width: 100px; height: auto;">
+                    <img src="img/logo-200.webp" alt="ServiCell Belize logo" width="100" height="92" loading="lazy" style="width: 100px; height: auto;">
                     <h3 style="font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
                             style="color: var(--primary);">.</span></h3>
                 </div>
@@ -1325,7 +1310,7 @@
                         style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
                         Us!</span>
                     <div class="social-links" style="display: flex; gap: 15px;">
-                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank"
+                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" rel="noopener" aria-label="ServiCell Belize on Facebook"
                             style="background: #1877f2; color: white; font-size: 25px; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
                             onmouseover="this.style.transform='scale(1.1)'"
                             onmouseout="this.style.transform='scale(1)'">f</a>
@@ -1339,11 +1324,11 @@
                     Visit Us</h4>
                 <p class="contact-item"
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📍</span> #7 Douglas Jones Street, Belize City
+                    <span style="color: var(--primary);" aria-hidden="true">📍</span> #7 Douglas Jones Street, Belize City
                 </p>
                 <p class="contact-item"
                     style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);">📞</span> +501 615-3388
+                    <span style="color: var(--primary);" aria-hidden="true">📞</span> <a href="tel:+5016153388" style="color: inherit; text-decoration: none;">+501 615-3388</a>
                 </p>
                 <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
                     <span style="color: var(--primary);">✉️</span> <a href="mailto:servicellbz@gmail.com" style="text-decoration: none;">servicellbz@gmail.com</a>
@@ -1377,7 +1362,6 @@
         </div>
     </footer>
 
-<script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-<script src="css/dark-mode.js"></script>
+<script src="https://unpkg.com/canvas-confetti@1.6.0/dist/confetti.browser.min.js" defer></script>
 </body>
 </html>
