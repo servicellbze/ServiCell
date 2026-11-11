@@ -223,6 +223,13 @@
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
         }
 
+        .form-success { outline: none; }
+        .form-success h2 { font-size: 1.4rem; margin-bottom: 1rem; color: var(--text-main); }
+        .form-success p { color: var(--text-dim); line-height: 1.6; margin-bottom: 0.75rem; }
+        .form-success a { color: var(--primary); font-weight: 700; }
+
+        .submit-btn:disabled { opacity: 0.7; cursor: wait; }
+
         .submit-btn {
             background: var(--primary);
             color: white;
@@ -321,16 +328,18 @@
         <div class="blob" style="width: 500px; height: 500px; bottom: -100px; left: -100px; background: #60a5fa;"></div>
     </div>
 
+    <!-- partial:nav -->
     <nav aria-label="Main">
         <div class="nav-wrapper">
             <a href="index.html" class="logo-text">ServiCell Belize</a>
 
             <div class="nav-links" id="navLinks">
-            <a href="index.html" class="nav-btn">Home</a>
-            <a href="about.html" class="nav-btn">About</a>
-            <a href="tracker.html" class="nav-btn">Tracker</a>
-            <a href="policy.html" class="nav-btn">Policy</a>
-            <a href="contact.html" class="nav-btn active" aria-current="page">Contact</a>
+                <a href="index.html" class="nav-btn">Home</a>
+                <a href="index.html#services" class="nav-btn" data-section="services">Services</a>
+                <a href="about.html" class="nav-btn">About</a>
+                <a href="tracker.html" class="nav-btn">Tracker</a>
+                <a href="policy.html" class="nav-btn">Policy</a>
+                <a href="contact.html" class="nav-btn active" aria-current="page">Contact</a>
             </div>
 
             <div class="nav-actions">
@@ -345,6 +354,7 @@
             </div>
         </div>
     </nav>
+    <!-- /partial:nav -->
 
     <div class="content-wrapper">
         <div class="info-side">
@@ -361,6 +371,7 @@
                         Location</strong>
                     <span style="font-weight: 700; color: var(--text-main);">#7 Douglas Jones Street, Belize City</span>
                     <div style="margin-top: 4px; font-size: 0.85rem;"><span data-open-status hidden></span></div>
+                    <a href="https://www.google.com/maps/dir/?api=1&amp;destination=7+Douglas+Jones+Street,+Belize+City,+Belize" target="_blank" rel="noopener" style="display: inline-block; margin-top: 6px; font-size: 0.85rem; font-weight: 700; color: var(--primary);">Get directions →</a>
                 </div>
             </div>
 
@@ -384,7 +395,7 @@
                 </div>
             </div>
 
-            <a href="https://wa.me/5016153388" class="whatsapp-btn" target="_blank" rel="noopener">
+            <a href="https://wa.me/5016153388?text=Hi%20ServiCell!%20I%20need%20help%20with%20my%20phone." class="btn btn-wa" target="_blank" rel="noopener" style="margin-top: 0.5rem;">
                 <span>Chat on WhatsApp</span>
             </a>
             <div
@@ -421,168 +432,111 @@
 
         <div class="form-card">
             <form id="my-form" action="https://formspree.io/f/xykbnlpa" method="POST">
-                <h3 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Have an Inquiry?</h3>
+                <h2 style="margin-bottom: 0.5rem; font-size: 1.5rem;">Request a Quote</h2>
                 <p style="font-size: 0.85rem; color: var(--text-dim); margin-bottom: 1.5rem;">
-                    Fill this out and we'll get back to you as soon as we can.
+                    Tell us about your phone and we'll get back to you as soon as we can. Leave an email, a
+                    phone/WhatsApp number, or both.
                 </p>
 
                 <div class="input-group">
-                    <label>Full Name</label>
-                    <input type="text" name="name" placeholder="Enter your name" required>
+                    <label for="f-name">Full Name</label>
+                    <input type="text" id="f-name" name="name" placeholder="Enter your name" autocomplete="name" required>
                 </div>
 
                 <div class="input-group">
-                    <label>Your Email</label>
-                    <input type="email" name="email" placeholder="customer@email.com" required>
+                    <label for="f-email">Your Email</label>
+                    <input type="email" id="f-email" name="email" placeholder="customer@email.com" autocomplete="email">
                 </div>
 
                 <div class="input-group">
-                    <label>Device & Model</label>
-                    <input type="text" name="device" placeholder="e.g. iPhone 13 Pro" required>
+                    <label for="f-phone">Phone / WhatsApp</label>
+                    <input type="tel" id="f-phone" name="phone" placeholder="e.g. 615-3388" autocomplete="tel" inputmode="tel">
                 </div>
 
                 <div class="input-group">
-                    <label>Service Needed</label>
-                    <select name="service_type" required>
+                    <label for="f-device">Device &amp; Model</label>
+                    <input type="text" id="f-device" name="device" placeholder="e.g. iPhone 13 Pro" required>
+                </div>
+
+                <div class="input-group">
+                    <label for="f-service">Service Needed</label>
+                    <select id="f-service" name="service_type" required>
+                        <option value="" disabled selected>Choose a service…</option>
                         <option value="Screen Replacement">Screen Replacement</option>
                         <option value="Battery Change">Battery Replacement</option>
+                        <option value="Back Glass">Back Glass Repair</option>
                         <option value="Carrier Unlock">Carrier Unlocking</option>
-                        <option value="Software/Modding">Software Modding</option>
-                        <option value="Other">Other</option>
+                        <option value="Software/Modding">Software Repair / Virus Removal</option>
+                        <option value="Accessories">Cases, Screen Protectors &amp; Accessories</option>
+                        <option value="Other">Something else</option>
                     </select>
                 </div>
 
                 <div class="input-group">
-                    <label>Issue Details</label>
-                    <textarea name="message" rows="4" placeholder="Describe the problem..." required></textarea>
+                    <label for="f-message">Issue Details</label>
+                    <textarea id="f-message" name="message" rows="4" placeholder="Describe the problem..." required></textarea>
                 </div>
 
                 <input type="hidden" name="_subject" value="New ServiCell Repair Inquiry">
                 <input type="hidden" name="_source_name" value="ServiCell Official Site">
-                <div id="my-form-status" style="font-size: 0.85rem; color: #ef4444; margin-bottom: 10px;"></div>
+                <div id="my-form-status" role="alert" style="font-size: 0.85rem; color: #ef4444; margin-bottom: 10px;"></div>
                 <button type="submit" class="submit-btn">Send Service Request</button>
             </form>
         </div>
     </div>
 
-    <footer style="background: #111827; padding: 3rem 1.5rem; color: #cbd5e1; border-top: 4px solid var(--primary); transition: background 0.3s ease, color 0.3s ease;">
-        <style>
-            /* Mobile-specific stacking logic */
-            .footer-grid {
-                max-width: 1200px;
-                margin: 0 auto;
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 2.5rem;
-            }
-
-            footer h3, footer h4 {
-                color: #ffffff !important;
-            }
-
-            footer p {
-                color: #cbd5e1 !important;
-            }
-
-            footer .hour-row span:last-child {
-                color: #ffffff !important;
-            }
-
-            footer .social-container > span {
-                color: #ffffff !important;
-            }
-
-            [data-theme="dark"] footer {
-                background: #020617;
-            }
-
-            @media (max-width: 600px) {
-                .footer-grid {
-                    grid-template-columns: 1fr;
-                    text-align: center;
-                }
-
-                .brand-wrapper,
-                .contact-item {
-                    justify-content: center !important;
-                }
-
-                .social-links {
-                    justify-content: center;
-                }
-            }
-        </style>
-
-        <div class="footer-grid">
-            <div>
-                <div class="brand-wrapper" style="display: flex; align-items: center; gap: 12px; margin-bottom: 1rem;">
-                    <img src="img/logo-200.webp" alt="ServiCell Belize logo" width="100" height="92" loading="lazy" style="width: 100px; height: auto;">
-                    <h3 style="color: var(--text-main); font-size: 1.4rem; font-weight: 800; margin: 0;">ServiCell Belize<span
-                            style="color: var(--primary);">.</span></h3>
-                </div>
-                <p style="line-height: 1.6; font-size: 0.9rem; margin-bottom: 1.5rem;">
-                    Expert mobile repairs and technology solutions in the heart of Belize City. Trusted quality,
-                    professional service.
-                </p>
-
-                <div class="social-container" style="display: flex; flex-direction: column; gap: 10px;">
-                    <span
-                        style="color: var(--text-main); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Follow
-                        Us!</span>
-                    <div class="social-links" style="display: flex; gap: 15px;">
-                        <a href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" rel="noopener" aria-label="ServiCell Belize on Facebook"
-                            style="background: #1877f2; color: white; width: 38px; height: 38px; border-radius: 10px; display: flex; align-items: center; justify-content: center; text-decoration: none; font-weight: 900; transition: 0.3s;"
-                            onmouseover="this.style.transform='scale(1.1)'"
-                            onmouseout="this.style.transform='scale(1)'">f</a>
-                    </div>
-                </div>
+    <!-- partial:footer -->
+    <footer class="site-footer">
+        <div class="sf-grid">
+            <div class="sf-brand">
+                <a href="index.html" class="sf-logo">
+                    <img src="img/logo-200.webp" alt="" width="64" height="59" loading="lazy">
+                    <span>ServiCell Belize<span class="sf-dot">.</span></span>
+                </a>
+                <p>Phone repair and tech solutions in the heart of Belize City since 2014. Honest estimates, careful work.</p>
+                <a class="sf-social" href="https://www.facebook.com/ServiCell-Belize-100064104937587/" target="_blank" rel="noopener" aria-label="ServiCell Belize on Facebook">
+                    <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M13.5 21v-7.5H16l.4-3h-2.9V8.6c0-.87.24-1.46 1.49-1.46h1.6V4.46A21 21 0 0 0 14.27 4.3c-2.3 0-3.87 1.4-3.87 3.98v2.22H7.8v3h2.6V21h3.1z"/></svg>
+                    Follow us on Facebook
+                </a>
             </div>
 
             <div>
-                <h4
-                    style="color: var(--text-main); font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
-                    Visit Us</h4>
-                <p class="contact-item"
-                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);" aria-hidden="true">📍</span> #7 Douglas Jones Street, Belize City
-                </p>
-                <p class="contact-item"
-                    style="margin-bottom: 0.8rem; display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);" aria-hidden="true">📞</span> <a href="tel:+5016153388" style="color: inherit; text-decoration: none;">+501 615-3388</a>
-                </p>
-                <p class="contact-item" style="display: flex; align-items: center; gap: 10px; font-size: 0.9rem;">
-                    <span style="color: var(--primary);" aria-hidden="true">✉️</span> <a href="mailto:servicellbze@gmail.com" style="color: inherit; text-decoration: none;">servicellbze@gmail.com</a>
-                </p>
+                <h2 class="sf-heading">Services</h2>
+                <ul class="sf-links">
+                    <li><a href="screen-repair.html">Screen repair</a></li>
+                    <li><a href="battery-replacement.html">Battery replacement</a></li>
+                    <li><a href="back-glass-repair.html">Back glass repair</a></li>
+                    <li><a href="carrier-unlocking.html">Carrier unlocking</a></li>
+                    <li><a href="software-repair.html">Software &amp; virus removal</a></li>
+                </ul>
             </div>
 
             <div>
-                <h4
-                    style="color: var(--text-main); font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
-                    Business Hours
-                </h4>
-                <p style="margin: -0.6rem 0 1rem;"><span data-open-status hidden></span></p>
-                <div
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Mon – Fri</span>
-                    <span style="color: var(--text-main); font-weight: 600;">8:00 AM – 8:00 PM</span>
-                </div>
-                <div
-                    style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Saturday</span>
-                    <span style="color: var(--text-main); font-weight: 600;">9:00 AM – 7:00 PM</span>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--footer-text);">
-                    <span>Sunday</span>
-                    <span style="color: #ef4444; font-weight: 700;">Closed</span>
-                </div>
-            </div>
+                <h2 class="sf-heading">Visit Us</h2>
+                <ul class="sf-contact">
+                    <li><span aria-hidden="true">📍</span><a href="https://www.google.com/maps/dir/?api=1&amp;destination=7+Douglas+Jones+Street,+Belize+City,+Belize" target="_blank" rel="noopener">#7 Douglas Jones Street, Belize City</a></li>
+                    <li><span aria-hidden="true">📞</span><a href="tel:+5016153388">+501 615-3388</a></li>
+                    <li><span aria-hidden="true">💬</span><a href="https://wa.me/5016153388">WhatsApp us</a></li>
+                    <li><span aria-hidden="true">✉️</span><a href="mailto:servicellbze@gmail.com">servicellbze@gmail.com</a></li>
+                </ul>
             </div>
 
-            <div
-                style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: 0.7rem; text-align: center;">
-                <p>© 2026 ServiCell Belize. All rights reserved.</p>
+            <div>
+                <h2 class="sf-heading">Business Hours</h2>
+                <p class="sf-status"><span data-open-status hidden></span></p>
+                <dl class="sf-hours">
+                    <div><dt>Mon – Fri</dt><dd>8:00 AM – 8:00 PM</dd></div>
+                    <div><dt>Saturday</dt><dd>9:00 AM – 7:00 PM</dd></div>
+                    <div><dt>Sunday</dt><dd class="sf-closed">Closed</dd></div>
+                </dl>
             </div>
+        </div>
+
+        <div class="sf-bottom">
+            <p>© 2026 ServiCell Belize. All rights reserved. · <a href="policy.html">Service policy</a></p>
+        </div>
     </footer>
+    <!-- /partial:footer -->
 
     <script>
         var form = document.getElementById("my-form");
@@ -590,6 +544,16 @@
         async function handleSubmit(event) {
             event.preventDefault();
             var status = document.getElementById("my-form-status");
+            status.textContent = "";
+            var email = form.querySelector('#f-email'), phone = form.querySelector('#f-phone');
+            if (!email.value.trim() && !phone.value.trim()) {
+                status.textContent = "Please add an email or a phone/WhatsApp number so we can reply.";
+                email.focus();
+                return;
+            }
+            var submitBtn = form.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Sending…";
             var data = new FormData(event.target);
             fetch(event.target.action, {
                 method: form.method,
@@ -600,7 +564,14 @@
             }).then(response => {
                 if (response.ok) {
                     if (window.scTrack) scTrack('contact-form-sent');
-                    form.innerHTML = "<h3>Thanks! We'll get back to you shortly.</h3>";
+                    form.innerHTML =
+                        '<div class="form-success" tabindex="-1">' +
+                        '<h2>Thanks! Your request is in.</h2>' +
+                        '<p>We\'ll reply by email or WhatsApp as soon as we can during business hours.</p>' +
+                        '<p>Need an answer sooner? <a href="https://wa.me/5016153388">Message us on WhatsApp</a> or call <a href="tel:+5016153388">+501 615-3388</a>.</p>' +
+                        '<p>When you drop off your phone you\'ll get a Job ID, so you can follow the repair on our <a href="tracker.html">Repair Tracker</a>.</p>' +
+                        '</div>';
+                    form.querySelector('.form-success').focus();
                 } else {
                     response.json().then(data => {
                         if (Object.hasOwn(data, 'errors')) {
@@ -612,6 +583,11 @@
                 }
             }).catch(error => {
                 status.innerHTML = "Oops! There was a problem submitting your form"
+            }).finally(() => {
+                if (submitBtn.isConnected) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Send Service Request";
+                }
             });
         }
         form.addEventListener("submit", handleSubmit);

@@ -148,28 +148,6 @@
     color: white;
 }
 
-[data-theme="dark"] footer {
-    background: var(--footer-bg);
-    color: var(--footer-text);
-}
-
-[data-theme="dark"] footer h3,
-[data-theme="dark"] footer h4 {
-    color: var(--text-main) !important;
-}
-
-[data-theme="dark"] footer p {
-    color: var(--footer-text) !important;
-}
-
-[data-theme="dark"] footer .social-container > span {
-    color: var(--text-main) !important;
-}
-
-[data-theme="dark"] footer .hour-row span:last-child {
-    color: var(--text-main) !important;
-}
-
 [data-theme="dark"] .logo-item,
 [data-theme="dark"] .contact-method,
 [data-theme="dark"] .work-label {
@@ -204,7 +182,7 @@
 }
 
 /* Navigation Dark Mode */
-[data-theme="dark"] nav {
+[data-theme="dark"] nav[aria-label="Main"] {
     background: var(--nav-bg);
     border-color: var(--glass-border);
 }

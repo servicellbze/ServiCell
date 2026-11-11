@@ -1,0 +1,220 @@
+/* ============================================
+   SERVICELL — SERVICE PAGES
+   ============================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-main);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.bg-blobs { position: fixed; inset: 0; z-index: -1; overflow: hidden; }
+
+.blob {
+    position: absolute;
+    background: var(--primary);
+    filter: blur(100px);
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: move 25s infinite alternate ease-in-out;
+}
+
+@keyframes move {
+    from { transform: translate(-10%, -10%); }
+    to { transform: translate(30%, 30%); }
+}
+
+.svc-main { max-width: 960px; margin: 0 auto; padding: 120px 1.25rem 0; }
+
+/* ---------- Breadcrumb ---------- */
+.breadcrumb ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+}
+
+.breadcrumb li + li::before { content: "›"; margin-right: 6px; color: var(--text-dim); }
+.breadcrumb a { color: var(--primary); text-decoration: none; font-weight: 600; }
+.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb [aria-current] { color: var(--text-main); font-weight: 600; }
+
+/* ---------- Hero ---------- */
+.svc-hero {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.svc-hero h1 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    letter-spacing: -1.2px;
+    line-height: 1.12;
+    margin-bottom: 1rem;
+    text-wrap: balance;
+}
+
+.svc-intro { font-size: 1.1rem; line-height: 1.65; color: var(--text-dim); margin-bottom: 1.5rem; max-width: 600px; }
+.svc-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+.svc-call { margin-top: 0.9rem; color: var(--text-dim); font-weight: 600; font-size: 0.95rem; }
+.svc-call a { color: var(--primary); font-weight: 700; text-decoration: none; }
+
+.svc-icon {
+    width: 160px;
+    height: 160px;
+    border-radius: 40px;
+    background: #fff;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 20px 40px rgba(37, 99, 235, 0.08);
+}
+
+.svc-icon img { width: 100px; height: auto; }
+
+/* ---------- Content blocks ---------- */
+.svc-block {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.svc-block h2, .svc-section h2 {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+.svc-block p { color: var(--text-dim); line-height: 1.7; }
+.svc-block p + p { margin-top: 0.75rem; }
+.svc-block a { color: var(--primary); font-weight: 700; }
+
+.svc-two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.svc-two .svc-block { margin-bottom: 0; }
+
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+
+.check-list li {
+    position: relative;
+    padding-left: 1.75rem;
+    line-height: 1.55;
+    color: var(--text-dim);
+}
+
+.check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--ok);
+    font-weight: 800;
+}
+
+.check-list.warn li::before { content: "!"; color: #f59e0b; left: 6px; }
+.check-list strong { color: var(--text-main); }
+
+.svc-note {
+    margin-top: 1rem;
+    padding: 0.9rem 1.1rem;
+    border-left: 3px solid var(--primary);
+    background: rgba(37, 99, 235, 0.06);
+    border-radius: 10px;
+    font-size: 0.92rem;
+}
+
+/* ---------- How it works ---------- */
+.svc-section { margin: 3rem 0 1.5rem; }
+.svc-section > h2 { text-align: center; margin-bottom: 1.5rem; }
+
+.steps {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    counter-reset: step;
+}
+
+.steps li {
+    counter-increment: step;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 22px;
+    padding: 1.4rem 1.2rem;
+}
+
+.steps li::before {
+    content: counter(step);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: #fff;
+    font-weight: 800;
+    margin-bottom: 0.75rem;
+}
+
+.steps h3 { font-size: 1rem; margin-bottom: 0.4rem; color: var(--text-main); }
+.steps p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.55; }
+.steps a { color: var(--primary); font-weight: 700; }
+
+/* ---------- Related services ---------- */
+.related { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; }
+
+.related a {
+    display: block;
+    padding: 1rem 1.1rem;
+    border-radius: 18px;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.92rem;
+}
+
+.related a:hover, .related a:focus-visible { border-color: var(--primary); color: var(--primary); }
+.related a:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.related a::after { content: " →"; color: var(--primary); }
+
+/* dark-mode.css colours every <a>, <p>, <span>, <li>; restore our intent */
+[data-theme="dark"] .related a { color: var(--text-main); }
+[data-theme="dark"] .check-list strong { color: var(--text-main); }
+[data-theme="dark"] .breadcrumb [aria-current] { color: var(--text-main); }
+[data-theme="dark"] .svc-section { background: transparent; }
+
+@media (max-width: 860px) {
+    .steps { grid-template-columns: 1fr 1fr; }
+    .related { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+    .svc-main { padding-top: 100px; }
+    .svc-hero { grid-template-columns: 1fr; }
+    .svc-icon { display: none; }
+    .svc-hero h1 { font-size: 2rem; }
+    .svc-ctas .btn { flex: 1 1 100%; }
+    .svc-two { grid-template-columns: 1fr; }
+    .svc-block { padding: 1.5rem; }
+}
+
+@media (max-width: 480px) {
+    .steps, .related { grid-template-columns: 1fr; }
+}

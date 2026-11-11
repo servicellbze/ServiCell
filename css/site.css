@@ -140,3 +140,156 @@ footer .open-status { font-size: 0.75rem; text-transform: none; letter-spacing: 
 
     .blob { animation: none !important; }
 }
+
+/* ============================================
+   SITE FOOTER (markup lives in partials/footer.html)
+   ============================================ */
+footer.site-footer {
+    background: #111827;
+    color: #cbd5e1;
+    border-top: 4px solid var(--primary);
+    margin-top: 4rem;
+    padding: 3.5rem 1.5rem 2rem;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+[data-theme="dark"] footer.site-footer { background: #020617; }
+
+footer.site-footer p,
+footer.site-footer li,
+footer.site-footer dt,
+footer.site-footer span { color: #cbd5e1; }
+
+footer.site-footer a { color: #e2e8f0; text-decoration: none; }
+footer.site-footer a:hover { color: #93c5fd; text-decoration: underline; }
+footer.site-footer a:focus-visible { outline: 2px solid #93c5fd; outline-offset: 2px; border-radius: 4px; }
+
+.sf-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1.2fr 1.1fr;
+    gap: 2.5rem;
+}
+
+footer.site-footer .sf-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 1rem;
+}
+
+footer.site-footer .sf-logo span { color: #fff; }
+footer.site-footer .sf-logo .sf-dot { color: var(--primary); }
+.sf-logo img { width: 64px; height: auto; }
+.sf-brand p { line-height: 1.6; margin-bottom: 1.25rem; max-width: 340px; }
+
+footer.site-footer .sf-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sf-social svg {
+    width: 34px;
+    height: 34px;
+    padding: 7px;
+    border-radius: 10px;
+    background: #1877f2;
+    color: #fff;
+}
+
+footer.site-footer .sf-heading {
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1.1rem;
+}
+
+.sf-links, .sf-contact { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+.sf-contact li { display: flex; gap: 10px; align-items: baseline; }
+
+.sf-status { margin: -0.4rem 0 0.9rem; font-size: 0.8rem; }
+
+.sf-hours div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.45rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sf-hours div:last-child { border-bottom: 0; }
+footer.site-footer .sf-hours dd { color: #fff; font-weight: 600; margin: 0; }
+footer.site-footer .sf-hours .sf-closed { color: #f87171; font-weight: 700; }
+
+.sf-bottom {
+    max-width: 1200px;
+    margin: 2.5rem auto 0;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+@media (max-width: 1000px) {
+    .sf-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 600px) {
+    .sf-grid { grid-template-columns: 1fr; gap: 2rem; }
+    footer.site-footer { padding: 2.5rem 1.25rem 1.5rem; }
+}
+
+@media print {
+    footer.site-footer, .sticky-wa, nav { display: none !important; }
+}
+
+/* ============================================
+   FAQ ACCORDION (homepage + service pages)
+   ============================================ */
+.faq-list { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 0.75rem; }
+
+.faq-list details {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0 1.25rem;
+}
+
+.faq-list details[open] { border-color: var(--primary); }
+
+.faq-list summary {
+    list-style: none;
+    cursor: pointer;
+    font-weight: 700;
+    padding: 1.1rem 2rem 1.1rem 0;
+    position: relative;
+    color: var(--text-main);
+}
+
+.faq-list summary::-webkit-details-marker { display: none; }
+
+.faq-list summary::after {
+    content: "+";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.faq-list details[open] summary::after { content: "−"; }
+.faq-list summary:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 8px; }
+.faq-list details p { color: var(--text-dim); line-height: 1.65; padding-bottom: 1.1rem; }
+.faq-list details a { color: var(--primary); font-weight: 700; }

@@ -2,7 +2,7 @@
     NAVBAR BASE
     ========================= */
 
-nav {
+nav[aria-label="Main"] {
      position: fixed;
      top: 25px;
      left: 50%;
@@ -20,7 +20,7 @@ nav {
      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-[data-theme="dark"] nav {
+[data-theme="dark"] nav[aria-label="Main"] {
      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -154,7 +154,7 @@ nav .theme-toggle:hover {
     ========================= */
 
 @media (max-width: 768px) {
-     nav {
+     nav[aria-label="Main"] {
           width: 90%;
           padding: 12px 15px;
           top: 12px;
@@ -218,7 +218,7 @@ nav .theme-toggle:hover {
     ========================= */
 
 @media (max-width: 480px) {
-     nav {
+     nav[aria-label="Main"] {
           width: 92%;
           padding: 10px 12px;
           top: 10px;

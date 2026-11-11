@@ -135,7 +135,7 @@ var SERVICELL_CONFIG = {
     }
 
     function initOpenStatus() {
-        var els = document.querySelectorAll('[data-open-status]');
+        var els = document.querySelectorAll('[data-open-status]:not(.open-status)');
         if (!els.length) return;
         var st;
         try { st = openStatus(); } catch (e) { return; }
@@ -178,6 +178,9 @@ var SERVICELL_CONFIG = {
             }).observe(heroCta);
         }
     }
+
+    // Lets pages fill in open-status badges they add later (e.g. tracker results)
+    window.scRefreshOpenStatus = initOpenStatus;
 
     function init() {
         initMenu();
