@@ -34,6 +34,7 @@
     <script src="js/site.js" defer></script>
     <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/dark-mode.css">
+    <link rel="stylesheet" href="css/site.css">
 
     <style>
         * {
@@ -288,7 +289,7 @@
     </style>
 </head>
 
-<body class="fade-in-element">
+<body>
     <div class="bg-blobs">
         <div class="blob" style="width: 600px; height: 600px; top: -150px; left: -150px;"></div>
         <div class="blob" style="width: 450px; height: 450px; bottom: 5%; right: -50px; background: #60a5fa;"></div>
@@ -388,6 +389,16 @@
         </div>
     </div>
 
+
+    <aside class="cta-band" aria-labelledby="cta-heading">
+        <h2 id="cta-heading">Got a phone that needs fixing?</h2>
+        <p>Send us a message for a quote, or drop by the lab on Douglas Jones Street.</p>
+        <div class="cta-actions">
+            <a class="btn btn-wa" href="https://wa.me/5016153388?text=Hi%20ServiCell!%20I%20need%20help%20with%20my%20phone." target="_blank" rel="noopener">WhatsApp us</a>
+            <a class="btn btn-outline" href="contact.html">Request a quote</a>
+        </div>
+    </aside>
+
     <footer style="background: #111827; padding: 3rem 1.5rem; color: #cbd5e1; border-top: 4px solid var(--primary); transition: background 0.3s ease, color 0.3s ease;">
         <style>
             /* Mobile-specific stacking logic */
@@ -483,6 +494,7 @@
                     style="font-weight: 700; margin-bottom: 1.2rem; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
                     Business Hours
                 </h4>
+                <p style="margin: -0.6rem 0 1rem;"><span data-open-status hidden></span></p>
                 <div class="hour-row"
                     style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 0.4rem; font-size: 0.9rem; color: var(--footer-text);">
                     <span>Mon – Fri</span>

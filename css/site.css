@@ -1,0 +1,142 @@
+/* ============================================
+   SERVICELL — SHARED COMPONENTS
+   (buttons, open-now badge, call-to-action band, mobile WhatsApp button)
+   ============================================ */
+
+:root {
+    --wa-green: #15803d;        /* WhatsApp-style green dark enough for white text (AA) */
+    --wa-green-hover: #166534;
+    --ok: #16a34a;
+    --closed: #dc2626;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+
+.btn-wa { background: var(--wa-green); color: #fff; box-shadow: 0 10px 20px rgba(21, 128, 61, 0.2); }
+.btn-wa:hover { background: var(--wa-green-hover); }
+
+.btn-primary { background: var(--primary); color: #fff; }
+
+.btn-outline { background: var(--card-bg); color: var(--primary); border-color: var(--primary); }
+.btn-outline:hover { background: rgba(37, 99, 235, 0.08); }
+
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* dark-mode.css colours every link/span; keep button text readable */
+[data-theme="dark"] .btn-wa,
+[data-theme="dark"] .btn-wa:hover,
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .btn-primary:hover,
+[data-theme="dark"] .sticky-wa,
+[data-theme="dark"] .sticky-wa span { color: #fff; }
+[data-theme="dark"] .btn-outline,
+[data-theme="dark"] .btn-outline:hover { color: var(--accent); border-color: var(--accent); }
+
+/* ---------- Open-now badge (filled in by js/site.js) ---------- */
+.open-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+}
+
+.open-status::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    flex: none;
+}
+
+.open-status.is-open { color: var(--ok); }
+.open-status.is-open::before { background: var(--ok); box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.2); }
+.open-status.is-closed { color: var(--closed); }
+.open-status.is-closed::before { background: var(--closed); }
+
+[data-theme="dark"] .open-status.is-open { color: #4ade80; }
+[data-theme="dark"] .open-status.is-closed { color: #f87171; }
+
+footer .open-status { font-size: 0.75rem; text-transform: none; letter-spacing: 0; margin-left: 8px; }
+
+/* ---------- Call-to-action band (bottom of content pages) ---------- */
+.cta-band {
+    max-width: 900px;
+    margin: 3rem auto 0;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+}
+
+.cta-band h2 { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 0.5rem; color: var(--text-main); }
+.cta-band p { color: var(--text-dim); margin-bottom: 1.5rem; }
+.cta-band .cta-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+@media (max-width: 768px) {
+    .cta-band { margin: 2rem 1rem 0; }
+}
+
+/* ---------- Floating WhatsApp button (mobile only) ---------- */
+.sticky-wa { display: none; }
+
+@media (max-width: 768px) {
+    .sticky-wa {
+        position: fixed;
+        right: 16px;
+        bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+        z-index: 900;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 18px;
+        border-radius: 100px;
+        background: var(--wa-green);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+    }
+
+    .sticky-wa svg { width: 22px; height: 22px; }
+    .sticky-wa { transition: opacity 0.2s ease, transform 0.2s ease; }
+    .sticky-wa.is-hidden { opacity: 0; transform: translateY(12px); pointer-events: none; }
+    .sticky-wa:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+    /* keep the footer's last line clear of the floating button */
+    body.has-sticky-wa footer { padding-bottom: 6rem !important; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .blob { animation: none !important; }
+}
