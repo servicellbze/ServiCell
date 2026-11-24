@@ -1140,16 +1140,16 @@
                 const today = new Date();
                 const finalDate = dateCompletedStr ? new Date(dateCompletedStr) : null;
                 const receivedDate = dateReceivedStr ? new Date(dateReceivedStr) : null;
-                // Use whichever date is most recent for the 90-day storage countdown
+                // Use whichever date is most recent for the 30-day storage countdown
                 const referenceDate = finalDate || receivedDate;
                 const isDone = ["completed", "ready", "done", "pickup", "finished", "unsuccessful", "no fix", "resolved"].some(w => rawStatus.includes(w));
 
                 // 1. Check for Abandonment — backend may have already set status to 'abandoned',
-                //    or we detect it client-side via the 90-day rule on the reference date
+                //    or we detect it client-side via the 30-day rule on the reference date
                 const isAbandoned = rawStatus === 'abandoned';
                 if (referenceDate && !isNaN(referenceDate)) {
                     const diffDays = Math.floor((today - referenceDate) / (1000 * 60 * 60 * 24));
-                    const daysLeft = 90 - diffDays;
+                    const daysLeft = 30 - diffDays;
 
                     if (isAbandoned || daysLeft <= 0) {
                         displayStatus = "DECLARED ABANDONED";
@@ -1237,7 +1237,7 @@
 
                 } else if (["unsuccessful", "unfixable", "beyond", "no fix"].some(w => rawStatus.includes(w))) {
                     displayStatus = "REPAIR UNSUCCESSFUL"; width = "100%"; color = "#64748b";
-                    secondary.innerHTML = `This unit could not be repaired. Please collect within 90 days.`;
+                    secondary.innerHTML = `This unit could not be repaired. Please collect within 30 days.`;
                     secondary.style.display = "block";
                 }
 
@@ -1252,7 +1252,7 @@
                     notesLabel.style.color = "#8b5cf6";
                 } else if (isDone && referenceDate) {
                     const diffDays = Math.floor((today - referenceDate) / (1000 * 60 * 60 * 24));
-                    const daysLeft = 90 - diffDays;
+                    const daysLeft = 30 - diffDays;
                     notesLabel.innerText = `Storage: ${daysLeft} days remaining`;
                     notesLabel.style.display = "inline-block";
                     notesLabel.style.background = daysLeft < 15 ? "rgba(220, 38, 38, 0.1)" : "rgba(245, 158, 11, 0.1)";
